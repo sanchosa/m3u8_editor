@@ -1,0 +1,27 @@
+import React from 'react'
+import {connect} from 'react-redux'
+{{#if wantActionsAndReducer}}
+import {createStructuredSelector} from 'reselect'
+import makeSelect{{properCase name}} from './selectors'
+import {someAction} from './actions'
+{{/if}}
+
+export class {{properCase name}} extends React.{{{component}}} {
+  render() {
+    return (
+      <div>
+      </div>
+    )
+  }
+}
+
+{{#if wantActionsAndReducer}}
+const props = createStructuredSelector({{{name}}: makeSelect{{properCase name}}()})
+{{/if}}
+const actions = dispatch => {onClick: e => dispatch(someAction(e.target.value))}
+
+{{#if wantActionsAndReducer}}
+export default connect(props, actions)({{properCase name}})
+{{else}}
+export default connect(null, actions)({{properCase name}})
+{{/if}}

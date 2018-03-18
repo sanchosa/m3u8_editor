@@ -1,0 +1,10 @@
+{
+	"background_color": "#1f72e3",
+	"display": "standalone",
+	"icons": [{
+	    "src": "/assets/images/icon-128x128.png",
+	    "type": "image/png",
+	    "sizes": "128x128"
+	  }],
+		"splash_pages": null
+}

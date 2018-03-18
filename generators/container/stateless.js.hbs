@@ -1,0 +1,55 @@
+import React from 'react'
+import {connect} from 'react-redux'
+{{#if wantActionsAndReducer}}
+import {createStructuredSelector} from 'reselect'
+{{/if}}
+import {compose} from 'redux'
+{{#if wantSaga}}
+import injectSaga from 'utils/injectSaga'
+{{/if}}
+{{#if wantActionsAndReducer}}
+import injectReducer from 'utils/injectReducer'
+import makeSelect{{properCase name}} from './selectors'
+import reducer from './reducer'
+import {someAction} from './actions'
+{{/if}}
+{{#if wantSaga}}
+import saga from './saga'
+{{/if}}
+{{#if wantMessages}}
+import messages from './messages'
+{{/if}}
+
+const {{properCase name}} = () =>
+	<div></div>
+
+{{#if wantActionsAndReducer}}
+const props = createStructuredSelector({
+	{{lowerCase name}}: makeSelect{{properCase name}}(),
+})
+{{/if}}
+const actions = dispatch => {onClick: e => dispatch(someAction(e.target.value))}
+
+{{#if wantActionsAndReducer}}
+const withConnect = connect(props, actions)
+const withReducer = injectReducer({
+	{{ lowerCase name }}: reducer,
+})
+{{else}}
+const withConnect = connect(null, actions)
+{{/if}}
+{{#if wantSaga}}
+const withSaga = injectSaga({
+	{{ lowerCase name }}: saga,
+})
+{{/if}}
+
+export default compose(
+{{#if wantActionsAndReducer}}
+	withReducer,
+{{/if}}
+{{#if wantSaga}}
+	withSaga,
+{{/if}}
+	withConnect,
+)({{properCase name}})
