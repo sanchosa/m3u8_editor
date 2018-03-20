@@ -5,9 +5,9 @@ import connect from './connect'
 const Option = Select.Option
 
 const LanguageSelector = props =>
-	<Select defaultValue="enUS" onChange={props.onChange}>
-		<Option value="enUS">ENG</Option>
-		<Option value="ruRU">RUS</Option>
+	<Select defaultValue={props.value} onChange={props.onChange}>
+		<Option value="enUS">English</Option>
+		<Option value="ruRU">Русский</Option>
 	</Select>
 
 export default connect(LanguageSelector)

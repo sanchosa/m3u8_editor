@@ -29,5 +29,6 @@ export default function configureStore(history) {
 	)
 	store.runSaga = sagaMiddleware.run
 	store.injectedSagas = {}
+
 	return store
 }
