@@ -1,5 +1,5 @@
 import {Record, fromJS} from 'immutable'
-import {SET_LOADING, SET_ERROR} from './constants'
+import {SET_LOADING, SET_ERROR, SET_LOCALE} from './constants'
 import {LOCATION_CHANGE} from 'react-router-redux'
 
 export const ErrorRecord = new Record({
@@ -11,7 +11,8 @@ export const ErrorRecord = new Record({
 const initialState = fromJS({
 	error: new ErrorRecord({code: 0}),
 	loading: false,
-	location: null
+	location: null,
+	locale: `enUS`
 })
 
 export default function appReducer(state = initialState, action) {
@@ -26,6 +27,9 @@ export default function appReducer(state = initialState, action) {
 		return action.type === LOCATION_CHANGE
 			? state.merge({location: action.payload})
 			: state
+	}
+	case SET_LOCALE: {
+		return state.set(`locale`, action.payload)
 	}
 	default: return state
 	}

@@ -14,6 +14,11 @@ export const makeSelectLoading = () => createSelector(
 	globalState => globalState.get(`loading`)
 )
 
+export const makeSelectLocale = () => createSelector(
+	selectGlobal,
+	globalState => globalState.get(`locale`)
+)
+
 export const makeSelectLocation = () => createSelector(
 	selectRoute,
 	routeState => routeState.get(`location`).toJS()
