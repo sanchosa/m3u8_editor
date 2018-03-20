@@ -4,7 +4,8 @@ import {
 	makeSelectLoading,
 	makeSelectError,
 	selectRoute,
-	makeSelectLocation
+	makeSelectLocation,
+	makeSelectLocale
 } from '../selectors'
 
 describe(`Global state selectors`, () => {
@@ -12,6 +13,7 @@ describe(`Global state selectors`, () => {
 	beforeEach(() => {
 		mockedState = fromJS({
 			global: {
+				locale: `en`,
 				loading: true,
 				error: {
 					code: 404,
@@ -21,13 +23,7 @@ describe(`Global state selectors`, () => {
 		})
 	})
 	it(`should select the global state`, () => {
-		const expectedResult = fromJS({
-			loading: true,
-			error: {
-				code: 404,
-				message: `User not found`
-			}
-		})
+		const expectedResult = mockedState.get(`global`)
 		expect(selectGlobal(mockedState)).toEqual(expectedResult)
 	})
 	it(`should select loading from global state`, () => {
@@ -42,6 +38,11 @@ describe(`Global state selectors`, () => {
 		})
 		const selectError = makeSelectError()
 		expect(selectError(mockedState)).toEqual(expectedResult)
+	})
+	it(`should select locale from global state`, () => {
+		const expectedResult = `en`
+		const selector = makeSelectLocale()
+		expect(selector(mockedState)).toEqual(expectedResult)
 	})
 })
 describe(`Route state selectors`, () => {
