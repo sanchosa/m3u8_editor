@@ -4,4 +4,6 @@ import {Layout} from 'antd'
 const {Content} = Layout
 
 export default () =>
-	<Content>main content</Content>
+	<Content>
+		main content
+	</Content>

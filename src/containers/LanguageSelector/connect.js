@@ -7,7 +7,6 @@ import {setLocale} from 'store/global/actions'
 import {makeSelectLocale} from 'store/global/selectors'
 import localeSaga from './saga'
 
-
 const mapProps = createStructuredSelector({
 	value: makeSelectLocale()
 })

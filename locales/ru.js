@@ -1,5 +1,6 @@
 import {defineMessages} from 'react-intl'
 
 export default defineMessages({
-    test: "Тестовое сообщение"
+	test: `Тестовое сообщение`,
+	listUpload: `Загрузить список`
 })
