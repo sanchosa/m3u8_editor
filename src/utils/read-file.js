@@ -9,6 +9,15 @@ const readTextFilePromise = fileObj => {
 	})
 }
 
+// const readDataURLPromise = fileObj => {
+// 	return new Promise((resolve, reject) => {
+// 		const reader = new FileReader()
+// 		reader.readAsDataURL(fileObj)
+// 		reader.onload = () => resolve(reader.result)
+// 		reader.onerror = error => reject(error)
+// 	})
+// }
+
 const errorHandler = error => {
 	const config = {
 		description: `File Upload error`,
@@ -19,13 +28,21 @@ const errorHandler = error => {
 
 	notification[`error`](config)
 
-	return ``
+	return null
 }
 
-export default fileObj => {
+export const readLocalTextFile = fileObj => {
 	if (!`file` in fileObj) return ``
 
 	return readTextFilePromise(fileObj)
 		.then(result => result)
 		.catch(errorHandler)
 }
+
+// export const readDataURLFile = fileObj => {
+// 	// if (!`file` in fileObj) return ``
+
+// 	return readDataURLPromise(fileObj)
+// 		.then(result => result)
+// 		.catch(errorHandler)
+// }
