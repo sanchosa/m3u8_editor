@@ -16,12 +16,22 @@ const StyledContent = styled(Content)`
 const StyledFooter = styled(Footer)`
 	background: #fff;
 `
+const StyledSider = styled(Sider)`
+	background: #fff;
+	>.ant-layout-sider-trigger {
+		color: #1890ff;
+		background: #f0f1f2;
+	}
+	>.ant-layout-sider-trigger:hover {
+		box-shadow: 1px -1px 8px #1890ff;
+	}
+`
 
 export default () =>
 	<StyledLayout>
-		<Sider collapsible={true}>
+		<StyledSider collapsible={true}>
 			<Menu/>
-		</Sider>
+		</StyledSider>
 		<StyledLayout>
 			<StyledContent>
 				<ListEditor/>
