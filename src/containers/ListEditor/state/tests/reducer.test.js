@@ -1,7 +1,7 @@
 import {fromJS} from 'immutable'
 import {testValues} from './constants'
 import reducer from '../reducer'
-import {setNewList} from '../actions'
+import {setNewList, setControl} from '../actions'
 import {initialState} from '../constants'
 
 describe(`ListEditor reducer`, () => {
@@ -18,6 +18,12 @@ describe(`ListEditor reducer`, () => {
 			.set(`groups`, fromJS(groups))
 			.set(`playlistName`, playlistName))
 		const action = setNewList({groups, channels, playlistName})
+		expect(reducer(initialState, action)).toEqual(expectedResult)
+	})
+	it(`should set control data`, () => {
+		const expectedResult = initialState
+			.set(`control`, testValues.string)
+		const action = setControl(testValues.string)
 		expect(reducer(initialState, action)).toEqual(expectedResult)
 	})
 })

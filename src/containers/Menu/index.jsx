@@ -1,22 +1,56 @@
 import React from 'react'
-import {Menu, Icon} from 'antd'
+import {injectIntl} from 'react-intl'
+import styled from 'styled-components'
+import {Menu, Icon, Popover} from 'antd'
+import connect from './connect'
 
-export default () =>
-	<Menu
-		defaultSelectedKeys={[`1`]}
+const StyledSpan = styled.span`
+	display: block;
+`
+const Content = ({id, intl}) =>
+	<div style={{width: `200px`}}>
+		<p>{intl.formatMessage({id})}</p>
+	</div>
+
+const Component = props => {
+	const getMenuContent = (key, icon) => props.collapsed
+		? <StyledSpan>
+			<Icon type={icon}/>
+			<span>{props.intl.formatMessage({id: key})}</span>
+		</StyledSpan>
+		: <Popover
+			placement="rightTop"
+			title={props.intl.formatMessage({id: key})}
+			content={
+				<Content
+					intl={props.intl}
+					id={`${key}.popover.content`}
+				/>
+			}
+			mouseEnterDelay={1}
+		>
+			<StyledSpan>
+				<Icon type={icon}/>
+				<span>{props.intl.formatMessage({id: key})}</span>
+			</StyledSpan>
+		</Popover>
+
+	return <Menu
+		defaultSelectedKeys={[`edit`]}
 		mode="inline"
 		theme="light"
+		onSelect={props.setControl}
 	>
-		<Menu.Item key="1">
-			<Icon type="mail"/>
-			<span>Moving & Editing</span>
+		<Menu.Item key="edit">
+			{getMenuContent(`control.edit`, `edit`)}
 		</Menu.Item>
-		<Menu.Item key="2">
-			<Icon type="calendar" />
-			<span>Ordering</span>
+		<Menu.Item key="order">
+			{getMenuContent(`control.order`, `bars`)}
 		</Menu.Item>
-		<Menu.Item key="3">
-			<Icon type="setting" />
-			<span>Export</span>
+		<Menu.Item key="export">
+			{getMenuContent(`control.export`, `export`)}
 		</Menu.Item>
 	</Menu>
+}
+
+export default injectIntl(connect(Component))

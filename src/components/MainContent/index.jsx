@@ -27,17 +27,32 @@ const StyledSider = styled(Sider)`
 	}
 `
 
-export default () =>
-	<StyledLayout>
-		<StyledSider collapsible={true}>
-			<Menu/>
-		</StyledSider>
-		<StyledLayout>
-			<StyledContent>
-				<ListEditor/>
-			</StyledContent>
-			<StyledFooter>
-				<span>Footer</span>
-			</StyledFooter>
+export default class MainContent extends React.Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			collapsed: false
+		}
+
+		this.onCollapse = this.onCollapse.bind(this)
+	}
+	onCollapse(collapsed) {
+		this.setState({collapsed})
+	}
+	render() {
+		return <StyledLayout>
+			<StyledSider collapsible={true} onCollapse={this.onCollapse}>
+				<Menu collapsed={this.state.collapsed}/>
+			</StyledSider>
+			<StyledLayout>
+				<StyledContent>
+					<ListEditor/>
+				</StyledContent>
+				<StyledFooter>
+					<span>Footer</span>
+				</StyledFooter>
+			</StyledLayout>
 		</StyledLayout>
-	</StyledLayout>
+	}
+}

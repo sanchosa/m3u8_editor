@@ -1,5 +1,13 @@
-import {LOAD_NEW_LIST, SET_NEW_LIST} from '../constants'
-import {loadNewList, setNewList} from '../actions'
+import {
+	LOAD_NEW_LIST,
+	SET_NEW_LIST,
+	SET_CONTROL
+} from '../constants'
+import {
+	loadNewList,
+	setNewList,
+	setControl
+} from '../actions'
 import {testValues} from './constants'
 
 describe(`ListEditor actions`, () => {
@@ -19,6 +27,15 @@ describe(`ListEditor actions`, () => {
 				payload: testValues.string
 			}
 			expect(setNewList(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`setControl`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: SET_CONTROL,
+				payload: testValues.string
+			}
+			expect(setControl(testValues.string)).toEqual(expectedResult)
 		})
 	})
 })
