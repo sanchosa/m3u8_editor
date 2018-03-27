@@ -7,6 +7,7 @@ import connect from './connect'
 const StyledSpan = styled.span`
 	display: block;
 `
+
 const Content = ({id, intl}) =>
 	<div style={{width: `200px`}}>
 		<p>{intl.formatMessage({id})}</p>

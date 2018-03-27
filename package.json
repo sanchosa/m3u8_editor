@@ -55,6 +55,8 @@
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
     "react-router-redux": "5.0.0-alpha.6",
+    "react-sortable-hoc": "^0.6.8",
+    "react-tiny-virtual-list": "^2.1.4",
     "redux": "3.7.2",
     "redux-actions": "2.2.1",
     "redux-immutable": "4.0.0",
