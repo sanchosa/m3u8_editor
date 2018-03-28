@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {injectIntl} from 'react-intl'
 import {Layout} from 'antd'
 import ListEditor from 'containers/ListEditor'
 import Menu from 'containers/Menu'
@@ -27,7 +28,7 @@ const StyledSider = styled(Sider)`
 	}
 `
 
-export default class MainContent extends React.Component {
+class MainContent extends React.Component {
 	constructor(props) {
 		super(props)
 
@@ -41,13 +42,14 @@ export default class MainContent extends React.Component {
 		this.setState({collapsed})
 	}
 	render() {
+		console.log(`render MainContent`)
 		return <StyledLayout>
 			<StyledSider collapsible={true} onCollapse={this.onCollapse}>
-				<Menu collapsed={this.state.collapsed}/>
+				<Menu intl={this.props.intl} collapsed={this.state.collapsed}/>
 			</StyledSider>
 			<StyledLayout>
 				<StyledContent>
-					<ListEditor/>
+					<ListEditor intl={this.props.intl}/>
 				</StyledContent>
 				<StyledFooter>
 					<span>Footer</span>
@@ -56,3 +58,5 @@ export default class MainContent extends React.Component {
 		</StyledLayout>
 	}
 }
+
+export default injectIntl(MainContent)

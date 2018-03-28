@@ -1,5 +1,4 @@
 import React from 'react'
-import {injectIntl} from 'react-intl'
 import styled from 'styled-components'
 import {Menu, Icon, Popover} from 'antd'
 import connect from './connect'
@@ -54,4 +53,4 @@ const Component = props => {
 	</Menu>
 }
 
-export default injectIntl(connect(Component))
+export default connect(Component)
