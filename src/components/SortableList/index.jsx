@@ -32,7 +32,7 @@ const Div = styled.div`
 	}
 `
 
-export default ({items, onSortEnd, lockToContainerEdges, lockAxis, helperClass, ...props}) => {
+export default ({items, onSortEnd, lockToContainerEdges, lockAxis, helperClass, height, ...props}) => {
 	const SortableItem = SortableElement(({item, number, style}) => {
 		const childrenWithProps = React.Children.map(props.children, child =>
 			React.cloneElement(child, {item, number}))
@@ -43,7 +43,7 @@ export default ({items, onSortEnd, lockToContainerEdges, lockAxis, helperClass, 
 	const SortableList = SortableContainer(({items: data}) =>
 		<StyledVirtualList
 			width='100%'
-			height={600}
+			height={height}
 			itemCount={data.length}
 			itemSize={50} // Also supports variable heights (array or function getter)
 			renderItem={({index, style}) =>

@@ -42,7 +42,6 @@ class MainContent extends React.Component {
 		this.setState({collapsed})
 	}
 	render() {
-		console.log(`render MainContent`)
 		return <StyledLayout>
 			<StyledSider collapsible={true} onCollapse={this.onCollapse}>
 				<Menu intl={this.props.intl} collapsed={this.state.collapsed}/>

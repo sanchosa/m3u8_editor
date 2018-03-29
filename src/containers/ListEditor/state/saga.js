@@ -4,7 +4,6 @@ import {put, call, takeLatest} from 'redux-saga/effects'
 import {LOAD_NEW_LIST} from './constants'
 import {setNewList} from './actions'
 import {readLocalTextFile} from 'utils/read-file'
-import {channel} from './schema'
 
 const showLoadFailMessage = () => {
 	const config = {
@@ -84,7 +83,7 @@ function *parseList(file) {
 		else {
 			newChannel.id = randomString.generate()
 			newChannel.link = list[i].trim()
-			channels.push(new channel(newChannel))
+			channels.push(newChannel)
 			newChannel = {}
 		}
 	}

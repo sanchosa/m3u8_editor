@@ -1,4 +1,6 @@
-import {fromJS} from 'immutable'
+import {fromJS, Map} from 'immutable'
+import {normalize} from 'normalizr'
+import {channelListSchema} from '../schema'
 import {testValues} from './constants'
 import reducer from '../reducer'
 import {setNewList, setControl} from '../actions'
@@ -11,10 +13,11 @@ describe(`ListEditor reducer`, () => {
 	})
 	it(`should set picker data`, () => {
 		const groups = testValues.string
-		const channels = testValues.string
+		const channels = [{id: 1, name: testValues.string}, {id: 2, name: testValues.string}]
+		const normalizedChannels = normalize(channels, channelListSchema).entities.channels
 		const playlistName = testValues.string
 		const expectedResult = initialState.withMutations(map => map
-			.set(`channels`, fromJS(channels))
+			.set(`channels`, Map(normalizedChannels))
 			.set(`groups`, fromJS(groups))
 			.set(`playlistName`, playlistName))
 		const action = setNewList({groups, channels, playlistName})
