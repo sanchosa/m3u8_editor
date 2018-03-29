@@ -7,7 +7,7 @@ export const makeSelectEditorData = name => createSelector(
 	listEditor => listEditor && listEditor.get(name)
 )
 
-// export const makeSelectChannels = name => createSelector(
-// 	selectListEditor,
-// 	listEditor => listEditor && listEditor.get(name)
-// )
+export const makeSelectGroupNames = () => createSelector(
+	makeSelectEditorData(`groups`),
+	groups => groups && groups.get(`index`)
+)

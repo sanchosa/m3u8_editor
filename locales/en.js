@@ -11,5 +11,7 @@ export default defineMessages({
 		Allows to rearrange the order of the list elements and groups.`,
 	'control.export': `Export`,
 	'control.export.popover.content': `Opens the playlist export panel.
-		Allows you to save a formed list.`
+		Allows you to save a formed list.`,
+	'listEditor.sorter.groupsSelector.label': `Group`,
+	'listEditor.sorter.groupsSelector.placeholder': `Select group`
 })

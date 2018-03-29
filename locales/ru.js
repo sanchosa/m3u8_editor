@@ -11,5 +11,7 @@ export default defineMessages({
 		Позволяет перемещать элементы листа и групп.`,
 	'control.export': `Экспорт`,
 	'control.export.popover.content': `Открывает панель экспорта плэйлиста.
-		Позволяет сохранить сформированный лист.`
+		Позволяет сохранить сформированный лист.`,
+	'listEditor.sorter.groupsSelector.label': `Группа`,
+	'listEditor.sorter.groupsSelector.placeholder': `Выберите группу`
 })
