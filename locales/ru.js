@@ -13,5 +13,8 @@ export default defineMessages({
 	'control.export.popover.content': `Открывает панель экспорта плэйлиста.
 		Позволяет сохранить сформированный лист.`,
 	'listEditor.sorter.groupsSelector.label': `Группа`,
-	'listEditor.sorter.groupsSelector.placeholder': `Выберите группу`
+	'listEditor.sorter.groupsSelector.placeholder': `Выберите группу`,
+	'order.searchChannel.placeholder': `Введите название канала`,
+	'order.channelList.label': `Сортировка каналов`,
+	'order.groupList.label': `Сортировка групп`
 })

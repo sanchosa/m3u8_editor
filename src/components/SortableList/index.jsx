@@ -32,7 +32,10 @@ const Div = styled.div`
 	}
 `
 
-export default ({items, onSortEnd, lockToContainerEdges, lockAxis, helperClass, height, ...props}) => {
+export default ({
+	items, onSortEnd, lockToContainerEdges, lockAxis,
+	helperClass, height, scrollToIndex, scrollToAlignment, ...props}) => {
+
 	const SortableItem = SortableElement(({item, number, style}) => {
 		const childrenWithProps = React.Children.map(props.children, child =>
 			React.cloneElement(child, {item, number}))
@@ -46,6 +49,8 @@ export default ({items, onSortEnd, lockToContainerEdges, lockAxis, helperClass, 
 			height={height}
 			itemCount={data.length}
 			itemSize={50} // Also supports variable heights (array or function getter)
+			scrollToIndex={scrollToIndex}
+			scrollToAlignment={scrollToAlignment || `auto`}
 			renderItem={({index, style}) =>
 				<SortableItem
 					key={index}

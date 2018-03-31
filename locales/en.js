@@ -13,5 +13,8 @@ export default defineMessages({
 	'control.export.popover.content': `Opens the playlist export panel.
 		Allows you to save a formed list.`,
 	'listEditor.sorter.groupsSelector.label': `Group`,
-	'listEditor.sorter.groupsSelector.placeholder': `Select group`
+	'listEditor.sorter.groupsSelector.placeholder': `Select group`,
+	'order.searchChannel.placeholder': `Input channel name`,
+	'order.channelList.label': `Channel sorting`,
+	'order.groupList.label': `Group sorting`
 })
