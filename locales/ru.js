@@ -16,5 +16,7 @@ export default defineMessages({
 	'listEditor.sorter.groupsSelector.placeholder': `Выберите группу`,
 	'order.searchChannel.placeholder': `Введите название канала`,
 	'order.channelList.label': `Сортировка каналов`,
-	'order.groupList.label': `Сортировка групп`
+	'order.channelList.placeholder': `Выберите группу`,
+	'order.groupList.label': `Сортировка групп`,
+	'order.groupList.placeholder': `Загрузите список`
 })

@@ -60,23 +60,25 @@ class Order extends React.PureComponent {
 					placeholder={this.props.intl.formatMessage({id: `order.searchChannel.placeholder`})}
 					onSearch={this.onSearch}
 				/>
-				<Label>Channels Sorter</Label>
+				<Label>{this.props.intl.formatMessage({id: `order.channelList.label`})}</Label>
 				<SortableList
 					height={600}
 					items={this.props.items && this.props.items.toArray() || []}
 					scrollToIndex={this.state.scrollToIndex}
 					scrollToAlignment="center"
 					searchValue={this.state.searchValue}
+					placeholder={this.props.intl.formatMessage({id: `order.channelList.placeholder`})}
 				>
 					<ChannelSorterItem/>
 				</SortableList>
 			</Col>
 			<StyledDivider type="vertical"/>
 			<Col span={10}>
-				<Label>Groups Sorter</Label>
+				<Label>{this.props.intl.formatMessage({id: `order.groupList.label`})}</Label>
 				<SortableList
 					height={723}
 					items={this.props.groups && this.props.groups.toArray() || []}
+					placeholder={this.props.intl.formatMessage({id: `order.groupList.placeholder`})}
 				>
 					<GroupSorterItem/>
 				</SortableList>

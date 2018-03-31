@@ -13,13 +13,12 @@ injectGlobal`
 			!important;
 	}
 `
-
 const StyledVirtualList = styled(VirtualList)`
 	background: #FFF;
 	border-radius: 4px;
 	border: 1px solid #d9d9d9;
-`
 
+`
 const Div = styled.div`
 	padding: 0 10px;
 	box-sizing: border-box;
@@ -32,8 +31,32 @@ const Div = styled.div`
 	}
 `
 
+const ParentDiv = styled.div`
+	position: relative;
+	width: 100%;
+	height: ${props => props.height}px;
+	background: #FFF;
+	border-radius: 4px;
+	border: 1px solid #d9d9d9;
+`
+const ChildDiv = styled.div`
+	position: relative;
+	width: 100%;
+	text-align: center;
+	top: 50px;
+	overflow: visible;
+	color: rgba(0, 0, 0, 0.40);
+`
+
+const EmptyList = ({height, placeholder}) =>
+	<ParentDiv height={height}>
+		<ChildDiv height={height}>
+			<b>{placeholder}</b>
+		</ChildDiv>
+	</ParentDiv>
+
 export default ({
-	items, onSortEnd, lockToContainerEdges, lockAxis,
+	items, onSortEnd, lockToContainerEdges, lockAxis, placeholder,
 	helperClass, height, scrollToIndex, scrollToAlignment, ...props}) => {
 
 	const SortableItem = SortableElement(({item, number, style}) => {
@@ -63,12 +86,14 @@ export default ({
 		/>
 	)
 
-	return <SortableList
-		items={items}
-		onSortEnd={onSortEnd}
-		lockToContainerEdges={lockToContainerEdges !== undefined && lockToContainerEdges || true}
-		lockAxis={lockAxis || `y`}
-		helperClass={helperClass || `SortableListHelper`}
-		{...props}
-	/>
+	return items && items.length > 0
+		? <SortableList
+			items={items}
+			onSortEnd={onSortEnd}
+			lockToContainerEdges={lockToContainerEdges !== undefined && lockToContainerEdges || true}
+			lockAxis={lockAxis || `y`}
+			helperClass={helperClass || `SortableListHelper`}
+			{...props}
+		/>
+		: <EmptyList height={height} placeholder={placeholder}/>
 }

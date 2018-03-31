@@ -16,5 +16,7 @@ export default defineMessages({
 	'listEditor.sorter.groupsSelector.placeholder': `Select group`,
 	'order.searchChannel.placeholder': `Input channel name`,
 	'order.channelList.label': `Channel sorting`,
-	'order.groupList.label': `Group sorting`
+	'order.channelList.placeholder': `Select group`,
+	'order.groupList.label': `Group sorting`,
+	'order.groupList.placeholder': `Load list`
 })
