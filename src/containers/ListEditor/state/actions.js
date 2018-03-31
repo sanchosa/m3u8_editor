@@ -1,7 +1,9 @@
 import {
 	LOAD_NEW_LIST,
 	SET_NEW_LIST,
-	SET_CONTROL
+	SET_CONTROL,
+	SORT_CHANNEL,
+	SORT_GROUP
 } from './constants'
 
 export const loadNewList = fileObject => {
@@ -22,5 +24,19 @@ export const setControl = control => {
 	return {
 		type: SET_CONTROL,
 		payload: control
+	}
+}
+
+export const sortChannel = payload => {
+	return {
+		type: SORT_CHANNEL,
+		payload
+	}
+}
+
+export const sortGroup = payload => {
+	return {
+		type: SORT_GROUP,
+		payload
 	}
 }

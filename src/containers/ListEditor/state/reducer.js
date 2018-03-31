@@ -4,8 +4,20 @@ import {channelListSchema} from './schema'
 import {
 	SET_NEW_LIST,
 	SET_CONTROL,
+	SORT_CHANNEL,
+	SORT_GROUP,
 	initialState
 } from './constants'
+
+const moveListElement = (list, {oldIndex, newIndex}) => {
+	if (oldIndex === newIndex || !list) return list
+
+	const element = list.get(oldIndex)
+	return list
+		.splice(oldIndex, 1)
+		.splice(newIndex, 0, element)
+
+}
 
 export default function listEditorReducer(state = initialState, action) {
 	switch (action.type) {
@@ -18,6 +30,11 @@ export default function listEditorReducer(state = initialState, action) {
 			.set(`playlistName`, playlistName))
 	case SET_CONTROL:
 		return state.set(`control`, action.payload)
+	case SORT_GROUP:
+		return state.updateIn([`groups`, `index`], list => moveListElement(list, action.payload))
+	case SORT_CHANNEL:
+		const group = action.payload.group
+		return state.updateIn([`groups`, group], list => moveListElement(list, action.payload))
 	default:
 		return state
 	}

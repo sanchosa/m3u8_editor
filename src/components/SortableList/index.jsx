@@ -5,6 +5,7 @@ import {SortableContainer, SortableElement} from 'react-sortable-hoc'
 
 injectGlobal`
  	.SortableListHelper {
+ 		cursor: n-resize !important;
 		background: #e6f7ff !important;
 		border-radius: 4px !important;
 		box-shadow: 
@@ -25,6 +26,7 @@ const Div = styled.div`
 	border: 1px solid #d9d9d9;
 	line-height: 50px;
 	background: #fff;
+	cursor: n-resize;
 
 	:hover {
 		background: #e6f7ff;
