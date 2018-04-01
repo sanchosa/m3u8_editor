@@ -1,9 +1,9 @@
-import {fromJS, Map} from 'immutable'
+import {fromJS, Map, List} from 'immutable'
 import {normalize} from 'normalizr'
 import {channelListSchema} from '../schema'
 import {testValues} from './constants'
 import reducer from '../reducer'
-import {setNewList, setControl} from '../actions'
+import {setNewList, setControl, sortChannel, sortGroup} from '../actions'
 import {initialState} from '../constants'
 
 describe(`ListEditor reducer`, () => {
@@ -28,5 +28,28 @@ describe(`ListEditor reducer`, () => {
 			.set(`control`, testValues.string)
 		const action = setControl(testValues.string)
 		expect(reducer(initialState, action)).toEqual(expectedResult)
+	})
+	it(`should move channel in 'test' group`, () => {
+		const mockedState = initialState
+			.setIn([`groups`, `test`], List([`1`, `2`]))
+		const expectedResult = initialState
+			.setIn([`groups`, `test`], List([`2`, `1`]))
+		const action = sortChannel({
+			group: `test`,
+			oldIndex: 1,
+			newIndex: 0
+		})
+		expect(reducer(mockedState, action)).toEqual(expectedResult)
+	})
+	it(`should move items in 'index' group`, () => {
+		const mockedState = initialState
+			.setIn([`groups`, `index`], List([`1`, `2`]))
+		const expectedResult = initialState
+			.setIn([`groups`, `index`], List([`2`, `1`]))
+		const action = sortGroup({
+			oldIndex: 1,
+			newIndex: 0
+		})
+		expect(reducer(mockedState, action)).toEqual(expectedResult)
 	})
 })
