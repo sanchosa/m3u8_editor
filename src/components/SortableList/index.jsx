@@ -58,7 +58,7 @@ const EmptyList = ({height, placeholder}) =>
 	</ParentDiv>
 
 export default ({
-	items, onSortEnd, lockToContainerEdges, lockAxis, placeholder,
+	items, onSortEnd, lockToContainerEdges, lockAxis, placeholder, onScroll, scrollOffset,
 	helperClass, height, scrollToIndex, scrollToAlignment, ...props}) => {
 
 	const SortableItem = SortableElement(({item, number, style}) => {
@@ -76,6 +76,8 @@ export default ({
 			itemSize={50} // Also supports variable heights (array or function getter)
 			scrollToIndex={scrollToIndex}
 			scrollToAlignment={scrollToAlignment || `auto`}
+			onScroll={onScroll}
+			scrollOffset={scrollOffset}
 			renderItem={({index, style}) =>
 				<SortableItem
 					key={index}
