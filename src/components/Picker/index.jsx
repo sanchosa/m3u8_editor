@@ -4,7 +4,7 @@ import Label from './Label'
 
 const Picker = ({title, children}) =>
 	<Wrapper>
-		<Label>{title}</Label>
+		{title && <Label>{title}</Label>}
 		{children}
 	</Wrapper>
 
