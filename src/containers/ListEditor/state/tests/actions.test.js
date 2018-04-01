@@ -12,7 +12,7 @@ import {
 	sortChannel,
 	sortGroup
 } from '../actions'
-import {testValues} from './constants'
+import {testValues} from 'common/constants'
 
 describe(`ListEditor actions`, () => {
 	describe(`loadNewList`, () => {

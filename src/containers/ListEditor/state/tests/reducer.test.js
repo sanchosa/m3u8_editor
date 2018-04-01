@@ -1,7 +1,7 @@
 import {fromJS, Map, List} from 'immutable'
 import {normalize} from 'normalizr'
 import {channelListSchema} from '../schema'
-import {testValues} from './constants'
+import {testValues} from 'common/constants'
 import reducer from '../reducer'
 import {setNewList, setControl, sortChannel, sortGroup} from '../actions'
 import {initialState} from '../constants'
