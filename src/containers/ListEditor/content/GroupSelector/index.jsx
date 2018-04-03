@@ -13,23 +13,23 @@ const StyledDivider = styled(Divider)`
 	margin: 15px 0;
 `
 
-const GroupSelector = props =>
+const GroupSelector = ({notitle, title, intl, items, divider, placeholder, ...props}) =>
 	<Picker
-		title={props.notitle
+		title={notitle
 			? null
-			: props.title || props.intl.formatMessage({id: `listEditor.sorter.groupsSelector.label`})}
+			: title || intl.formatMessage({id: `listEditor.sorter.groupsSelector.label`})}
 	>
 		<StyledSelector
-			placeholder={props.intl.formatMessage({
+			placeholder={placeholder || intl.formatMessage({
 				id: `listEditor.sorter.groupsSelector.placeholder`
 			})}
-			onChange={props.onChange}
+			{...props}
 		>
-			{props.items && props.items.map((groupName, index) =>
+			{items && items.map((groupName, index) =>
 				<Option key={index} value={groupName}>{groupName}</Option>
 			)}
 		</StyledSelector>
-		{props.divider && <StyledDivider/>}
+		{divider && <StyledDivider/>}
 	</Picker>
 
 export default connect(GroupSelector)
