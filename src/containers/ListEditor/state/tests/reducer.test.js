@@ -3,7 +3,7 @@ import {normalize} from 'normalizr'
 import {channelListSchema} from '../schema'
 import {testValues} from 'common/constants'
 import reducer from '../reducer'
-import {setNewList, setControl, sortChannel, sortGroup} from '../actions'
+import {setNewList, setControl, sortChannel, sortGroup, setListName} from '../actions'
 import {initialState} from '../constants'
 
 describe(`ListEditor reducer`, () => {
@@ -51,5 +51,11 @@ describe(`ListEditor reducer`, () => {
 			newIndex: 0
 		})
 		expect(reducer(mockedState, action)).toEqual(expectedResult)
+	})
+	it(`should set playlistName data`, () => {
+		const expectedResult = initialState
+			.set(`playlistName`, testValues.string)
+		const action = setListName(testValues.string)
+		expect(reducer(initialState, action)).toEqual(expectedResult)
 	})
 })

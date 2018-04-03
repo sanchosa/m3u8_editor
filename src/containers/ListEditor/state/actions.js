@@ -3,7 +3,8 @@ import {
 	SET_NEW_LIST,
 	SET_CONTROL,
 	SORT_CHANNEL,
-	SORT_GROUP
+	SORT_GROUP,
+	SET_LIST_NAME
 } from './constants'
 
 export const loadNewList = fileObject => {
@@ -37,6 +38,13 @@ export const sortChannel = payload => {
 export const sortGroup = payload => {
 	return {
 		type: SORT_GROUP,
+		payload
+	}
+}
+
+export const setListName = payload => {
+	return {
+		type: SET_LIST_NAME,
 		payload
 	}
 }

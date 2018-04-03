@@ -3,14 +3,16 @@ import {
 	SET_NEW_LIST,
 	SET_CONTROL,
 	SORT_CHANNEL,
-	SORT_GROUP
+	SORT_GROUP,
+	SET_LIST_NAME
 } from '../constants'
 import {
 	loadNewList,
 	setNewList,
 	setControl,
 	sortChannel,
-	sortGroup
+	sortGroup,
+	setListName
 } from '../actions'
 import {testValues} from 'common/constants'
 
@@ -58,6 +60,15 @@ describe(`ListEditor actions`, () => {
 				payload: testValues.string
 			}
 			expect(sortGroup(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`setListName`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: SET_LIST_NAME,
+				payload: testValues.string
+			}
+			expect(setListName(testValues.string)).toEqual(expectedResult)
 		})
 	})
 })

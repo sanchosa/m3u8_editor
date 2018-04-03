@@ -6,6 +6,7 @@ import {
 	SET_CONTROL,
 	SORT_CHANNEL,
 	SORT_GROUP,
+	SET_LIST_NAME,
 	initialState
 } from './constants'
 
@@ -35,6 +36,8 @@ export default function listEditorReducer(state = initialState, action) {
 	case SORT_CHANNEL:
 		const group = action.payload.group
 		return state.updateIn([`groups`, group], list => moveListElement(list, action.payload))
+	case SET_LIST_NAME:
+		return state.set(`playlistName`, action.payload)
 	default:
 		return state
 	}
