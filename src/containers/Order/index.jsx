@@ -92,7 +92,7 @@ class Order extends React.PureComponent {
 	render() {
 		return <Row type="flex" justify="center">
 			<Col span={10}>
-				<GroupSelector divider onChange={this.groupChange} intl={this.props.intl}/>
+				<GroupSelector showSearch divider onChange={this.groupChange} intl={this.props.intl}/>
 				<Wrapper>
 					<SearchInput
 						placeholder={this.formatMessage({id: `order.searchChannel.placeholder`})}
