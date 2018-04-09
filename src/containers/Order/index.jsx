@@ -38,6 +38,7 @@ class Order extends React.PureComponent {
 	constructor(props) {
 		super(props)
 		this.state = {
+			search: searchValue,
 			scrollToIndex: null,
 			searchIndex: null
 			// searchIndex is required for positioning scrollbar to found element again
@@ -62,14 +63,16 @@ class Order extends React.PureComponent {
 		}
 		this.setState({
 			scrollToIndex: pos,
-			searchIndex: index
+			searchIndex: index,
+			search: value
 		})
 	}
 	emitEmpty() {
 		searchValue = null
 		this.setState({
 			scrollToIndex: null,
-			searchIndex: null
+			searchIndex: null,
+			search: null
 		})
 	}
 	sortChannel({oldIndex, newIndex}) {
@@ -92,9 +95,16 @@ class Order extends React.PureComponent {
 	render() {
 		return <Row type="flex" justify="center">
 			<Col span={10}>
-				<GroupSelector showSearch divider onChange={this.groupChange} intl={this.props.intl}/>
+				<GroupSelector
+					showSearch
+					allowClear
+					divider
+					defaultValue={this.props.group}
+					onChange={this.groupChange}
+					intl={this.props.intl}/>
 				<Wrapper>
 					<SearchInput
+						defaultValue={searchValue}
 						placeholder={this.formatMessage({id: `order.searchChannel.placeholder`})}
 						onSearch={this.onSearch}
 						onClear={this.emitEmpty}

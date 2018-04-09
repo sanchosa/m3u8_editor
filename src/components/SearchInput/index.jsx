@@ -27,7 +27,7 @@ export default class SearchInput extends React.PureComponent {
 		super(props)
 
 		this.state = {
-			value: null
+			value: props.defaultValue || null
 		}
 
 		this.onChange = this.onChange.bind(this)

@@ -5,7 +5,7 @@ import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
 
 export const selectOrder = (state) => state.get(`order`)
 
-const makeSelectGroup = () => createSelector(
+export const makeSelectGroup = () => createSelector(
 	selectOrder,
 	order => order.get(`group`)
 )

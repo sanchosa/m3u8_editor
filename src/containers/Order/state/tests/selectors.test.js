@@ -1,5 +1,5 @@
 import {List, fromJS} from 'immutable'
-import {makeSelectGroupChannels} from '../selectors'
+import {makeSelectGroupChannels, makeSelectGroup} from '../selectors'
 import {initialState} from '../constants'
 
 const mockedState = fromJS({
@@ -22,6 +22,12 @@ const mockedState = fromJS({
 }).setIn([`order`, `group`], `test`)
 
 describe(`Order state selectors`, () => {
+	it(`Should select group`, () => {
+		const expectedResult = `test`
+		const makeSelect = makeSelectGroup()
+		expect(makeSelect(mockedState)).toEqual(expectedResult)
+	})
+
 	it(`Should select channels of test group`, () => {
 		const expectedResult = List([
 			{

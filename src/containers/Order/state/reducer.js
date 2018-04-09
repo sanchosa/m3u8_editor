@@ -1,4 +1,7 @@
-import {SET_GROUP, initialState} from './constants'
+import {
+	SET_GROUP,
+	initialState
+} from './constants'
 
 export default function orderReducer(state = initialState, action) {
 	switch (action.type) {
