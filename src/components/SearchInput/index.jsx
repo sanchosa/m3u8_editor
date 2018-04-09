@@ -32,6 +32,7 @@ export default class SearchInput extends React.PureComponent {
 
 		this.onChange = this.onChange.bind(this)
 		this.emitEmpty = this.emitEmpty.bind(this)
+		this.onSearch = this.onSearch.bind(this)
 	}
 	onChange(e) {
 		const value = e.target.value
@@ -43,6 +44,12 @@ export default class SearchInput extends React.PureComponent {
 		this.setState({value: null})
 		this.props.onClear && this.props.onClear()
 	}
+	onSearch(value) {
+		if (this.props.clearOnSearch) {
+			this.emitEmpty()
+		}
+		this.props.onSearch && this.props.onSearch(value)
+	}
 	render() {
 		const prefix = this.state.value
 			? <StyledIcon key="clear" type="close-circle" onClick={this.emitEmpty}/>
@@ -50,8 +57,8 @@ export default class SearchInput extends React.PureComponent {
 
 		return <StyledDiv>
 			<Search
-				enterButton={true}
-				onSearch={this.props.onSearch}
+				enterButton={this.props.enterButton || true}
+				onSearch={this.onSearch}
 				onChange={this.onChange}
 				value={this.state.value}
 				prefix={prefix}
