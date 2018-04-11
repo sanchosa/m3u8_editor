@@ -89,8 +89,8 @@ class Order extends React.PureComponent {
 	onGroupListScroll(offset) {
 		scrollOffset.group = offset
 	}
-	formatMessage(data) {
-		return this.props.intl.formatMessage(data)
+	formatMessage(id) {
+		return this.props.intl.formatMessage({id})
 	}
 	render() {
 		return <Row type="flex" justify="center">
@@ -105,14 +105,14 @@ class Order extends React.PureComponent {
 				<Wrapper>
 					<SearchInput
 						defaultValue={searchValue}
-						placeholder={this.formatMessage({id: `order.searchChannel.placeholder`})}
+						placeholder={this.formatMessage(`order.searchChannel.placeholder`)}
 						onSearch={this.onSearch}
 						onClear={this.emitEmpty}
 						style={{'margin-bottom': `5px`}}
 					/>
 				</Wrapper>
 				<Label>
-					{this.formatMessage({id: `order.channelList.label`})}
+					{this.formatMessage(`order.channelList.label`)}
 				</Label>
 				<SortableList
 					height={600}
@@ -122,21 +122,21 @@ class Order extends React.PureComponent {
 					onScroll={this.onChannelListScroll}
 					scrollOffset={scrollOffset.channel}
 					onSortEnd={this.sortChannel}
-					placeholder={this.formatMessage({id: `order.channelList.placeholder`})}
+					placeholder={this.formatMessage(`order.channelList.placeholder`)}
 				>
 					<ChannelSorterItem/>
 				</SortableList>
 			</Col>
 			<StyledDivider type="vertical"/>
 			<Col span={10}>
-				<Label>{this.formatMessage({id: `order.groupList.label`})}</Label>
+				<Label>{this.formatMessage(`order.groupList.label`)}</Label>
 				<SortableList
 					height={723}
 					items={this.props.groups && this.props.groups.toArray() || []}
 					onScroll={this.onGroupListScroll}
 					scrollOffset={scrollOffset.group}
 					onSortEnd={this.props.sortGroup}
-					placeholder={this.formatMessage({id: `order.groupList.placeholder`})}
+					placeholder={this.formatMessage(`order.groupList.placeholder`)}
 				>
 					<GroupSorterItem/>
 				</SortableList>
