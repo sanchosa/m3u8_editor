@@ -3,6 +3,8 @@ import {defineMessages} from 'react-intl'
 export default defineMessages({
 	test: `Тестовое сообщение`,
 	listUpload: `Загрузить список`,
+	'yes': `Да`,
+	'no': `Нет`,
 	'control.edit': `Редактирование`,
 	'control.edit.popover.content': `Открывает панель формирования плэйлиста.
 		Позволяет управлять элементами листа и распределять элементы по группам.`,
@@ -18,5 +20,24 @@ export default defineMessages({
 	'order.channelList.label': `Сортировка каналов`,
 	'order.channelList.placeholder': `Выберите группу`,
 	'order.groupList.label': `Сортировка групп`,
-	'order.groupList.placeholder': `Загрузите список`
+	'order.groupList.placeholder': `Загрузите список`,
+	'edit.playlistName.addon': `Название листа`,
+	'edit.playlistName.placeholder': `Введите название листа`,
+	'edit.group.add.placeholder': `Введите название группы`,
+	'edit.group.delete.confirm.title': `Удалить группу ?`,
+	'edit.group.delete.button': `Удалить группу`,
+	'edit.channel': `Канал`,
+	'edit.channel.delete.confirm.title': `Удалить канал ?`,
+	'edit.channel.title': `Название`,
+	'edit.channel.title.message': `Необходимо ввести название канала`,
+	'edit.channel.link': `Ссылка`,
+	'edit.channel.link.message': `Необходимо ввести ссылку на канал`,
+	'edit.channel.duration': `Длительность`,
+	'edit.channel.collapse.header': `Дополнительные поля`,
+	'edit.channel.tvgName.placeholder': `Название канала в телепрограмме`,
+	'edit.channel.audioTrack.popover': `Определение аудио дорожек канала, 
+		если эта возможность поддерживается оператором. 
+		Коды языка в формате ISO 639-2. 
+		Допускается использование нескольких кодов через запятую (e.g.: eng, rus, deu). 
+		Первый указанный код будет использован по умолчанию`
 })

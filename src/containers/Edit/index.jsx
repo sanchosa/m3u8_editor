@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Col, Transfer, Input, Icon, Button} from 'antd'
+import {Row, Col, Transfer, Input, Icon, Button, Popconfirm} from 'antd'
 import styled from 'styled-components'
 import SearchInput from 'components/SearchInput'
 import ChannelForm from './content/ChannelForm'
@@ -33,6 +33,7 @@ class Edit extends React.Component {
 		}
 
 		this.addNewGroup = this.addNewGroup.bind(this)
+		this.formatMessage = this.formatMessage.bind(this)
 	}
 	test(e) {
 		console.log(e)
@@ -43,15 +44,18 @@ class Edit extends React.Component {
 		console.log(`addNewGroup: `, value)
 		this.setState({newGroupName: null})
 	}
+	formatMessage(id) {
+		return this.props.intl.formatMessage({id})
+	}
 	render() {
 		return [
 			<StyledRow key="name" type="flex" gutter={gutter} justify="center">
 				<Col span={12}>
 					<Input
-						addonBefore="Playlist name"
+						addonBefore={this.formatMessage(`edit.playlistName.addon`)}
 						defaultValue={this.props.playlistName}
 						onChange={this.props.setListName}
-						placeholder="placeholder"
+						placeholder={this.formatMessage(`edit.playlistName.placeholder`)}
 					/>
 				</Col>
 			</StyledRow>,
@@ -59,8 +63,7 @@ class Edit extends React.Component {
 				<Col span={6}>
 					<SearchInput
 						clearOnSearch
-						placeholder="Add new group"
-						// placeholder={this.formatMessage({id: `edit.newGroup.placeholder`})}
+						placeholder={this.formatMessage(`edit.group.add.placeholder`)}
 						onSearch={this.addNewGroup}
 						enterButton={<Icon type="plus"/>}
 					/>
@@ -90,14 +93,25 @@ class Edit extends React.Component {
 					</RightWrapper>
 				</Col>
 				<Col span={6}>
-					<Button type="danger" disabled={!this.props.rightGroup}>
-						Delete group
-					</Button>
+					<Popconfirm
+						title={this.formatMessage(`edit.group.delete.confirm.title`)}
+						// onConfirm={confirm}
+						okType="danger"
+						okText={this.formatMessage(`yes`)}
+						cancelText={this.formatMessage(`no`)}
+					>
+						<Button
+							type="danger"
+							disabled={!(this.props.rightGroup && this.props.rightGroup !== `none`)}
+						>
+							{this.formatMessage(`edit.group.delete.button`)}
+						</Button>
+					</Popconfirm>
 				</Col>
 			</Row>,
 			<StyledRow key="edit" gutter={gutter}>
 				<Col span={6}>
-					<ChannelForm/>
+					<ChannelForm intl={this.props.intl}/>
 				</Col>
 				<Col span={12}>
 					<Transfer
@@ -106,7 +120,7 @@ class Edit extends React.Component {
 					/>
 				</Col>
 				<Col span={6}>
-					<ChannelForm/>
+					<ChannelForm intl={this.props.intl}/>
 				</Col>
 			</StyledRow>
 		]

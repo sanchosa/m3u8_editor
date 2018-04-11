@@ -1,8 +1,9 @@
 import React from 'react'
-import {Input, Icon, Button, Form, Switch, TimePicker, Collapse} from 'antd'
+import {Input, Icon, Button, Form, Switch, TimePicker, Collapse, Popconfirm, Popover} from 'antd'
 import styled from 'styled-components'
 import moment from 'moment'
-import TimeZone from './TimeZone'
+import TimeZone from 'components/TimeZone'
+import Content from 'components/PopoverContent'
 
 const ButtonGroup = Button.Group
 const {TextArea} = Input
@@ -39,38 +40,50 @@ export default Form.create()(
 				stream: true
 			}
 			this.streamChange = this.streamChange.bind(this)
+			this.formatMessage = this.formatMessage.bind(this)
 		}
 		streamChange(value) {
 			this.setState({stream: value})
 		}
+		formatMessage(id) {
+			return this.props.intl.formatMessage({id})
+		}
 		render() {
-	      	const {getFieldDecorator} = this.props.form
+			const {getFieldDecorator} = this.props.form
 
 			return [<ButtonGroup key="buttons">
 				<Button type="primary">
 					<Icon type="plus"/>
 				</Button>
 				<Button disabled>
-					Channel
+					{this.formatMessage(`edit.channel`)}
 				</Button>
-				<Button type="danger">
-					<Icon type="minus"/>
-				</Button>
+				<Popconfirm
+					title={this.formatMessage(`edit.channel.delete.confirm.title`)}
+					// onConfirm={confirm}
+					okType="danger"
+					okText={this.formatMessage(`yes`)}
+					cancelText={this.formatMessage(`no`)}
+				>
+					<Button type="danger">
+						<Icon type="minus"/>
+					</Button>
+				</Popconfirm>
 			</ButtonGroup>,
 			<StyledForm key="form" layout="vertical">
-				<StyledFormItem label="Title">
+				<StyledFormItem label={this.formatMessage(`edit.channel.title`)}>
 					{getFieldDecorator(`name`, {
 						rules: [{
 							required: true,
-							message: `Please input the title of collection!`
+							message: `${this.formatMessage(`edit.channel.title.message`)}`
 						}]
 					})(<Input/>)}
 				</StyledFormItem>
-				<StyledFormItem label="Link">
+				<StyledFormItem label={this.formatMessage(`edit.channel.link`)}>
 					{getFieldDecorator(`link`, {
 						rules: [{
 							required: true,
-							message: `Please input the link of collection!`
+							message: `${this.formatMessage(`edit.channel.link.message`)}`
 						}]
 					})(<TextArea autosize/>)}
 				</StyledFormItem>
@@ -83,28 +96,45 @@ export default Form.create()(
 					/>
 				</StyledFormItem>
 				{!this.state.stream &&
-					<StyledFormItem label="length">
-						{getFieldDecorator(`duration`)(<StyledTimePicker/>)}
+					<StyledFormItem label={this.formatMessage(`edit.channel.duration`)}>
+						{getFieldDecorator(`duration`)(
+							<StyledTimePicker defaultOpenValue={moment(`00:00:00`, `HH:mm:ss`)}/>
+						)}
 					</StyledFormItem>
 				}
 				<Collapse bordered={false}>
-					<StyledPanel header="Additional options" key="1">
+					<StyledPanel header={this.formatMessage(`edit.channel.collapse.header`)} key="1">
 						<StyledFormItem label="tvg-shift">
 							{getFieldDecorator(`tvgShift`)(<TimeZone/>)}
 						</StyledFormItem>
 						<StyledFormItem label="tvg-name">
-							{getFieldDecorator(`tvgName`)(<Input/>)}
+							{getFieldDecorator(`tvgName`)(
+								<Input
+									placeholder={this.formatMessage(`edit.channel.tvgName.placeholder`)}
+								/>
+							)}
 						</StyledFormItem>
 						<StyledFormItem label="tvg-logo">
 							{getFieldDecorator(`tvgLogo`)(<Input/>)}
 						</StyledFormItem>
 						<StyledFormItem label="audio-track">
-							{getFieldDecorator(`audioTrack`)(<Input/>)}
+							{getFieldDecorator(`audioTrack`)(
+								<Popover
+									content={
+										<Content
+											width="300px"
+											data={this.formatMessage(`edit.channel.audioTrack.popover`)}
+										/>
+									}
+								>
+									<Input/>
+								</Popover>
+							)}
 						</StyledFormItem>
 					</StyledPanel>
 				</Collapse>
 				<StyledButton>
-					OK
+					Ok
 				</StyledButton>
 			</StyledForm>]
 		}
