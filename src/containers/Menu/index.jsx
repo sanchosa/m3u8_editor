@@ -2,15 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import {Menu, Icon, Popover} from 'antd'
 import connect from './connect'
+import Content from 'components/PopoverContent'
 
 const StyledSpan = styled.span`
 	display: block;
 `
-
-const Content = ({id, intl}) =>
-	<div style={{width: `200px`}}>
-		<p>{intl.formatMessage({id})}</p>
-	</div>
 
 const Component = props => {
 	const getMenuContent = (key, icon) => props.collapsed
@@ -23,8 +19,8 @@ const Component = props => {
 			title={props.intl.formatMessage({id: key})}
 			content={
 				<Content
-					intl={props.intl}
-					id={`${key}.popover.content`}
+					width="200px"
+					data={props.intl.formatMessage({id: `${key}.popover.content`})}
 				/>
 			}
 			mouseEnterDelay={1}
