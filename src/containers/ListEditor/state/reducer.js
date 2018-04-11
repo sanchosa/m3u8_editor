@@ -17,7 +17,6 @@ const moveListElement = (list, {oldIndex, newIndex}) => {
 	return list
 		.splice(oldIndex, 1)
 		.splice(newIndex, 0, element)
-
 }
 
 export default function listEditorReducer(state = initialState, action) {

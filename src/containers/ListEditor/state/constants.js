@@ -9,7 +9,10 @@ export const SET_LIST_NAME = `ListEditor/SET_LIST_NAME`
 
 export const initialState = fromJS({
 	control: `edit`,
-	groups: {},
+	groups: {
+		none: [],
+		index: [`none`]
+	},
 	channels: {},
 	playlistName: null
 })

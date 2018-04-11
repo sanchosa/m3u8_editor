@@ -41,9 +41,10 @@ function *parseList(file) {
 	const re = {
 		duration: /#EXTINF:\s?(-?\d+)\s?[^,]*,.*/,
 		name: /#EXTINF:[^,]+,(.+)/,
-		tvgShift: /#EXTINF:.+tvg-shift=(-?\d+)\s?.*,.*/,
+		tvgShift: /#EXTINF:.+tvg-shift=(-?\+?\d+)\s?.*,.*/,
 		tvgName: /#EXTINF:.+tvg-name="([^"]+)"\s?.*,.*/,
 		tvgLogo: /#EXTINF:.+tvg-logo="([^"]+)"\s?.*,.*/,
+		audioTrack: /#EXTINF:.+audio-track="([^"]+)"\s?.*,.*/,
 		groupTitle: /#EXTINF:.+group-title="([^"]+)"\s?.*,.*/,
 		group: /#EXTGRP:(.+)/,
 		playlistName: /#PLAYLIST:(.+)/
@@ -65,6 +66,7 @@ function *parseList(file) {
 				newChannel.tvgShift = reExecInt(re.tvgShift, list[i])
 				newChannel.tvgName = reExecString(re.tvgName, list[i])
 				newChannel.tvgLogo = reExecString(re.tvgLogo, list[i])
+				newChannel.audioTrack = reExecString(re.audioTrack, list[i])
 				newChannel.groupTitle = reExecString(re.groupTitle, list[i])
 			}
 			else if (list[i].indexOf(`#EXTGRP:`) === 0) {

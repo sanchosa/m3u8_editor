@@ -9,6 +9,7 @@ const channel = new Record({
 	tvgShift: null,
 	tvgName: null,
 	tvgLogo: null,
+	audioTrack: null,
 	groupTitle: null,
 	group: null,
 	additional: []

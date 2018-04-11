@@ -1,11 +1,12 @@
 import React from 'react'
 import connect from './connect'
 import Order from 'containers/Order'
+import Edit from 'containers/Edit'
 
 const Component = props => {
 	switch (props.control) {
 	case `edit`:
-		return <span key="edit">Editor</span>
+		return <Edit intl={props.intl} key="edit"/>
 	case `order`:
 		return <Order intl={props.intl} key="order"/>
 	case `export`:
