@@ -32,6 +32,14 @@ function reExecInt(re, str) {
 		: null
 }
 
+function reExecTimeZone(re, str) {
+	const result = reExecInt(re, str)
+
+	return result
+		? `${result > 0 ? `+` : ``}${result}`
+		: null
+}
+
 function *parseList(file) {
 	const separator = /\r?\n/
 	const listText = yield call(readLocalTextFile, file)
@@ -41,7 +49,7 @@ function *parseList(file) {
 	const re = {
 		duration: /#EXTINF:\s?(-?\d+)\s?[^,]*,.*/,
 		name: /#EXTINF:[^,]+,(.+)/,
-		tvgShift: /#EXTINF:.+tvg-shift=(-?\+?\d+)\s?.*,.*/,
+		tvgShift: /#EXTINF:.+tvg-shift="?(-?\+?\d+)"?\s?.*,.*/,
 		tvgName: /#EXTINF:.+tvg-name="([^"]+)"\s?.*,.*/,
 		tvgLogo: /#EXTINF:.+tvg-logo="([^"]+)"\s?.*,.*/,
 		audioTrack: /#EXTINF:.+audio-track="([^"]+)"\s?.*,.*/,
@@ -63,7 +71,7 @@ function *parseList(file) {
 			if (list[i].indexOf(`#EXTINF:`) === 0) {
 				newChannel.duration = reExecInt(re.duration, list[i])
 				newChannel.name = reExecString(re.name, list[i])
-				newChannel.tvgShift = reExecInt(re.tvgShift, list[i])
+				newChannel.tvgShift = reExecTimeZone(re.tvgShift, list[i])
 				newChannel.tvgName = reExecString(re.tvgName, list[i])
 				newChannel.tvgLogo = reExecString(re.tvgLogo, list[i])
 				newChannel.audioTrack = reExecString(re.audioTrack, list[i])
