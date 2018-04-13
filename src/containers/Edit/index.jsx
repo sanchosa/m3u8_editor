@@ -93,20 +93,31 @@ class Edit extends React.Component {
 					</RightWrapper>
 				</Col>
 				<Col span={6}>
-					<Popconfirm
-						title={this.formatMessage(`edit.group.delete.confirm.title`)}
-						// onConfirm={confirm}
-						okType="danger"
-						okText={this.formatMessage(`yes`)}
-						cancelText={this.formatMessage(`no`)}
-					>
-						<Button
-							type="danger"
-							disabled={!(this.props.rightGroup && this.props.rightGroup !== `none`)}
+					<Input.Group compact style={{display: `flex`}}>
+						<Popconfirm
+							title={this.formatMessage(`edit.group.delete.confirm.title`)}
+							// onConfirm={confirm}
+							okType="danger"
+							okText={this.formatMessage(`yes`)}
+							cancelText={this.formatMessage(`no`)}
 						>
-							{this.formatMessage(`edit.group.delete.button`)}
-						</Button>
-					</Popconfirm>
+							<Button
+								icon="delete"
+								type="danger"
+								style={{padding: `0 15px`}}
+								disabled={!(this.props.rightGroup && this.props.rightGroup !== `none`)}
+							/>
+						</Popconfirm>
+						<Input
+							disabled={!(this.props.rightGroup && this.props.rightGroup !== `none`)}
+						/>
+						<Button
+							icon="edit"
+							type="primary"
+							style={{padding: `0 15px`}}
+							disabled={!(this.props.rightGroup && this.props.rightGroup !== `none`)}
+						/>
+					</Input.Group>
 				</Col>
 			</Row>,
 			<StyledRow key="edit" gutter={gutter}>
