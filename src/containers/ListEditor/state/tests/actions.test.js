@@ -4,7 +4,8 @@ import {
 	SET_CONTROL,
 	SORT_CHANNEL,
 	SORT_GROUP,
-	SET_LIST_NAME
+	SET_LIST_NAME,
+	CREATE_GROUP
 } from '../constants'
 import {
 	loadNewList,
@@ -12,7 +13,8 @@ import {
 	setControl,
 	sortChannel,
 	sortGroup,
-	setListName
+	setListName,
+	createGroup
 } from '../actions'
 import {testValues} from 'common/constants'
 
@@ -69,6 +71,15 @@ describe(`ListEditor actions`, () => {
 				payload: testValues.string
 			}
 			expect(setListName(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`createGroup`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: CREATE_GROUP,
+				payload: testValues.string
+			}
+			expect(createGroup(testValues.string)).toEqual(expectedResult)
 		})
 	})
 })

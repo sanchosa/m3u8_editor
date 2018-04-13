@@ -5,7 +5,7 @@ import {makeSelectEditParam} from './state/selectors'
 // import reducer from './reducer'
 import {setValue} from './state/actions'
 import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
-import {setListName} from 'containers/ListEditor/state/actions'
+import {setListName, createGroup} from 'containers/ListEditor/state/actions'
 
 const mapProps = createStructuredSelector({
 	playlistName: makeSelectEditorData(`playlistName`),
@@ -14,7 +14,8 @@ const mapProps = createStructuredSelector({
 })
 const mapActions = dispatch => ({
 	setValue: (name, value) => dispatch(setValue(name, value)),
-	setListName: e => dispatch(setListName(e.target.value))
+	setListName: e => dispatch(setListName(e.target.value)),
+	createGroup: value => dispatch(createGroup(value))
 })
 
 // const withConnect = connect(props, actions)

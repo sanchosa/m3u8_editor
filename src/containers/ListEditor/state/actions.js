@@ -4,7 +4,8 @@ import {
 	SET_CONTROL,
 	SORT_CHANNEL,
 	SORT_GROUP,
-	SET_LIST_NAME
+	SET_LIST_NAME,
+	CREATE_GROUP
 } from './constants'
 
 export const loadNewList = fileObject => {
@@ -45,6 +46,13 @@ export const sortGroup = payload => {
 export const setListName = payload => {
 	return {
 		type: SET_LIST_NAME,
+		payload
+	}
+}
+
+export const createGroup = payload => {
+	return {
+		type: CREATE_GROUP,
 		payload
 	}
 }

@@ -3,7 +3,14 @@ import {normalize} from 'normalizr'
 import {channelListSchema} from '../schema'
 import {testValues} from 'common/constants'
 import reducer from '../reducer'
-import {setNewList, setControl, sortChannel, sortGroup, setListName} from '../actions'
+import {
+	setNewList,
+	setControl,
+	sortChannel,
+	sortGroup,
+	setListName,
+	createGroup
+} from '../actions'
 import {initialState} from '../constants'
 
 describe(`ListEditor reducer`, () => {
@@ -56,6 +63,13 @@ describe(`ListEditor reducer`, () => {
 		const expectedResult = initialState
 			.set(`playlistName`, testValues.string)
 		const action = setListName(testValues.string)
+		expect(reducer(initialState, action)).toEqual(expectedResult)
+	})
+	it(`should create new group`, () => {
+		const expectedResult = initialState
+			.setIn([`groups`, `${testValues.string}`], List())
+			.updateIn([`groups`, `index`], index => index.push(testValues.string))
+		const action = createGroup(testValues.string)
 		expect(reducer(initialState, action)).toEqual(expectedResult)
 	})
 })

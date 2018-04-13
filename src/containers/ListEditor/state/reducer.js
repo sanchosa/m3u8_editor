@@ -1,4 +1,4 @@
-import {fromJS, Map} from 'immutable'
+import {fromJS, Map, List} from 'immutable'
 import {normalize} from 'normalizr'
 import {channelListSchema} from './schema'
 import {
@@ -7,6 +7,7 @@ import {
 	SORT_CHANNEL,
 	SORT_GROUP,
 	SET_LIST_NAME,
+	CREATE_GROUP,
 	initialState
 } from './constants'
 
@@ -37,6 +38,11 @@ export default function listEditorReducer(state = initialState, action) {
 		return state.updateIn([`groups`, group], list => moveListElement(list, action.payload))
 	case SET_LIST_NAME:
 		return state.set(`playlistName`, action.payload)
+	case CREATE_GROUP:
+		return state.withMutations(map => map
+			.setIn([`groups`, `${action.payload}`], List())
+			.updateIn([`groups`, `index`], index => index.push(action.payload))
+		)
 	default:
 		return state
 	}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Row, Col, Transfer, Input, Icon, Button, Popconfirm} from 'antd'
+import {Row, Col, Transfer, Input, Icon, Button, Popconfirm, notification} from 'antd'
 import styled from 'styled-components'
 import SearchInput from 'components/SearchInput'
 import ChannelForm from './content/ChannelForm'
@@ -35,14 +35,13 @@ class Edit extends React.Component {
 		this.addNewGroup = this.addNewGroup.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
 	}
-	test(e) {
-		console.log(e)
-		// this.props.setListName()
-
-	}
 	addNewGroup(value) {
-		console.log(`addNewGroup: `, value)
+		notification[`info`]({
+			message: `Group ${value} created`
+		})
 		this.setState({newGroupName: null})
+		this.props.setValue(`leftGroup`, value)
+		this.props.createGroup(value)
 	}
 	formatMessage(id) {
 		return this.props.intl.formatMessage({id})
@@ -75,7 +74,7 @@ class Edit extends React.Component {
 							allowClear
 							notitle
 							intl={this.props.intl}
-							defaultValue={this.props.leftGroup}
+							value={this.props.leftGroup}
 							onChange={value => this.props.setValue(`leftGroup`, value)}
 						/>
 					</LeftWrapper>
