@@ -33,6 +33,7 @@ export default defineMessages({
 	'edit.channel.link': `Link`,
 	'edit.channel.link.message': `Please, enter the link of the channel`,
 	'edit.channel.duration': `Duration`,
+	'edit.channel.duration.message': `Please, enter the duration of the track`,
 	'edit.channel.collapse.header': `Additional options`,
 	'edit.channel.tvgName.placeholder': `Name for teleguide`,
 	'edit.channel.audioTrack.popover': `Audio track definition of this channel, 

@@ -33,6 +33,7 @@ export default defineMessages({
 	'edit.channel.link': `Ссылка`,
 	'edit.channel.link.message': `Необходимо ввести ссылку на канал`,
 	'edit.channel.duration': `Длительность`,
+	'edit.channel.duration.message': `Необходимо ввести продолжительность трека`,
 	'edit.channel.collapse.header': `Дополнительные поля`,
 	'edit.channel.tvgName.placeholder': `Название канала в телепрограмме`,
 	'edit.channel.audioTrack.popover': `Определение аудио дорожек канала, 

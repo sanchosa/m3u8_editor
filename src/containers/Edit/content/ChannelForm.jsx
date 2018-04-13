@@ -97,7 +97,12 @@ export default Form.create()(
 				</StyledFormItem>
 				{!this.state.stream &&
 					<StyledFormItem label={this.formatMessage(`edit.channel.duration`)}>
-						{getFieldDecorator(`duration`)(
+						{getFieldDecorator(`duration`, {
+							rules: [{
+								required: true,
+								message: `${this.formatMessage(`edit.channel.duration.message`)}`
+							}]
+						})(
 							<StyledTimePicker defaultOpenValue={moment(`00:00:00`, `HH:mm:ss`)}/>
 						)}
 					</StyledFormItem>
