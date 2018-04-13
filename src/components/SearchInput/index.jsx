@@ -48,7 +48,7 @@ export default class SearchInput extends React.PureComponent {
 		if (this.props.clearOnSearch) {
 			this.emitEmpty()
 		}
-		this.props.onSearch && this.props.onSearch(value)
+		value && this.props.onSearch && this.props.onSearch(value)
 	}
 	render() {
 		const prefix = this.state.value
