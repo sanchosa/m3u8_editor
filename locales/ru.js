@@ -24,7 +24,7 @@ export default defineMessages({
 	'edit.playlistName.addon': `Название листа`,
 	'edit.playlistName.placeholder': `Введите название листа`,
 	'edit.group.add.placeholder': `Введите название группы`,
-	'edit.group.delete.confirm.title': `Удалить группу ?`,
+	'edit.group.delete.confirm.title': `Удалить группу "{group}" ?`,
 	'edit.group.delete.button': `Удалить группу`,
 	'edit.channel': `Канал`,
 	'edit.channel.delete.confirm.title': `Удалить канал ?`,

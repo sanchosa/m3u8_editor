@@ -26,13 +26,16 @@ class Edit extends React.Component {
 	constructor(props) {
 		super(props)
 
-		console.log(this.props.leftGroup, this.props.rightGroup)
 		this.state = {
-			value: null,
+			editGroupValue: this.props.rightGroup,
 			newGroupName: null
 		}
 
 		this.addNewGroup = this.addNewGroup.bind(this)
+		this.deleteGroup = this.deleteGroup.bind(this)
+		this.editGroup = this.editGroup.bind(this)
+		this.editGroupChange = this.editGroupChange.bind(this)
+		this.rightGroupChange = this.rightGroupChange.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
 	}
 	addNewGroup(value) {
@@ -43,10 +46,40 @@ class Edit extends React.Component {
 		this.props.setValue(`leftGroup`, value)
 		this.props.createGroup(value)
 	}
+	deleteGroup() {
+		this.setState({
+			editGroupValue: null
+		})
+		this.props.deleteGroup(this.props.rightGroup)
+	}
+	editGroup() {
+		if (this.props.groups.includes(this.state.editGroupValue)) {
+			return notification[`warning`]({
+				message: `Group ${this.state.editGroupValue} allready exists !`
+			})
+		}
+
+		this.props.editGroup({
+			current: this.props.rightGroup,
+			newOne: this.state.editGroupValue
+		})
+	}
+	editGroupChange(e) {
+		this.setState({
+			editGroupValue: e.target.value
+		})
+	}
+	rightGroupChange(value) {
+		this.setState({
+			editGroupValue: value
+		})
+		this.props.setValue(`rightGroup`, value)
+	}
 	formatMessage(id) {
 		return this.props.intl.formatMessage({id})
 	}
 	render() {
+		console.log(`render`, this.state.editGroupValue, this.props.rightGroup)
 		return [
 			<StyledRow key="name" type="flex" gutter={gutter} justify="center">
 				<Col span={12}>
@@ -87,15 +120,19 @@ class Edit extends React.Component {
 							notitle
 							intl={this.props.intl}
 							value={this.props.rightGroup}
-							onChange={value => this.props.setValue(`rightGroup`, value)}
+							onChange={this.rightGroupChange}
 						/>
 					</RightWrapper>
 				</Col>
 				<Col span={6}>
 					<Input.Group compact style={{display: `flex`}}>
 						<Popconfirm
-							title={this.formatMessage(`edit.group.delete.confirm.title`)}
-							// onConfirm={confirm}
+							title={this.props.intl.formatMessage({
+								id: `edit.group.delete.confirm.title`
+							}, {
+								group: this.props.rightGroup
+							})}
+							onConfirm={this.deleteGroup}
 							okType="danger"
 							okText={this.formatMessage(`yes`)}
 							cancelText={this.formatMessage(`no`)}
@@ -108,6 +145,9 @@ class Edit extends React.Component {
 							/>
 						</Popconfirm>
 						<Input
+							value={this.state.editGroupValue}
+							onChange={this.editGroupChange}
+							onPressEnter={this.editGroup}
 							disabled={!(this.props.rightGroup && this.props.rightGroup !== `none`)}
 						/>
 						<Button
@@ -115,6 +155,7 @@ class Edit extends React.Component {
 							type="primary"
 							style={{padding: `0 15px`}}
 							disabled={!(this.props.rightGroup && this.props.rightGroup !== `none`)}
+							onClick={this.editGroup}
 						/>
 					</Input.Group>
 				</Col>

@@ -5,7 +5,9 @@ import {
 	SORT_CHANNEL,
 	SORT_GROUP,
 	SET_LIST_NAME,
-	CREATE_GROUP
+	CREATE_GROUP,
+	DELETE_GROUP,
+	EDIT_GROUP
 } from './constants'
 
 export const loadNewList = fileObject => {
@@ -53,6 +55,18 @@ export const setListName = payload => {
 export const createGroup = payload => {
 	return {
 		type: CREATE_GROUP,
+		payload
+	}
+}
+export const deleteGroup = payload => {
+	return {
+		type: DELETE_GROUP,
+		payload
+	}
+}
+export const editGroup = payload => {
+	return {
+		type: EDIT_GROUP,
 		payload
 	}
 }
