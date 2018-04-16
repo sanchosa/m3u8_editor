@@ -24,6 +24,7 @@ export default defineMessages({
 	'edit.playlistName.addon': `Playlist name`,
 	'edit.playlistName.placeholder': `Enter playlist name`,
 	'edit.group.add.placeholder': `Enter group name`,
+	'edit.group.add.message': `Group "{value}" created`,
 	'edit.group.delete.confirm.title': `Delete group "{group}" ?`,
 	'edit.group.delete.button': `Delete group`,
 	'edit.channel': `Channel`,

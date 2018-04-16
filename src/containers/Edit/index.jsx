@@ -40,7 +40,7 @@ class Edit extends React.Component {
 	}
 	addNewGroup(value) {
 		notification[`info`]({
-			message: `Group ${value} created`
+			message: this.props.intl.formatMessage({id: `edit.group.add.message`}, {value})
 		})
 		this.setState({newGroupName: null})
 		this.props.setValue(`leftGroup`, value)
