@@ -5,7 +5,9 @@ import {
 	SORT_CHANNEL,
 	SORT_GROUP,
 	SET_LIST_NAME,
-	CREATE_GROUP
+	CREATE_GROUP,
+	DELETE_GROUP,
+	EDIT_GROUP
 } from '../constants'
 import {
 	loadNewList,
@@ -14,7 +16,9 @@ import {
 	sortChannel,
 	sortGroup,
 	setListName,
-	createGroup
+	createGroup,
+	deleteGroup,
+	editGroup
 } from '../actions'
 import {testValues} from 'common/constants'
 
@@ -80,6 +84,24 @@ describe(`ListEditor actions`, () => {
 				payload: testValues.string
 			}
 			expect(createGroup(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`deleteGroup`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: DELETE_GROUP,
+				payload: testValues.string
+			}
+			expect(deleteGroup(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`editGroup`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: EDIT_GROUP,
+				payload: testValues.string
+			}
+			expect(editGroup(testValues.string)).toEqual(expectedResult)
 		})
 	})
 })

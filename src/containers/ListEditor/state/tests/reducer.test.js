@@ -9,7 +9,9 @@ import {
 	sortChannel,
 	sortGroup,
 	setListName,
-	createGroup
+	createGroup,
+	deleteGroup,
+	editGroup
 } from '../actions'
 import {initialState} from '../constants'
 
@@ -71,5 +73,25 @@ describe(`ListEditor reducer`, () => {
 			.updateIn([`groups`, `index`], index => index.push(testValues.string))
 		const action = createGroup(testValues.string)
 		expect(reducer(initialState, action)).toEqual(expectedResult)
+	})
+	it(`should delete group`, () => {
+		const mockedState = initialState
+			.setIn([`groups`, `${testValues.string}`], List())
+			.updateIn([`groups`, `index`], index => index.push(testValues.string))
+		const action = deleteGroup(testValues.string)
+		expect(reducer(mockedState, action)).toEqual(initialState)
+	})
+	it(`should edit group`, () => {
+		const mockedState = initialState
+			.setIn([`groups`, `123`], List())
+			.updateIn([`groups`, `index`], index => index.push(123))
+		const expectedResult = initialState
+			.setIn([`groups`, `${testValues.string}`], List())
+			.updateIn([`groups`, `index`], index => index.push(testValues.string))
+		const action = editGroup({
+			current: `123`,
+			newOne: testValues.string
+		})
+		expect(reducer(mockedState, action)).toEqual(expectedResult)
 	})
 })
