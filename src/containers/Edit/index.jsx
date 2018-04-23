@@ -31,6 +31,12 @@ class Edit extends React.Component {
 			newGroupName: null
 		}
 
+		this.formActions = {
+			createChannel: this.props.createChannel,
+			editChannel: this.props.editChannel,
+			deleteChannel: this.props.deleteChannel
+		}
+
 		this.addNewGroup = this.addNewGroup.bind(this)
 		this.deleteGroup = this.deleteGroup.bind(this)
 		this.editGroup = this.editGroup.bind(this)
@@ -79,7 +85,6 @@ class Edit extends React.Component {
 		return this.props.intl.formatMessage({id})
 	}
 	render() {
-		console.log(`render`, this.state.editGroupValue, this.props.rightGroup)
 		return [
 			<StyledRow key="name" type="flex" gutter={gutter} justify="center">
 				<Col span={12}>
@@ -162,7 +167,12 @@ class Edit extends React.Component {
 			</Row>,
 			<StyledRow key="edit" gutter={gutter}>
 				<Col span={6}>
-					<ChannelForm intl={this.props.intl}/>
+					<ChannelForm
+						intl={this.props.intl}
+						group={this.props.leftGroup}
+						channel={null}
+						{...this.formActions}
+					/>
 				</Col>
 				<Col span={12}>
 					<Transfer
@@ -171,7 +181,12 @@ class Edit extends React.Component {
 					/>
 				</Col>
 				<Col span={6}>
-					<ChannelForm intl={this.props.intl}/>
+					<ChannelForm
+						intl={this.props.intl}
+						group={this.props.rightGroup}
+						channel={null}
+						{...this.formActions}
+					/>
 				</Col>
 			</StyledRow>
 		]

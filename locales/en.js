@@ -5,6 +5,9 @@ export default defineMessages({
 	listUpload: `Click to Upload`,
 	'yes': `Yes`,
 	'no': `No`,
+	'edit': `Edit`,
+	'add': `Add`,
+	'cancel': `Cancel`,
 	'control.edit': `Edit`,
 	'control.edit.popover.content': `Opens the playlist creation panel.
 		Allows to manage the elements of the list and distribute the elements into groups.`,

@@ -9,6 +9,9 @@ export const SET_LIST_NAME = `ListEditor/SET_LIST_NAME`
 export const CREATE_GROUP = `ListEditor/CREATE_GROUP`
 export const DELETE_GROUP = `ListEditor/DELETE_GROUP`
 export const EDIT_GROUP = `ListEditor/EDIT_GROUP`
+export const CREATE_CHANNEL = `ListEditor/CREATE_CHANNEL`
+export const EDIT_CHANNEL = `ListEditor/EDIT_CHANNEL`
+export const DELETE_CHANNEL = `ListEditor/DELETE_CHANNEL`
 
 export const initialState = fromJS({
 	control: `edit`,

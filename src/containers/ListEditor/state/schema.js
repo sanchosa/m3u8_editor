@@ -1,7 +1,7 @@
 import {Record} from 'immutable'
 import {schema} from 'normalizr'
 
-const channel = new Record({
+export const ChannelRecord = new Record({
 	id: null,
 	duration: -1,
 	name: null,
@@ -16,6 +16,6 @@ const channel = new Record({
 })
 
 const channelSchema = new schema.Entity(`channels`, {}, {
-	processStrategy: value => new channel(value)
+	processStrategy: value => new ChannelRecord(value)
 })
 export const channelListSchema = [channelSchema]

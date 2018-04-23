@@ -1,6 +1,7 @@
 import {fromJS, Map, List} from 'immutable'
 import {normalize} from 'normalizr'
-import {channelListSchema} from './schema'
+import randomString from 'randomstring'
+import {channelListSchema, ChannelRecord} from './schema'
 import {
 	SET_NEW_LIST,
 	SET_CONTROL,
@@ -10,6 +11,9 @@ import {
 	CREATE_GROUP,
 	DELETE_GROUP,
 	EDIT_GROUP,
+	CREATE_CHANNEL,
+	// EDIT_CHANNEL,
+	// DELETE_CHANNEL,
 	initialState
 } from './constants'
 
@@ -63,6 +67,13 @@ export default function listEditorReducer(state = initialState, action) {
 			.updateIn([`groups`, `index`], index => index.splice(currentIndex, 1, newOne))
 		)
 	}
+	case CREATE_CHANNEL:
+		const {channel, group} = action.payload
+		const id = randomString.generate()
+		return state.withMutations(map => map
+			.setIn([`channels`, `${id}`], new ChannelRecord({id, ...channel}))
+			.updateIn([`groups`, `${group}`], channels => channels.push(id))
+		)
 	default:
 		return state
 	}
