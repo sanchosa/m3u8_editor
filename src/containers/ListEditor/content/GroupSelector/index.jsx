@@ -13,7 +13,7 @@ const StyledDivider = styled(Divider)`
 	margin: 15px 0;
 `
 
-const GroupSelector = ({notitle, title, intl, items, divider, placeholder, ...props}) =>
+const GroupSelector = ({notitle, title, intl, items, divider, placeholder, exclude, ...props}) =>
 	<Picker
 		title={notitle
 			? null
@@ -26,7 +26,9 @@ const GroupSelector = ({notitle, title, intl, items, divider, placeholder, ...pr
 			{...props}
 		>
 			{items && items.map((groupName, index) =>
-				<Option key={index} value={groupName}>{groupName}</Option>
+				exclude && exclude.includes(groupName)
+					? null
+					: <Option key={index} value={groupName}>{groupName}</Option>
 			)}
 		</StyledSelector>
 		{divider && <StyledDivider/>}
