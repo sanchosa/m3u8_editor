@@ -1,6 +1,9 @@
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
-import {makeSelectEditParam} from './state/selectors'
+import {
+	makeSelectEditParam,
+	makeSelectTransferData
+} from './state/selectors'
 import {setValue} from './state/actions'
 import {makeSelectEditorData, makeSelectGroupNames} from 'containers/ListEditor/state/selectors'
 import {
@@ -17,7 +20,8 @@ const mapProps = createStructuredSelector({
 	playlistName: makeSelectEditorData(`playlistName`),
 	leftGroup: makeSelectEditParam(`leftGroup`),
 	rightGroup: makeSelectEditParam(`rightGroup`),
-	groups: makeSelectGroupNames()
+	groups: makeSelectGroupNames(),
+	transferData: makeSelectTransferData()
 })
 const mapActions = dispatch => ({
 	setValue: (name, value) => dispatch(setValue(name, value)),

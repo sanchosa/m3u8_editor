@@ -39,23 +39,27 @@ const calcDuration = momentTime =>
 	momentTime.seconds()
 
 export default Form.create()(
-	class extends React.PureComponent {
+	class extends React.Component {
 		constructor(props) {
 			super(props)
 
 			this.state = {
 				mode: `edit`,
-				channel: null // this.props.channel
+				channel: null
 			}
-			if (this.state.mode === `edit`) {
-				this.state.channel = this.props.channel
-			}
+
 			this.streamChange = this.streamChange.bind(this)
 			this.newChannel = this.newChannel.bind(this)
 			this.handleSubmit = this.handleSubmit.bind(this)
 			this.cancel = this.cancel.bind(this)
 			this.formatMessage = this.formatMessage.bind(this)
 		}
+		// shouldComponentUpdate({form, ...nextProps}, nextState) {
+		// 	const {form: thisForm, ...props} = this.props
+		// 	console.log(props, nextProps)
+		// 	console.log(props === nextProps, this.state === nextState)
+		// 	return false
+		// }
 		streamChange(value) {
 			this.setState({channel: {
 				duration: value && -1 || 1
@@ -78,29 +82,42 @@ export default Form.create()(
 						duration = calcDuration(duration)
 					}
 
-					this.props.createChannel && this.props.createChannel({
-						channel: {duration, ...data},
-						group: this.props.group
-					})
+					switch (this.state.mode) {
+					case `edit`:
+						this.props.editChannel && this.props.editChannel({
+							channel: {duration, ...data}
+						})
+						break
+					case `add`:
+						this.props.createChannel && this.props.createChannel({
+							channel: {duration, ...data},
+							group: this.props.group
+						})
 
-					this.setState({
-						channel: this.props.channel,
-						mode: `edit`
-					})
+						this.setState({
+							channel: this.props.channel,
+							mode: `edit`
+						})
+						break
+					}
 				}
 			})
 		}
 		cancel() {
-			this.setState({
-				channel: this.props.channel,
-				mode: `edit`
-			})
+			this.state.mode === `add`
+				? this.setState({
+					channel: this.props.channel,
+					mode: `edit`
+				})
+				: this.props.clearSelected && this.props.clearSelected()
 		}
 		formatMessage(id) {
-			return this.props.intl.formatMessage({id})
+			return this.props.intl && this.props.intl.formatMessage({id})
 		}
 		render() {
+			console.log(`render ${this.props.test}: `, this.props.channel, this.state.channel, this.props.group)
 			const {getFieldDecorator} = this.props.form
+			const channel = this.state.channel || this.props.channel
 
 			return [<ButtonGroup key="buttons">
 				<Button type="primary" disabled={!this.props.group} onClick={this.newChannel}>
@@ -123,14 +140,15 @@ export default Form.create()(
 					</Button>
 				</Popconfirm>
 			</ButtonGroup>,
-			this.state.channel && this.props.group
+			channel && this.props.group
 				? <StyledForm key="form" layout="vertical" onSubmit={this.handleSubmit}>
 					<StyledFormItem label={this.formatMessage(`edit.channel.title`)}>
 						{getFieldDecorator(`name`, {
 							rules: [{
 								required: true,
 								message: `${this.formatMessage(`edit.channel.title.message`)}`
-							}]
+							}],
+							initialValue: channel.name
 						})(<Input/>)}
 					</StyledFormItem>
 					<StyledFormItem label={this.formatMessage(`edit.channel.link`)}>
@@ -138,18 +156,19 @@ export default Form.create()(
 							rules: [{
 								required: true,
 								message: `${this.formatMessage(`edit.channel.link.message`)}`
-							}]
+							}],
+							initialValue: channel.link
 						})(<TextArea autosize/>)}
 					</StyledFormItem>
 					<StyledFormItem>
 						<Switch
-							checked={this.state.channel.duration <= 0}
+							checked={channel.duration <= 0}
 							checkedChildren="stream"
 							unCheckedChildren="stream"
 							onChange={this.streamChange}
 						/>
 					</StyledFormItem>
-					{this.state.channel.duration > 0 &&
+					{channel.duration > 0 &&
 						<StyledFormItem label={this.formatMessage(`edit.channel.duration`)}>
 							{getFieldDecorator(`duration`, {
 								rules: [{
@@ -157,7 +176,7 @@ export default Form.create()(
 									message: `${this.formatMessage(`edit.channel.duration.message`)}`
 								}],
 								initialValue: moment(`00:00:00`, `HH:mm:ss`)
-									.seconds(this.state.channel.duration)
+									.seconds(channel.duration)
 							})(
 								<StyledTimePicker
 									defaultOpenValue={moment(`00:00:00`, `HH:mm:ss`)}
@@ -168,20 +187,28 @@ export default Form.create()(
 					<Collapse bordered={false}>
 						<StyledPanel header={this.formatMessage(`edit.channel.collapse.header`)} key="1">
 							<StyledFormItem label="tvg-shift">
-								{getFieldDecorator(`tvgShift`)(<TimeZone/>)}
+								{getFieldDecorator(`tvgShift`, {
+									initialValue: channel.tvgShift
+								})(<TimeZone/>)}
 							</StyledFormItem>
 							<StyledFormItem label="tvg-name">
-								{getFieldDecorator(`tvgName`)(
+								{getFieldDecorator(`tvgName`, {
+									initialValue: channel.tvgName
+								})(
 									<Input
 										placeholder={this.formatMessage(`edit.channel.tvgName.placeholder`)}
 									/>
 								)}
 							</StyledFormItem>
 							<StyledFormItem label="tvg-logo">
-								{getFieldDecorator(`tvgLogo`)(<Input/>)}
+								{getFieldDecorator(`tvgLogo`, {
+									initialValue: channel.tvgLogo
+								})(<Input/>)}
 							</StyledFormItem>
 							<StyledFormItem label="audio-track">
-								{getFieldDecorator(`audioTrack`)(
+								{getFieldDecorator(`audioTrack`, {
+									initialValue: channel.audioTrack
+								})(
 									<Popover
 										content={
 											<Content
@@ -195,7 +222,9 @@ export default Form.create()(
 								)}
 							</StyledFormItem>
 							<StyledFormItem label="Additional directives">
-								{getFieldDecorator(`additional`)(<TextArea autosize/>)}
+								{getFieldDecorator(`additional`, {
+									initialValue: channel.additional
+								})(<TextArea autosize/>)}
 							</StyledFormItem>
 						</StyledPanel>
 					</Collapse>

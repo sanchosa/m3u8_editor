@@ -21,6 +21,10 @@ const RightWrapper = styled.div`
 	margin-left: ${diff}px;
 	width: calc(100% - ${diff}px)
 `
+const StyledSpan = styled.span`
+	width: 100%;
+	display: inline-block;
+`
 
 class Edit extends React.Component {
 	constructor(props) {
@@ -28,7 +32,9 @@ class Edit extends React.Component {
 
 		this.state = {
 			editGroupValue: this.props.rightGroup,
-			newGroupName: null
+			newGroupName: null,
+			leftChannel: null,
+			rightChannel: null
 		}
 
 		this.formActions = {
@@ -43,6 +49,8 @@ class Edit extends React.Component {
 		this.editGroupChange = this.editGroupChange.bind(this)
 		this.rightGroupChange = this.rightGroupChange.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
+		this.selectChannel = this.selectChannel.bind(this)
+		this.clearChannel = this.clearChannel.bind(this)
 	}
 	addNewGroup(value) {
 		notification[`info`]({
@@ -81,6 +89,17 @@ class Edit extends React.Component {
 		})
 		this.props.setValue(`rightGroup`, value)
 	}
+	selectChannel(channel) {
+		console.log(`test: `, channel)
+		this.props.transferData.get(`targetKeys`).includes(channel.key)
+			? this.setState({rightChannel: channel})
+			: this.setState({leftChannel: channel})
+	}
+	clearChannel(pos) {
+		pos === `right`
+			? this.setState({rightChannel: null})
+			: this.setState({leftChannel: null})
+	}
 	formatMessage(id) {
 		return this.props.intl.formatMessage({id})
 	}
@@ -114,6 +133,7 @@ class Edit extends React.Component {
 							intl={this.props.intl}
 							value={this.props.leftGroup}
 							onChange={value => this.props.setValue(`leftGroup`, value)}
+							exclude={[this.props.rightGroup]}
 						/>
 					</LeftWrapper>
 				</Col>
@@ -126,6 +146,7 @@ class Edit extends React.Component {
 							intl={this.props.intl}
 							value={this.props.rightGroup}
 							onChange={this.rightGroupChange}
+							exclude={[this.props.leftGroup]}
 						/>
 					</RightWrapper>
 				</Col>
@@ -168,9 +189,11 @@ class Edit extends React.Component {
 			<StyledRow key="edit" gutter={gutter}>
 				<Col span={6}>
 					<ChannelForm
+						test="left"
+						clearSelected={() => this.clearChannel(`left`)}
 						intl={this.props.intl}
 						group={this.props.leftGroup}
-						channel={null}
+						channel={this.state.leftChannel}
 						{...this.formActions}
 					/>
 				</Col>
@@ -178,13 +201,22 @@ class Edit extends React.Component {
 					<Transfer
 						listStyle={{width: `calc(50% - ${transferButtonsWidth}px)`, height: `500px`}}
 						showSearch
+						dataSource={this.props.transferData.get(`dataSource`)}
+						targetKeys={this.props.transferData.get(`targetKeys`)}
+						render={item =>
+							<StyledSpan onClick={() => this.selectChannel(item)}>
+								{item.name}
+							</StyledSpan>
+						}
 					/>
 				</Col>
 				<Col span={6}>
 					<ChannelForm
+						test="right"
+						clearSelected={() => this.clearChannel(`right`)}
 						intl={this.props.intl}
 						group={this.props.rightGroup}
-						channel={null}
+						channel={this.state.rightChannel}
 						{...this.formActions}
 					/>
 				</Col>
