@@ -5,6 +5,7 @@ import SearchInput from 'components/SearchInput'
 import ChannelForm from './content/ChannelForm'
 import connect from './connect'
 import GroupSelector from 'containers/ListEditor/content/GroupSelector'
+import ListName from 'containers/ListName'
 
 const gutter = 10
 const transferButtonsWidth = 23
@@ -104,15 +105,13 @@ class Edit extends React.Component {
 		return this.props.intl.formatMessage({id})
 	}
 	render() {
+		// !!!! перекинуть все подключаемые данные непосредственно в нужные компоненты, 
+		// для исключения ненужных render 
+		console.log(`render all`)
 		return [
 			<StyledRow key="name" type="flex" gutter={gutter} justify="center">
 				<Col span={12}>
-					<Input
-						addonBefore={this.formatMessage(`edit.playlistName.addon`)}
-						defaultValue={this.props.playlistName}
-						onChange={this.props.setListName}
-						placeholder={this.formatMessage(`edit.playlistName.placeholder`)}
-					/>
+					<ListName intl={this.props.intl}/>
 				</Col>
 			</StyledRow>,
 			<Row key="selectors" gutter={gutter}>
