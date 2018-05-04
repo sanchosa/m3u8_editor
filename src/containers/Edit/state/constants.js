@@ -4,5 +4,7 @@ export const SET_VALUE = `Edit/SET_VALUE`
 
 export const initialState = fromJS({
 	leftGroup: undefined,
-	rightGroup: undefined
+	rightGroup: undefined,
+	rightChannel: null,
+	leftChannel: null
 })

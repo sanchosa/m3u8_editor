@@ -5,8 +5,6 @@ import connect from './connect'
 class GroupEditor extends React.PureComponent {
 	constructor(props) {
 		super(props)
-
-		console.log(`constructor :`, this.props.group)
 		this.state = {
 			editGroupValue: null
 		}
