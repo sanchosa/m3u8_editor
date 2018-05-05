@@ -1,12 +1,11 @@
 import React from 'react'
-import {Input, Icon, Button, Form, Switch, TimePicker, Collapse, Popconfirm, Popover} from 'antd'
+import {Input, Icon, Button, Form, Switch, TimePicker, Collapse, Popover} from 'antd'
 import styled from 'styled-components'
 import moment from 'moment'
 import {ChannelRecord} from 'containers/ListEditor/state/schema'
 import TimeZone from 'components/TimeZone'
 import Content from 'components/PopoverContent'
 
-const ButtonGroup = Button.Group
 const {TextArea} = Input
 const StyledForm = styled(Form)`
 	border: 1px solid #d9d9d9;
@@ -52,7 +51,6 @@ export default Form.create()(
 			this.newChannel = this.newChannel.bind(this)
 			this.handleSubmit = this.handleSubmit.bind(this)
 			this.cancel = this.cancel.bind(this)
-			this.confirm = this.confirm.bind(this)
 			this.formatMessage = this.formatMessage.bind(this)
 		}
 		componentWillReceiveProps(nextProps) {
@@ -118,13 +116,6 @@ export default Form.create()(
 				this.setState({channel: null})
 			}
 		}
-		confirm(channel) {
-			this.props.deleteChannel && this.props.deleteChannel({
-				id: channel.id,
-				group: this.props.group,
-				key: channel.key
-			})
-		}
 		formatMessage(id) {
 			return this.props.intl && this.props.intl.formatMessage({id})
 		}
@@ -134,27 +125,11 @@ export default Form.create()(
 			const channel = this.state.channel || this.props.channel
 			console.log(channel)
 
-			return [<ButtonGroup key="buttons">
-				<Button type="primary" disabled={!this.props.group} onClick={this.newChannel}>
-					<Icon type="plus"/>
-				</Button>
-				<Button disabled>
-					{this.formatMessage(`edit.channel`)}
-				</Button>
-				<Popconfirm
-					title={this.formatMessage(`edit.channel.delete.confirm.title`)}
-					onConfirm={() => this.confirm(channel)}
-					okType="danger"
-					okText={this.formatMessage(`yes`)}
-					cancelText={this.formatMessage(`no`)}
-				>
-					<Button type="danger"
-						disabled={!(this.props.channel && this.state.mode === `edit`)}
-					>
-						<Icon type="delete"/>
-					</Button>
-				</Popconfirm>
-			</ButtonGroup>,
+			return [<Button key="button" type="primary"
+				disabled={!this.props.group} onClick={this.newChannel}
+			>
+				<Icon type="plus"/>{this.formatMessage(`edit.channel`)}
+			</Button>,
 			channel && this.props.group
 				? <StyledForm key="form" layout="vertical" onSubmit={this.handleSubmit}>
 					<StyledFormItem label={this.formatMessage(`edit.channel.title`)}>

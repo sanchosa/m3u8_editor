@@ -16,6 +16,21 @@ const Component = ({setValue, transferData, ...props}) => {
 			: `leftChannel`
 		setValue(key, channel)
 	}
+
+	/* <Popconfirm
+		title={this.formatMessage(`edit.channel.delete.confirm.title`)}
+		onConfirm={() => this.confirm(channel)}
+		okType="danger"
+		okText={this.formatMessage(`yes`)}
+		cancelText={this.formatMessage(`no`)}
+	>
+		<Button type="danger"
+			disabled={!(this.props.channel && this.state.mode === `edit`)}
+		>
+			<Icon type="delete"/>
+		</Button>
+	</Popconfirm> */
+
 	return <Transfer
 		{...props}
 		showSearch
