@@ -40,7 +40,6 @@ const calcDuration = momentTime =>
 
 export default Form.create()(
 	class extends React.PureComponent {
-	// class extends React.Component {
 		constructor(props) {
 			super(props)
 
@@ -53,14 +52,15 @@ export default Form.create()(
 			this.newChannel = this.newChannel.bind(this)
 			this.handleSubmit = this.handleSubmit.bind(this)
 			this.cancel = this.cancel.bind(this)
+			this.confirm = this.confirm.bind(this)
 			this.formatMessage = this.formatMessage.bind(this)
 		}
-		// shouldComponentUpdate({form, channel, group}, nextState) {
-		// 	const {form: thisForm, channel: thisChannel, group: thisGroup} = this.props
-		// 	console.log(channel, thisChannel, group, thisGroup)
-		// 	console.log(channel === thisChannel, group === thisGroup, this.state === nextState)
-		// 	return channel !== thisChannel || group !== thisGroup || this.state !== nextState
-		// }
+		componentWillReceiveProps(nextProps) {
+			if (this.props.channel && this.props.group
+				&& this.props.group !== nextProps.group) {
+				this.props.clearSelected && this.props.clearSelected()
+			}
+		}
 		streamChange(value) {
 			this.setState({channel: {
 				duration: value && -1 || 1
@@ -118,6 +118,13 @@ export default Form.create()(
 				this.setState({channel: null})
 			}
 		}
+		confirm(channel) {
+			this.props.deleteChannel && this.props.deleteChannel({
+				id: channel.id,
+				group: this.props.group,
+				key: channel.key
+			})
+		}
 		formatMessage(id) {
 			return this.props.intl && this.props.intl.formatMessage({id})
 		}
@@ -136,13 +143,13 @@ export default Form.create()(
 				</Button>
 				<Popconfirm
 					title={this.formatMessage(`edit.channel.delete.confirm.title`)}
-					// onConfirm={confirm}
+					onConfirm={() => this.confirm(channel)}
 					okType="danger"
 					okText={this.formatMessage(`yes`)}
 					cancelText={this.formatMessage(`no`)}
 				>
 					<Button type="danger"
-						disabled={!(this.state.channel && this.state.mode === `edit`)}
+						disabled={!(this.props.channel && this.state.mode === `edit`)}
 					>
 						<Icon type="delete"/>
 					</Button>

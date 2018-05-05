@@ -20,7 +20,7 @@ const rightProps = createStructuredSelector({
 const mapActions = channel => dispatch => ({
 	clearSelected: () => dispatch(setValue(channel, null)),
 	createChannel: data => dispatch(createChannel(data)),
-	deleteChannel: id => dispatch(deleteChannel(id)),
+	deleteChannel: data => dispatch(deleteChannel(data)),
 	editChannel: data => dispatch(editChannel(data))
 })
 

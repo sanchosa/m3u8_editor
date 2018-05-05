@@ -26,6 +26,15 @@ const moveListElement = (list, {oldIndex, newIndex}) => {
 		.splice(newIndex, 0, element)
 }
 
+// const deleteChannels = (map, channels) => {
+// 	let result = map
+// 	if (Array.isArray(channels) && channels.length > 0) {
+// 		channels.forEach(channel =>
+// 		)
+// 	}
+// 	return map
+// }
+
 export default function listEditorReducer(state = initialState, action) {
 	switch (action.type) {
 	case SET_NEW_LIST: {
@@ -53,6 +62,7 @@ export default function listEditorReducer(state = initialState, action) {
 		)
 	case DELETE_GROUP: {
 		return state.withMutations(map => map
+			// !!! check & delete channels here !!!
 			.deleteIn([`groups`, `${action.payload}`])
 			.updateIn([`groups`, `index`], index => index.filter(group => group !== action.payload))
 		)
@@ -67,13 +77,29 @@ export default function listEditorReducer(state = initialState, action) {
 			.updateIn([`groups`, `index`], index => index.splice(currentIndex, 1, newOne))
 		)
 	}
-	case CREATE_CHANNEL:
+	case CREATE_CHANNEL: {
 		const {channel, group} = action.payload
 		const id = randomString.generate()
 		return state.withMutations(map => map
 			.setIn([`channels`, `${id}`], new ChannelRecord({id, ...channel}))
 			.updateIn([`groups`, `${group}`], channels => channels.push(id))
 		)
+	}
+	// case DELETE_CHANNEL: {
+	// 	const {id, group} = action.payload
+	// 	return state.withMutations(map => {
+	// 		const existance = map
+	// 			.get(`groups`)
+	// 			.find((array, key) => key !== group && array.includes(id))
+	// 		const result = map.updateIn([`groups`, `${group}`], list =>
+	// 			list.filter(value => value !== id)
+	// 		)
+	// 		console.log(`existance: `, existance)
+	// 		return existance
+	// 			? result
+	// 			: result.deleteIn([`channels`, `${id}`])
+	// 	})
+	// }
 	default:
 		return state
 	}
