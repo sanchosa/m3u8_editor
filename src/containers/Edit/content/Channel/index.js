@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import {makeSelectEditParam} from 'containers/Edit/state/selectors'
-import {setValue} from 'containers/Edit//state/actions'
+import {setValue} from 'containers/Edit/state/actions'
 import {
 	createChannel,
 	editChannel

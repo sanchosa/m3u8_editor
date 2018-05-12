@@ -12,7 +12,7 @@ import {
 	DELETE_GROUP,
 	EDIT_GROUP,
 	CREATE_CHANNEL,
-	// EDIT_CHANNEL,
+	EDIT_CHANNEL,
 	// DELETE_CHANNEL,
 	initialState
 } from './constants'
@@ -84,6 +84,10 @@ export default function listEditorReducer(state = initialState, action) {
 			.setIn([`channels`, `${id}`], new ChannelRecord({id, ...channel}))
 			.updateIn([`groups`, `${group}`], channels => channels.push(id))
 		)
+	}
+	case EDIT_CHANNEL: {
+		const {channel, id} = action.payload
+		return state.setIn([`channels`, `${id}`], new ChannelRecord({id, ...channel}))
 	}
 	// case DELETE_CHANNEL: {
 	// 	const {id, group} = action.payload

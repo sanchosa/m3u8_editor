@@ -10,8 +10,8 @@ export const ChannelRecord = new Record({
 	tvgName: null,
 	tvgLogo: null,
 	audioTrack: null,
-	groupTitle: null,
-	group: null,
+	// groupTitle: null,
+	// group: null,
 	additional: []
 })
 

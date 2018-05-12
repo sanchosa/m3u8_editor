@@ -46,6 +46,7 @@ export default Form.create()(
 				mode: `edit`,
 				channel: null
 			}
+			this.channel = null
 
 			this.streamChange = this.streamChange.bind(this)
 			this.newChannel = this.newChannel.bind(this)
@@ -54,53 +55,59 @@ export default Form.create()(
 			this.formatMessage = this.formatMessage.bind(this)
 		}
 		componentWillReceiveProps(nextProps) {
+			this.state.mode === `edit` && this.setState({channel: nextProps.channel})
 			if (this.props.channel && this.props.group
 				&& this.props.group !== nextProps.group) {
 				this.props.clearSelected && this.props.clearSelected()
 			}
 		}
 		streamChange(value) {
-			this.setState({channel: {
-				duration: value && -1 || 1
-			}})
+			const {duration, ...channel} = this.state.channel
+			this.setState({
+				channel: new ChannelRecord({
+					...channel,
+					duration: value && -1 || 1
+				}).toJS()
+			})
+
 		}
 		newChannel() {
 			this.setState({
-				channel: new ChannelRecord(),
+				channel: new ChannelRecord().toJS(),
 				mode: `add`
 			})
+			this.props.form.resetFields()
 		}
 		handleSubmit(e) {
 			e.preventDefault()
 			this.props.form.validateFields((err, values) => {
 				if (!err) {
-					console.log(`Received values of form: `, values)
-
 					let {duration, ...data} = values
 					if (duration) {
 						duration = calcDuration(duration)
 					}
 
+					const payload = {
+						channel: {duration, ...data},
+						group: this.props.group
+					}
+
 					switch (this.state.mode) {
 					case `edit`:
 						this.props.editChannel && this.props.editChannel({
-							channel: {duration, ...data}
+							id: this.state.channel.id,
+							...payload
 						})
 						break
 					case `add`:
-						this.setState({
-							channel: null,
-							mode: `edit`
-						})
-
-						this.props.createChannel && this.props.createChannel({
-							channel: {duration, ...data},
-							group: this.props.group
-						})
-
-						this.props.clearSelected && this.props.clearSelected()
+						this.props.createChannel && this.props.createChannel(payload)
 						break
 					}
+					this.setState({
+						channel: null,
+						mode: `edit`
+					})
+					this.props.channel && this.props.clearSelected && this.props.clearSelected()
 				}
 			})
 		}
@@ -113,17 +120,15 @@ export default Form.create()(
 			}
 			else {
 				this.props.clearSelected && this.props.clearSelected()
-				this.setState({channel: null})
 			}
+			this.props.form.resetFields()
 		}
 		formatMessage(id) {
 			return this.props.intl && this.props.intl.formatMessage({id})
 		}
 		render() {
-			console.log(`render ${this.props.test}: `, this.props.channel, this.state.channel, this.props.group)
 			const {getFieldDecorator} = this.props.form
-			const channel = this.state.channel || this.props.channel
-			console.log(channel)
+			const channel = this.state.channel
 
 			return [<Button key="button" type="primary"
 				disabled={!this.props.group} onClick={this.newChannel}
@@ -196,20 +201,18 @@ export default Form.create()(
 								})(<Input/>)}
 							</StyledFormItem>
 							<StyledFormItem label="audio-track">
-								{getFieldDecorator(`audioTrack`, {
-									initialValue: channel.audioTrack
-								})(
-									<Popover
-										content={
-											<Content
-												width="300px"
-												data={this.formatMessage(`edit.channel.audioTrack.popover`)}
-											/>
-										}
-									>
-										<Input/>
-									</Popover>
-								)}
+								<Popover
+									content={
+										<Content
+											width="300px"
+											data={this.formatMessage(`edit.channel.audioTrack.popover`)}
+										/>
+									}
+								>
+									{getFieldDecorator(`audioTrack`, {
+										initialValue: channel.audioTrack
+									})(<Input/>)}
+								</Popover>
 							</StyledFormItem>
 							<StyledFormItem label="Additional directives">
 								{getFieldDecorator(`additional`, {
