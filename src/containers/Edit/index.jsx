@@ -79,6 +79,7 @@ class Edit extends React.Component {
 				<Col span={12}>
 					<Transfer
 						listStyle={{width: `calc(50% - ${transferButtonsWidth}px)`, height: `500px`}}
+						intl={this.props.intl}
 					/>
 				</Col>
 				<Col span={6}>

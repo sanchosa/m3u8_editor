@@ -31,7 +31,8 @@ export default defineMessages({
 	'edit.group.delete.confirm.title': `Delete group "{group}" ?`,
 	'edit.group.delete.button': `Delete group`,
 	'edit.channel': `Channel`,
-	'edit.channel.delete.confirm.title': `Delete channel ?`,
+	'edit.channel.delete.confirm.title':
+		`Delete {count, plural, one {# channel} other {# channels}} ?`,
 	'edit.channel.title': `Title`,
 	'edit.channel.title.message': `Please, enter the title of the channel`,
 	'edit.channel.link': `Link`,

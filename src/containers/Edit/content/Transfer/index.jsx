@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {Transfer} from 'antd'
+import DeleteButton from './content/DeleteChannelButton'
 import connect from './connect'
 
 const StyledSpan = styled.span`
@@ -8,40 +9,80 @@ const StyledSpan = styled.span`
 	display: inline-block;
 `
 
-const Component = ({setValue, transferData, ...props}) => {
-	const selectChannel = channel => {
+const getCount = data =>
+	Array.isArray(data) ? data.length : 0
+
+class Component extends React.PureComponent {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			sourceSelectedKeys: null,
+			targetSelectedKeys: null
+		}
+
+		this.selectChannel = this.selectChannel.bind(this)
+		this.deleteChannels = this.deleteChannels.bind(this)
+		this.handleSelectChange = this.handleSelectChange.bind(this)
+	}
+	componentWillReceiveProps(nextProps) {
+		if (this.props.leftGroup && this.props.leftGroup !== nextProps.leftGroup) {
+			this.setState({sourceSelectedKeys: null})
+		}
+		if (this.props.rightGroup && this.props.rightGroup !== nextProps.rightGroup) {
+			this.setState({targetSelectedKeys: null})
+		}
+	}
+	selectChannel(channel) {
 		console.log(`test: `, channel)
-		const key = transferData.get(`targetKeys`).includes(channel.key)
+		const key = this.props.transferData.get(`targetKeys`).includes(channel.key)
 			? `rightChannel`
 			: `leftChannel`
-		setValue(key, channel)
+		this.props.setValue(key, channel)
 	}
+	handleSelectChange(sourceSelectedKeys, targetSelectedKeys) {
+		this.setState({
+			sourceSelectedKeys,
+			targetSelectedKeys
+		})
+	}
+	deleteChannels(side) {
+		this.props.deleteChannel && this.props.deleteChannel({
+			group: side === `left` ? this.props.leftGroup : this.props.rightGroup,
+			keys: side === `left` ? this.state.sourceSelectedKeys : this.state.targetSelectedKeys
+		})
+	}
+	render() {
+		console.log(`render transfer: `, this.state.sourceSelectedKeys)
 
-	/* <Popconfirm
-		title={this.formatMessage(`edit.channel.delete.confirm.title`)}
-		onConfirm={() => this.confirm(channel)}
-		okType="danger"
-		okText={this.formatMessage(`yes`)}
-		cancelText={this.formatMessage(`no`)}
-	>
-		<Button type="danger"
-			disabled={!(this.props.channel && this.state.mode === `edit`)}
-		>
-			<Icon type="delete"/>
-		</Button>
-	</Popconfirm> */
+		const {transferData, ...props} = this.props
+		const titles = [
+			<DeleteButton
+				intl={this.props.intl}
+				count={getCount(this.state.sourceSelectedKeys)}
+				onConfirm={() => this.deleteChannels(`left`)}
+			/>,
+			<DeleteButton
+				intl={this.props.intl}
+				count={getCount(this.state.targetSelectedKeys)}
+				onConfirm={() => this.deleteChannels(`right`)}
+			/>
+		]
 
-	return <Transfer
-		{...props}
-		showSearch
-		dataSource={transferData.get(`dataSource`)}
-		targetKeys={transferData.get(`targetKeys`)}
-		render={item =>
-			<StyledSpan onClick={() => selectChannel(item)}>
-				{item.name}
-			</StyledSpan>
-		}
-	/>
+		return <Transfer
+			{...props}
+			showSearch
+			dataSource={transferData.get(`dataSource`)}
+			targetKeys={transferData.get(`targetKeys`)}
+			onSelectChange={this.handleSelectChange}
+			titles={titles}
+			render={item =>
+				<StyledSpan onClick={() => this.selectChannel(item)}>
+					{item.name}
+				</StyledSpan>
+			}
+		/>
+	}
 }
 
 export default connect(Component)
