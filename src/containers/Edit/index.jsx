@@ -74,10 +74,7 @@ class Edit extends React.Component {
 			</Row>,
 			<StyledRow key="edit" gutter={gutter}>
 				<Col span={6}>
-					<LeftChannelForm
-						test="left"
-						intl={this.props.intl}
-					/>
+					<LeftChannelForm intl={this.props.intl}/>
 				</Col>
 				<Col span={12}>
 					<Transfer
@@ -85,10 +82,7 @@ class Edit extends React.Component {
 					/>
 				</Col>
 				<Col span={6}>
-					<RightChannelForm
-						test="right"
-						intl={this.props.intl}
-					/>
+					<RightChannelForm intl={this.props.intl}/>
 				</Col>
 			</StyledRow>
 		]
