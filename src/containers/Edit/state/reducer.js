@@ -1,7 +1,6 @@
-// import {fromJS} from 'immutable'
 import {SET_VALUE, initialState} from './constants'
 import {DELETE_GROUP, EDIT_GROUP} from 'containers/ListEditor/state/constants'
-// import {DELETE_CHANNEL} from 'containers/ListEditor/state/constants'
+import {DELETE_CHANNEL} from 'containers/ListEditor/state/constants'
 
 function editReducer(state = initialState, action) {
 	switch (action.type) {
@@ -23,12 +22,12 @@ function editReducer(state = initialState, action) {
 			.set(`rightChannel`, null)
 		)
 	}
-	// case DELETE_CHANNEL: {
-	// 	const {key} = action.payload
-	// 	return state
-	// 		.update(`leftChannel`, channel => channel && channel.key === key ? null : channel)
-	// 		.update(`rightChannel`, channel => channel && channel.key === key ? null : channel)
-	// }
+	case DELETE_CHANNEL: {
+		const {ids} = action.payload
+		return state
+			.update(`leftChannel`, channel => channel && ids.includes(channel.id) ? null : channel)
+			.update(`rightChannel`, channel => channel && ids.includes(channel.id) ? null : channel)
+	}
 	default:
 		return state
 	}

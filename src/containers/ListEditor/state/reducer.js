@@ -13,7 +13,7 @@ import {
 	EDIT_GROUP,
 	CREATE_CHANNEL,
 	EDIT_CHANNEL,
-	// DELETE_CHANNEL,
+	DELETE_CHANNEL,
 	initialState
 } from './constants'
 
@@ -25,15 +25,6 @@ const moveListElement = (list, {oldIndex, newIndex}) => {
 		.splice(oldIndex, 1)
 		.splice(newIndex, 0, element)
 }
-
-// const deleteChannels = (map, channels) => {
-// 	let result = map
-// 	if (Array.isArray(channels) && channels.length > 0) {
-// 		channels.forEach(channel =>
-// 		)
-// 	}
-// 	return map
-// }
 
 export default function listEditorReducer(state = initialState, action) {
 	switch (action.type) {
@@ -61,10 +52,11 @@ export default function listEditorReducer(state = initialState, action) {
 			.updateIn([`groups`, `index`], index => index.push(action.payload))
 		)
 	case DELETE_GROUP: {
+		const ids = state.getIn([`groups`, `${action.payload}`])
 		return state.withMutations(map => map
-			// !!! check & delete channels here !!!
 			.deleteIn([`groups`, `${action.payload}`])
 			.updateIn([`groups`, `index`], index => index.filter(group => group !== action.payload))
+			.update(`channels`, channels => channels.deleteAll(ids))
 		)
 	}
 	case EDIT_GROUP: {
@@ -89,21 +81,14 @@ export default function listEditorReducer(state = initialState, action) {
 		const {channel, id} = action.payload
 		return state.setIn([`channels`, `${id}`], new ChannelRecord({id, ...channel}))
 	}
-	// case DELETE_CHANNEL: {
-	// 	const {id, group} = action.payload
-	// 	return state.withMutations(map => {
-	// 		const existance = map
-	// 			.get(`groups`)
-	// 			.find((array, key) => key !== group && array.includes(id))
-	// 		const result = map.updateIn([`groups`, `${group}`], list =>
-	// 			list.filter(value => value !== id)
-	// 		)
-	// 		console.log(`existance: `, existance)
-	// 		return existance
-	// 			? result
-	// 			: result.deleteIn([`channels`, `${id}`])
-	// 	})
-	// }
+	case DELETE_CHANNEL: {
+		const {ids, group} = action.payload
+		return state.withMutations(map => map
+			.updateIn([`groups`, `${group}`], list =>
+				list.filter(value => !ids.includes(value)))
+			.update(`channels`, channels => channels.deleteAll(ids))
+		)
+	}
 	default:
 		return state
 	}

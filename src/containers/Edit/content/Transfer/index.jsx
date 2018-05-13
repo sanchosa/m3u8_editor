@@ -47,10 +47,19 @@ class Component extends React.PureComponent {
 		})
 	}
 	deleteChannels(side) {
+		const keys = side === `left` ? this.state.sourceSelectedKeys : this.state.targetSelectedKeys
 		this.props.deleteChannel && this.props.deleteChannel({
 			group: side === `left` ? this.props.leftGroup : this.props.rightGroup,
-			keys: side === `left` ? this.state.sourceSelectedKeys : this.state.targetSelectedKeys
+			keys,
+			ids: this.props.transferData.get(`dataSource`)
+				.reduce((result, channel) => {
+					keys.includes(channel.key) && result.push(channel.id)
+					return result
+				}, [])
 		})
+		side === `left`
+			? this.setState({sourceSelectedKeys: null})
+			: this.setState({targetSelectedKeys: null})
 	}
 	render() {
 		console.log(`render transfer: `, this.state.sourceSelectedKeys)
@@ -75,6 +84,7 @@ class Component extends React.PureComponent {
 			dataSource={transferData.get(`dataSource`)}
 			targetKeys={transferData.get(`targetKeys`)}
 			onSelectChange={this.handleSelectChange}
+			// selectedKeys={getSelectedKeys()}
 			titles={titles}
 			render={item =>
 				<StyledSpan onClick={() => this.selectChannel(item)}>
