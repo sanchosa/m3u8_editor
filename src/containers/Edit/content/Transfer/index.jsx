@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {Transfer} from 'antd'
-import DeleteButton from './content/DeleteChannelButton'
+import {DeleteButton, CopyButton} from './content/ChannelButtons'
 import connect from './connect'
 
 const StyledSpan = styled.span`
@@ -87,16 +87,29 @@ class Component extends React.PureComponent {
 
 		const {transferData, ...props} = this.props
 		const titles = [
-			<DeleteButton
-				intl={this.props.intl}
-				count={getCount(this.state.sourceSelectedKeys)}
-				onConfirm={() => this.deleteChannels(`left`)}
-			/>,
-			<DeleteButton
-				intl={this.props.intl}
-				count={getCount(this.state.targetSelectedKeys)}
-				onConfirm={() => this.deleteChannels(`right`)}
-			/>
+			[
+				<CopyButton
+					key="l-copy"
+					disabled={getCount(this.state.sourceSelectedKeys) === 0}
+				/>,
+				<DeleteButton
+					key="l-delete"
+					intl={this.props.intl}
+					count={getCount(this.state.sourceSelectedKeys)}
+					onConfirm={() => this.deleteChannels(`left`)}
+				/>
+			], [
+				<CopyButton
+					key="r-copy"
+					disabled={getCount(this.state.targetSelectedKeys) === 0}
+				/>,
+				<DeleteButton
+					key="r-delete"
+					intl={this.props.intl}
+					count={getCount(this.state.targetSelectedKeys)}
+					onConfirm={() => this.deleteChannels(`right`)}
+				/>
+			]
 		]
 
 		return <Transfer
