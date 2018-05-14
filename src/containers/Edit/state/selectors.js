@@ -1,6 +1,5 @@
 import {createSelector} from 'reselect'
 import {denormalize} from 'normalizr'
-import randomString from 'randomstring'
 import {Map} from 'immutable'
 import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
 import {channelListSchema} from 'containers/ListEditor/state/schema'
@@ -31,14 +30,10 @@ export const makeSelectTransferData = () => createSelector(
 			? denormalize(rightGroup, channelListSchema, entities).toJS()
 			: []
 
-		leftChannels.forEach(value => dataSource.push({
-			key: randomString.generate(),
-			...value
-		}))
+		leftChannels.forEach(value => dataSource.push(value))
 		rightChannels.forEach(value => {
-			const key = randomString.generate()
-			targetKeys.push(key)
-			dataSource.push({key, ...value})
+			targetKeys.push(value.id)
+			dataSource.push(value)
 		})
 
 		return Map({dataSource, targetKeys})

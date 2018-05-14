@@ -24,6 +24,8 @@ class Component extends React.PureComponent {
 		this.selectChannel = this.selectChannel.bind(this)
 		this.deleteChannels = this.deleteChannels.bind(this)
 		this.handleSelectChange = this.handleSelectChange.bind(this)
+		this.getSelectedKeys = this.getSelectedKeys.bind(this)
+		this.renderItem = this.renderItem.bind(this)
 	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props.leftGroup && this.props.leftGroup !== nextProps.leftGroup) {
@@ -35,7 +37,7 @@ class Component extends React.PureComponent {
 	}
 	selectChannel(channel) {
 		console.log(`test: `, channel)
-		const key = this.props.transferData.get(`targetKeys`).includes(channel.key)
+		const key = this.props.transferData.get(`targetKeys`).includes(channel.id)
 			? `rightChannel`
 			: `leftChannel`
 		this.props.setValue(key, channel)
@@ -61,8 +63,27 @@ class Component extends React.PureComponent {
 			? this.setState({sourceSelectedKeys: null})
 			: this.setState({targetSelectedKeys: null})
 	}
+	getSelectedKeys() {
+		const result = []
+		this.state.sourceSelectedKeys && result.push(...this.state.sourceSelectedKeys)
+		this.state.targetSelectedKeys && result.push(...this.state.targetSelectedKeys)
+		return result
+	}
+	filterOption(inputValue, option) {
+		return option.name.toLowerCase().includes(inputValue.toLowerCase())
+	}
+	renderItem(item) {
+		const label = <StyledSpan onClick={() => this.selectChannel(item)}>
+			{item.name}
+		</StyledSpan>
+
+		return {
+			label, // for displayed item
+			value: item.link // for hint
+		}
+	}
 	render() {
-		console.log(`render transfer: `, this.state.sourceSelectedKeys)
+		console.log(`render transfer: `, this.state.sourceSelectedKeys, this.state.targetSelectedKeys)
 
 		const {transferData, ...props} = this.props
 		const titles = [
@@ -80,17 +101,15 @@ class Component extends React.PureComponent {
 
 		return <Transfer
 			{...props}
+			rowKey={record => record.id}
 			showSearch
 			dataSource={transferData.get(`dataSource`)}
 			targetKeys={transferData.get(`targetKeys`)}
 			onSelectChange={this.handleSelectChange}
-			// selectedKeys={getSelectedKeys()}
+			selectedKeys={this.getSelectedKeys()}
 			titles={titles}
-			render={item =>
-				<StyledSpan onClick={() => this.selectChannel(item)}>
-					{item.name}
-				</StyledSpan>
-			}
+			filterOption={this.filterOption}
+			render={this.renderItem}
 		/>
 	}
 }
