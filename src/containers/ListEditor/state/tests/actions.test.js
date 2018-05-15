@@ -7,7 +7,11 @@ import {
 	SET_LIST_NAME,
 	CREATE_GROUP,
 	DELETE_GROUP,
-	EDIT_GROUP
+	EDIT_GROUP,
+	CREATE_CHANNEL,
+	EDIT_CHANNEL,
+	DELETE_CHANNEL,
+	COPY_CHANNEL
 } from '../constants'
 import {
 	loadNewList,
@@ -18,7 +22,11 @@ import {
 	setListName,
 	createGroup,
 	deleteGroup,
-	editGroup
+	editGroup,
+	createChannel,
+	editChannel,
+	deleteChannel,
+	copyChannel
 } from '../actions'
 import {testValues} from 'common/constants'
 
@@ -102,6 +110,42 @@ describe(`ListEditor actions`, () => {
 				payload: testValues.string
 			}
 			expect(editGroup(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`createChannel`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: CREATE_CHANNEL,
+				payload: testValues.string
+			}
+			expect(createChannel(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`editChannel`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: EDIT_CHANNEL,
+				payload: testValues.string
+			}
+			expect(editChannel(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`deleteChannel`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: DELETE_CHANNEL,
+				payload: testValues.string
+			}
+			expect(deleteChannel(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`copyChannel`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: COPY_CHANNEL,
+				payload: testValues.string
+			}
+			expect(copyChannel(testValues.string)).toEqual(expectedResult)
 		})
 	})
 })

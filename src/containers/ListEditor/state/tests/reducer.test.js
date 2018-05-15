@@ -1,6 +1,6 @@
 import {fromJS, Map, List} from 'immutable'
 import {normalize} from 'normalizr'
-import {channelListSchema} from '../schema'
+import {channelListSchema, ChannelRecord} from '../schema'
 import {testValues} from 'common/constants'
 import reducer from '../reducer'
 import {
@@ -11,7 +11,11 @@ import {
 	setListName,
 	createGroup,
 	deleteGroup,
-	editGroup
+	editGroup,
+	createChannel,
+	editChannel,
+	deleteChannel,
+	copyChannel
 } from '../actions'
 import {initialState} from '../constants'
 
@@ -93,5 +97,52 @@ describe(`ListEditor reducer`, () => {
 			newOne: testValues.string
 		})
 		expect(reducer(mockedState, action)).toEqual(expectedResult)
+	})
+	it(`should create channel`, () => {
+		const action = createChannel({
+			channel: {name: `test`},
+			group: `none`
+		})
+		const result = reducer(initialState, action)
+		const group = result.getIn([`groups`, `none`]).toJS()
+		expect(group).toHaveLength(1)
+		expect(Object.keys(result.get(`channels`).toJS())).toContain(group[0])
+	})
+	it(`should delete channel`, () => {
+		const mockedState = initialState
+			.updateIn([`groups`, `none`], group => group.push(`test`))
+			.setIn([`channels`, `test`], new ChannelRecord())
+		const action = deleteChannel({
+			ids: [`test`],
+			group: `none`
+		})
+		expect(reducer(mockedState, action)).toEqual(initialState)
+	})
+	it(`should edit channel`, () => {
+		const channel = new ChannelRecord({id: `test`, name: `test`})
+		const mockedState = initialState
+			.updateIn([`groups`, `none`], group => group.push(`test`))
+			.setIn([`channels`, `test`], new ChannelRecord())
+		const expectedResult = mockedState
+			.setIn([`channels`, `test`], new ChannelRecord({id: `test`, ...channel}))
+		const action = editChannel({
+			channel,
+			id: `test`
+		})
+		expect(reducer(mockedState, action)).toEqual(expectedResult)
+	})
+	it(`should copy channel`, () => {
+		const channel = new ChannelRecord({id: `test`, name: `test`})
+		const mockedState = initialState
+			.setIn([`groups`, `test2`], List())
+			.setIn([`channels`, `test`], new ChannelRecord(channel))
+		const action = copyChannel({
+			group: `test2`,
+			ids: [`test`]
+		})
+		const result = reducer(mockedState, action)
+		const group = result.getIn([`groups`, `test2`]).toJS()
+		expect(group).toHaveLength(1)
+		expect(Object.keys(result.get(`channels`).toJS())).toContain(group[0])
 	})
 })

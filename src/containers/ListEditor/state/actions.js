@@ -10,7 +10,8 @@ import {
 	EDIT_GROUP,
 	CREATE_CHANNEL,
 	EDIT_CHANNEL,
-	DELETE_CHANNEL
+	DELETE_CHANNEL,
+	COPY_CHANNEL
 } from './constants'
 
 export const loadNewList = fileObject => {
@@ -89,6 +90,12 @@ export const deleteChannel = payload => {
 export const editChannel = payload => {
 	return {
 		type: EDIT_CHANNEL,
+		payload
+	}
+}
+export const copyChannel = payload => {
+	return {
+		type: COPY_CHANNEL,
 		payload
 	}
 }

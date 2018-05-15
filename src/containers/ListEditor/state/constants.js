@@ -12,6 +12,7 @@ export const EDIT_GROUP = `ListEditor/EDIT_GROUP`
 export const CREATE_CHANNEL = `ListEditor/CREATE_CHANNEL`
 export const EDIT_CHANNEL = `ListEditor/EDIT_CHANNEL`
 export const DELETE_CHANNEL = `ListEditor/DELETE_CHANNEL`
+export const COPY_CHANNEL = `ListEditor/COPY_CHANNEL`
 
 export const initialState = fromJS({
 	control: `edit`,
