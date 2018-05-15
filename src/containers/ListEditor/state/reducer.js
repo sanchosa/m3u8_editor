@@ -14,6 +14,7 @@ import {
 	CREATE_CHANNEL,
 	EDIT_CHANNEL,
 	DELETE_CHANNEL,
+	COPY_CHANNEL,
 	initialState
 } from './constants'
 
@@ -88,6 +89,24 @@ export default function listEditorReducer(state = initialState, action) {
 				list.filter(value => !ids.includes(value)))
 			.update(`channels`, channels => channels.deleteAll(ids))
 		)
+	}
+	case COPY_CHANNEL: {
+		const {ids, group} = action.payload
+		return state.withMutations(map => {
+			let result = map
+
+			group && ids && ids.forEach(currentId => {
+				const {id: unnecessary, ...channel} = map
+					.getIn([`channels`, `${currentId}`])
+					.toJS()
+				const id = randomString.generate()
+				result = result
+					.setIn([`channels`, `${id}`], new ChannelRecord({id, ...channel}))
+					.updateIn([`groups`, `${group}`], channels => channels.push(id))
+			})
+
+			return result
+		})
 	}
 	default:
 		return state

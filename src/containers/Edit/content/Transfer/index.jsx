@@ -49,15 +49,9 @@ class Component extends React.PureComponent {
 		})
 	}
 	deleteChannels(side) {
-		const keys = side === `left` ? this.state.sourceSelectedKeys : this.state.targetSelectedKeys
 		this.props.deleteChannel && this.props.deleteChannel({
 			group: side === `left` ? this.props.leftGroup : this.props.rightGroup,
-			keys,
-			ids: this.props.transferData.get(`dataSource`)
-				.reduce((result, channel) => {
-					keys.includes(channel.key) && result.push(channel.id)
-					return result
-				}, [])
+			ids: side === `left` ? this.state.sourceSelectedKeys : this.state.targetSelectedKeys
 		})
 		side === `left`
 			? this.setState({sourceSelectedKeys: null})
@@ -71,6 +65,12 @@ class Component extends React.PureComponent {
 	}
 	filterOption(inputValue, option) {
 		return option.name.toLowerCase().includes(inputValue.toLowerCase())
+	}
+	copyChannels(side) {
+		this.props.copyChannel && this.props.copyChannel({
+			group: side === `left` ? this.props.rightGroup : this.props.leftGroup,
+			ids: side === `left` ? this.state.sourceSelectedKeys : this.state.targetSelectedKeys
+		})
 	}
 	renderItem(item) {
 		const label = <StyledSpan onClick={() => this.selectChannel(item)}>
@@ -91,6 +91,7 @@ class Component extends React.PureComponent {
 				<CopyButton
 					key="l-copy"
 					disabled={getCount(this.state.sourceSelectedKeys) === 0}
+					onClick={() => this.copyChannels(`left`)}
 				/>,
 				<DeleteButton
 					key="l-delete"
@@ -102,6 +103,7 @@ class Component extends React.PureComponent {
 				<CopyButton
 					key="r-copy"
 					disabled={getCount(this.state.targetSelectedKeys) === 0}
+					onClick={() => this.copyChannels(`right`)}
 				/>,
 				<DeleteButton
 					key="r-delete"

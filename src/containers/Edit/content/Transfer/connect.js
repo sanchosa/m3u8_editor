@@ -5,7 +5,7 @@ import {
 	makeSelectEditParam
 } from 'containers/Edit/state/selectors'
 import {setValue} from 'containers/Edit/state/actions'
-import {deleteChannel} from 'containers/ListEditor/state/actions'
+import {deleteChannel, copyChannel} from 'containers/ListEditor/state/actions'
 
 const mapProps = createStructuredSelector({
 	transferData: makeSelectTransferData(),
@@ -14,7 +14,8 @@ const mapProps = createStructuredSelector({
 })
 const mapActions = dispatch => ({
 	setValue: (name, value) => dispatch(setValue(name, value)),
-	deleteChannel: data => dispatch(deleteChannel(data))
+	deleteChannel: data => dispatch(deleteChannel(data)),
+	copyChannel: data => dispatch(copyChannel(data))
 })
 
 export default Component => connect(mapProps, mapActions)(Component)
