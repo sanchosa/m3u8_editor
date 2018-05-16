@@ -11,7 +11,8 @@ import {
 	CREATE_CHANNEL,
 	EDIT_CHANNEL,
 	DELETE_CHANNEL,
-	COPY_CHANNEL
+	COPY_CHANNEL,
+	MOVE_CHANNEL
 } from './constants'
 
 export const loadNewList = fileObject => {
@@ -96,6 +97,12 @@ export const editChannel = payload => {
 export const copyChannel = payload => {
 	return {
 		type: COPY_CHANNEL,
+		payload
+	}
+}
+export const moveChannel = payload => {
+	return {
+		type: MOVE_CHANNEL,
 		payload
 	}
 }

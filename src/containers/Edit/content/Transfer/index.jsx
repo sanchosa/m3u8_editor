@@ -23,6 +23,7 @@ class Component extends React.PureComponent {
 
 		this.selectChannel = this.selectChannel.bind(this)
 		this.deleteChannels = this.deleteChannels.bind(this)
+		this.moveChannels = this.moveChannels.bind(this)
 		this.handleSelectChange = this.handleSelectChange.bind(this)
 		this.getSelectedKeys = this.getSelectedKeys.bind(this)
 		this.renderItem = this.renderItem.bind(this)
@@ -36,7 +37,6 @@ class Component extends React.PureComponent {
 		}
 	}
 	selectChannel(channel) {
-		console.log(`test: `, channel)
 		const key = this.props.transferData.get(`targetKeys`).includes(channel.id)
 			? `rightChannel`
 			: `leftChannel`
@@ -72,6 +72,14 @@ class Component extends React.PureComponent {
 			ids: side === `left` ? this.state.sourceSelectedKeys : this.state.targetSelectedKeys
 		})
 	}
+	moveChannels(targetKeys, direction, ids) {
+		this.props.rightGroup && this.props.leftGroup &&
+		this.props.moveChannel && this.props.moveChannel({
+			from: direction === `right` ? this.props.leftGroup : this.props.rightGroup,
+			ids,
+			to: direction === `right` ? this.props.rightGroup : this.props.leftGroup
+		})
+	}
 	renderItem(item) {
 		const label = <StyledSpan onClick={() => this.selectChannel(item)}>
 			{item.name}
@@ -83,8 +91,6 @@ class Component extends React.PureComponent {
 		}
 	}
 	render() {
-		console.log(`render transfer: `, this.state.sourceSelectedKeys, this.state.targetSelectedKeys)
-
 		const {transferData, ...props} = this.props
 		const titles = [
 			[
@@ -124,6 +130,7 @@ class Component extends React.PureComponent {
 			selectedKeys={this.getSelectedKeys()}
 			titles={titles}
 			filterOption={this.filterOption}
+			onChange={this.moveChannels}
 			render={this.renderItem}
 		/>
 	}

@@ -1,6 +1,6 @@
 import {SET_VALUE, initialState} from './constants'
 import {DELETE_GROUP, EDIT_GROUP} from 'containers/ListEditor/state/constants'
-import {DELETE_CHANNEL} from 'containers/ListEditor/state/constants'
+import {DELETE_CHANNEL, MOVE_CHANNEL} from 'containers/ListEditor/state/constants'
 
 function editReducer(state = initialState, action) {
 	switch (action.type) {
@@ -22,6 +22,7 @@ function editReducer(state = initialState, action) {
 			.set(`rightChannel`, null)
 		)
 	}
+	case MOVE_CHANNEL:
 	case DELETE_CHANNEL: {
 		const {ids} = action.payload
 		return state

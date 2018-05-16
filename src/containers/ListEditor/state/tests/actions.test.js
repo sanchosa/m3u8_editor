@@ -11,7 +11,8 @@ import {
 	CREATE_CHANNEL,
 	EDIT_CHANNEL,
 	DELETE_CHANNEL,
-	COPY_CHANNEL
+	COPY_CHANNEL,
+	MOVE_CHANNEL
 } from '../constants'
 import {
 	loadNewList,
@@ -26,7 +27,8 @@ import {
 	createChannel,
 	editChannel,
 	deleteChannel,
-	copyChannel
+	copyChannel,
+	moveChannel
 } from '../actions'
 import {testValues} from 'common/constants'
 
@@ -146,6 +148,15 @@ describe(`ListEditor actions`, () => {
 				payload: testValues.string
 			}
 			expect(copyChannel(testValues.string)).toEqual(expectedResult)
+		})
+	})
+	describe(`moveChannel`, () => {
+		it(`should return the type and payload object`, () => {
+			const expectedResult = {
+				type: MOVE_CHANNEL,
+				payload: testValues.string
+			}
+			expect(moveChannel(testValues.string)).toEqual(expectedResult)
 		})
 	})
 })

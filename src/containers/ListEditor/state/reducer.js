@@ -15,6 +15,7 @@ import {
 	EDIT_CHANNEL,
 	DELETE_CHANNEL,
 	COPY_CHANNEL,
+	MOVE_CHANNEL,
 	initialState
 } from './constants'
 
@@ -107,6 +108,15 @@ export default function listEditorReducer(state = initialState, action) {
 
 			return result
 		})
+	}
+	case MOVE_CHANNEL: {
+		const {ids, from, to} = action.payload
+		return state.withMutations(map => map
+			.updateIn([`groups`, `${to}`], group => group.push(...ids))
+			.updateIn([`groups`, `${from}`], group => group
+				.filter(value => !ids.includes(value))
+			)
+		)
 	}
 	default:
 		return state

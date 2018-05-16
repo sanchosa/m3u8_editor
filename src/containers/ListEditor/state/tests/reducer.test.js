@@ -15,7 +15,8 @@ import {
 	createChannel,
 	editChannel,
 	deleteChannel,
-	copyChannel
+	copyChannel,
+	moveChannel
 } from '../actions'
 import {initialState} from '../constants'
 
@@ -144,5 +145,22 @@ describe(`ListEditor reducer`, () => {
 		const group = result.getIn([`groups`, `test2`]).toJS()
 		expect(group).toHaveLength(1)
 		expect(Object.keys(result.get(`channels`).toJS())).toContain(group[0])
+	})
+	it(`should move channel`, () => {
+		const channel = new ChannelRecord({id: `test`, name: `test`})
+		const mockedState = initialState
+			.setIn([`groups`, `test`], List([`test`]))
+			.setIn([`groups`, `test2`], List())
+			.setIn([`channels`, `test`], new ChannelRecord(channel))
+		const expectedResult = initialState
+			.setIn([`groups`, `test`], List())
+			.setIn([`groups`, `test2`], List([`test`]))
+			.setIn([`channels`, `test`], new ChannelRecord(channel))
+		const action = moveChannel({
+			from: `test`,
+			ids: [`test`],
+			to: `test2`
+		})
+		expect(reducer(mockedState, action)).toEqual(expectedResult)
 	})
 })
