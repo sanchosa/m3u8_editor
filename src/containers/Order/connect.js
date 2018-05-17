@@ -1,13 +1,16 @@
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import {setGroup} from './state/actions'
-import {makeSelectGroupChannels, makeSelectGroup} from './state/selectors'
-import {makeSelectGroupNames} from 'containers/ListEditor/state/selectors'
+import {
+	makeSelectGroupChannels,
+	makeSelectGroup,
+	makeSelectOrderGroupNames
+} from './state/selectors'
 import {sortChannel, sortGroup} from 'containers/ListEditor/state/actions'
 
 const mapProps = createStructuredSelector({
 	items: makeSelectGroupChannels(),
-	groups: makeSelectGroupNames(),
+	groups: makeSelectOrderGroupNames(),
 	group: makeSelectGroup()
 })
 

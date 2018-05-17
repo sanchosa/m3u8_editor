@@ -1,7 +1,10 @@
 import {createSelector} from 'reselect'
 import {denormalize} from 'normalizr'
 import {channelListSchema} from 'containers/ListEditor/state/schema'
-import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
+import {
+	makeSelectEditorData,
+	makeSelectGroupNames
+} from 'containers/ListEditor/state/selectors'
 
 export const selectOrder = (state) => state.get(`order`)
 
@@ -24,4 +27,9 @@ export const makeSelectGroupChannels = () => createSelector(
 
 		return null
 	}
+)
+
+export const makeSelectOrderGroupNames = () => createSelector(
+	makeSelectGroupNames(),
+	groups => groups && groups.shift()
 )

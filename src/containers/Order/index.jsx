@@ -50,6 +50,7 @@ class Order extends React.PureComponent {
 		this.emitEmpty = this.emitEmpty.bind(this)
 		this.onChannelListScroll = this.onChannelListScroll.bind(this)
 		this.onGroupListScroll = this.onGroupListScroll.bind(this)
+		this.sortGroup = this.sortGroup.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
 	}
 	onSearch(value) {
@@ -88,6 +89,12 @@ class Order extends React.PureComponent {
 	}
 	onGroupListScroll(offset) {
 		scrollOffset.group = offset
+	}
+	sortGroup({oldIndex, newIndex}) {
+		this.props.sortGroup({
+			oldIndex: oldIndex + 1,
+			newIndex: newIndex + 1
+		})
 	}
 	formatMessage(id) {
 		return this.props.intl.formatMessage({id})
@@ -135,7 +142,7 @@ class Order extends React.PureComponent {
 					items={this.props.groups && this.props.groups.toArray() || []}
 					onScroll={this.onGroupListScroll}
 					scrollOffset={scrollOffset.group}
-					onSortEnd={this.props.sortGroup}
+					onSortEnd={this.sortGroup}
 					placeholder={this.formatMessage(`order.groupList.placeholder`)}
 				>
 					<GroupSorterItem/>
