@@ -1,9 +1,11 @@
 import React from 'react'
+import styled from 'styled-components'
+import {Spin} from 'antd'
 
 import Circle from './Circle'
 import Wrapper from './Wrapper'
 
-const LoadingSpinner = ({loading}) => !loading ? null :
+export const LoadingSpinner = ({loading}) => !loading ? null :
 	<Wrapper>
 		<Circle />
 		<Circle rotate={30} delay={-1.1} />
@@ -19,4 +21,6 @@ const LoadingSpinner = ({loading}) => !loading ? null :
 		<Circle rotate={330} delay={-0.1} />
 	</Wrapper>
 
-export default LoadingSpinner
+export const StyledSpin = styled(Spin)`
+	margin-left: calc(50% - 10px);
+`
