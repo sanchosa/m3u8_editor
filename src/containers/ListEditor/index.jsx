@@ -2,6 +2,7 @@ import React from 'react'
 import connect from './connect'
 import Order from 'containers/Order'
 import Edit from 'containers/Edit'
+import Export from 'containers/Export'
 
 const Component = props => {
 	switch (props.control) {
@@ -10,7 +11,7 @@ const Component = props => {
 	case `order`:
 		return <Order intl={props.intl} key="order"/>
 	case `export`:
-		return <span key="export">Export</span>
+		return <Export intl={props.intl} key="export"/>
 	default:
 		return <span>Editor</span>
 	}

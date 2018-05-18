@@ -13,6 +13,7 @@ const StyledLayout = styled(Layout)`
 `
 const StyledContent = styled(Content)`
 	padding: 24px 50px;
+	min-height: calc(100vh - 153px);
 `
 const StyledFooter = styled(Footer)`
 	background: #fff;

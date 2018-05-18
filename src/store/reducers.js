@@ -3,6 +3,7 @@ import globalReducer from './global/reducer'
 import listEditorReducer from 'containers/ListEditor/state/reducer'
 import orderReducer from 'containers/Order/state/reducer'
 import editReducer from 'containers/Edit/state/reducer'
+import exportReducer from 'containers/Export/state/reducer'
 
 export default function createReducer(injectedReducers) {
 	return combineReducers({
@@ -10,6 +11,7 @@ export default function createReducer(injectedReducers) {
 		listEditor: listEditorReducer,
 		order: orderReducer,
 		edit: editReducer,
+		export: exportReducer,
 		...injectedReducers
 	})
 }
