@@ -51,7 +51,14 @@ export default defineMessages({
 		You may use several codes separated by comma (e.g.: eng, rus, deu). 
 		The first item in the list will be defined as default`,
 	'export.configurator.header': `Please, select options`,
-	'export.configurator.groupTitleParam': `Put group name into channel's group-title param`,
-	'export.configurator.groupExtentionParam': `Put group name into channel's #EXTGRP directive`,
+	'export.configurator.groupTitleParam': `Put group name into the channel's group-title param`,
+	'export.configurator.groupExtentionParam': `Put group name into the channel's #EXTGRP directive`,
+	'export.configurator.playlistNameParam': `Put playlist name into the result`,
+	'export.configurator.additionalParam': `Put additional channels directives before the channel link`,
+	'export.configurator.formatDurationParam': `Set default channel duration as -1 (stream)`,
+	'export.configurator.tvgShiftParam': `Put teleguide timeshift into the channel's tvg-shift param`,
+	'export.configurator.tvgNameParam': `Put teleguide channel name into the channel's tvg-name param`,
+	'export.configurator.tvgLogoParam': `Put teleguide channel logo into the channel's tvg-logo param`,
+	'export.configurator.audioTrackParam': `Put audio tracks settings into the channel's audio-track param`,
 	'export.result.header': `Is this OK ?`,
 })

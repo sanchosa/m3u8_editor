@@ -53,5 +53,12 @@ export default defineMessages({
 	'export.configurator.header': `Пожалуйста, выберите опции`,
 	'export.configurator.groupTitleParam': `Добавлять название группы в параметр group-title канала`,
 	'export.configurator.groupExtentionParam': `Добавлять название группы в директиву #EXTGRP канала`,
+	'export.configurator.playlistNameParam': `Добавить название плэйлиста`,
+	'export.configurator.additionalParam': `Добавлять дополнительные директивы канала перед ссылкой`,
+	'export.configurator.formatDurationParam': `Устанавливать продолжительность канала по умолчанию в -1 (поток)`,
+	'export.configurator.tvgShiftParam': `Добавлять корректировку времени телепрограммы в параметр tvg-shift канала`,
+	'export.configurator.tvgNameParam': `Добавлять название канала для телепрограммы в параметр tvg-name канала`,
+	'export.configurator.tvgLogoParam': `Добавлять наименование логотипа канала для телепрограммы в параметр tvg-logo канала`,
+	'export.configurator.audioTrackParam': `Добавлять настройки аудио дорожек в параметр audio-track канала`,
 	'export.result.header': `Всё нормально ?`,
 })

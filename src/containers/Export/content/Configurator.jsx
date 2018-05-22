@@ -7,8 +7,28 @@ export default props => {
 		props.intl && props.intl.formatMessage({id})
 
 	const buildList = () => {
-		const {groupTitleFlag, groupExtentionFlag} = props
-		props.buildList && props.buildList({groupTitleFlag, groupExtentionFlag})
+		const {
+			playlistNameFlag,
+			groupExtentionFlag,
+			additionalFlag,
+			formatDurationFlag,
+			groupTitleFlag,
+			tvgShiftFlag,
+			tvgNameFlag,
+			tvgLogoFlag,
+			audioTrackFlag
+		} = props
+		props.buildList && props.buildList({
+			playlistNameFlag,
+			groupExtentionFlag,
+			additionalFlag,
+			formatDurationFlag,
+			groupTitleFlag,
+			tvgShiftFlag,
+			tvgNameFlag,
+			tvgLogoFlag,
+			audioTrackFlag
+		})
 	}
 
 	return [
@@ -17,12 +37,12 @@ export default props => {
 		</h1>,
 		<StyledRow key="options">
 			<Col span={24}>
-				<Checkbox checked={props.groupTitleFlag}
+				<Checkbox checked={props.playlistNameFlag}
 					onChange={() => props.setParam && props.setParam({
-						groupTitleFlag: !props.groupTitleFlag
+						playlistNameFlag: !props.playlistNameFlag
 					})}
 				>
-					{formatMessage(`export.configurator.groupTitleParam`)}
+					{formatMessage(`export.configurator.playlistNameParam`)}
 				</Checkbox>
 				<br/>
 				<Checkbox checked={props.groupExtentionFlag}
@@ -31,6 +51,62 @@ export default props => {
 					})}
 				>
 					{formatMessage(`export.configurator.groupExtentionParam`)}
+				</Checkbox>
+				<br/>
+				<Checkbox checked={props.additionalFlag}
+					onChange={() => props.setParam && props.setParam({
+						additionalFlag: !props.additionalFlag
+					})}
+				>
+					{formatMessage(`export.configurator.additionalParam`)}
+				</Checkbox>
+				<br/>
+				<Checkbox checked={props.formatDurationFlag}
+					onChange={() => props.setParam && props.setParam({
+						formatDurationFlag: !props.formatDurationFlag
+					})}
+				>
+					{formatMessage(`export.configurator.formatDurationParam`)}
+				</Checkbox>
+				<br/>
+				<Checkbox checked={props.groupTitleFlag}
+					onChange={() => props.setParam && props.setParam({
+						groupTitleFlag: !props.groupTitleFlag
+					})}
+				>
+					{formatMessage(`export.configurator.groupTitleParam`)}
+				</Checkbox>
+				<br/>
+				<Checkbox checked={props.tvgShiftFlag}
+					onChange={() => props.setParam && props.setParam({
+						tvgShiftFlag: !props.tvgShiftFlag
+					})}
+				>
+					{formatMessage(`export.configurator.tvgShiftParam`)}
+				</Checkbox>
+				<br/>
+				<Checkbox checked={props.tvgNameFlag}
+					onChange={() => props.setParam && props.setParam({
+						tvgNameFlag: !props.tvgNameFlag
+					})}
+				>
+					{formatMessage(`export.configurator.tvgNameParam`)}
+				</Checkbox>
+				<br/>
+				<Checkbox checked={props.tvgLogoFlag}
+					onChange={() => props.setParam && props.setParam({
+						tvgLogoFlag: !props.tvgLogoFlag
+					})}
+				>
+					{formatMessage(`export.configurator.tvgLogoParam`)}
+				</Checkbox>
+				<br/>
+				<Checkbox checked={props.audioTrackFlag}
+					onChange={() => props.setParam && props.setParam({
+						audioTrackFlag: !props.audioTrackFlag
+					})}
+				>
+					{formatMessage(`export.configurator.audioTrackParam`)}
 				</Checkbox>
 			</Col>
 		</StyledRow>,

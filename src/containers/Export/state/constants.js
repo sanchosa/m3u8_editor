@@ -7,7 +7,14 @@ export const SET_PARAM = `Export/SET_PARAM`
 export const initialState = fromJS({
 	data: null,
 	loading: false,
-	groupTitleFlag: true,
+	playlistNameFlag: true,
 	groupExtentionFlag: true,
+	additionalFlag: true,
+	formatDurationFlag: true,
+	groupTitleFlag: true,
+	tvgShiftFlag: true,
+	tvgNameFlag: true,
+	tvgLogoFlag: true,
+	audioTrackFlag: true,
 	readonly: true
 })

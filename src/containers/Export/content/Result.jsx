@@ -7,6 +7,9 @@ const {TextArea} = Input
 const StyledButton = styled(Button)`
 	margin-right: 5px;
 `
+const StyledTextArea = styled(TextArea)`
+	overflow: auto !important;
+`
 
 export default props => {
 	const formatMessage = id =>
@@ -40,7 +43,8 @@ export default props => {
 		</StyledRow>,
 		<StyledRow key="data">
 			<Col span={24}>
-				<TextArea autosize="true"
+				<StyledTextArea autosize="true"
+					wrap="off"
 					defaultValue={props.data}
 					disabled={props.readonly}
 				/>

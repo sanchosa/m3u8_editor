@@ -14,8 +14,15 @@ import {
 const props = createStructuredSelector({
 	data: makeSelectParam(`data`),
 	loading: makeSelectParam(`loading`),
-	groupTitleFlag: makeSelectParam(`groupTitleFlag`),
+	playlistNameFlag: makeSelectParam(`playlistNameFlag`),
 	groupExtentionFlag: makeSelectParam(`groupExtentionFlag`),
+	additionalFlag: makeSelectParam(`additionalFlag`),
+	formatDurationFlag: makeSelectParam(`formatDurationFlag`),
+	groupTitleFlag: makeSelectParam(`groupTitleFlag`),
+	tvgShiftFlag: makeSelectParam(`tvgShiftFlag`),
+	tvgNameFlag: makeSelectParam(`tvgNameFlag`),
+	tvgLogoFlag: makeSelectParam(`tvgLogoFlag`),
+	audioTrackFlag: makeSelectParam(`audioTrackFlag`),
 	readonly: makeSelectParam(`readonly`)
 })
 const actions = dispatch => ({
