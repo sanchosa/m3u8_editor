@@ -4,12 +4,12 @@ import StyledRow from './StyledRow'
 import {StyledSpin} from 'components/Spinner'
 
 export default props => {
-	// const formatMessage = id =>
-	// 	props.intl && props.intl.formatMessage({id})
+	const formatMessage = id =>
+		props.intl && props.intl.formatMessage({id})
 
 	return [
 		<h1 key="header">
-			Please, wait...
+			{formatMessage(`waitMessage`)}
 		</h1>,
 		<StyledRow key="options">
 			<Col span={24}>
@@ -19,7 +19,7 @@ export default props => {
 		<StyledRow key="buttons">
 			<Col span={24}>
 				<Button onClick={() => props.stop && props.stop()}>
-					Stop
+					{formatMessage(`stop`)}
 				</Button>
 			</Col>
 		</StyledRow>

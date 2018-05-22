@@ -9,24 +9,24 @@ const StyledButton = styled(Button)`
 `
 
 export default props => {
-	// const formatMessage = id =>
-	// 	props.intl && props.intl.formatMessage({id})
+	const formatMessage = id =>
+		props.intl && props.intl.formatMessage({id})
 
 	return [
 		<h1 key="header">
-			Is this OK ?
+			{formatMessage(`export.result.header`)}
 		</h1>,
 		<StyledRow key="buttons">
 			<Col span={24}>
 				<StyledButton>
-					Yes
+					{formatMessage(`yes`)}
 				</StyledButton>
 				{props.readonly === true && <StyledButton
 					onClick={() => props.setParam && props.setParam({
 						readonly: false
 					})}
 				>
-					No
+					{formatMessage(`no`)}
 				</StyledButton>}
 				<StyledButton
 					onClick={() => props.setParam && props.setParam({
@@ -34,7 +34,7 @@ export default props => {
 						readonly: true
 					})}
 				>
-					Again
+					{formatMessage(`again`)}
 				</StyledButton>
 			</Col>
 		</StyledRow>,

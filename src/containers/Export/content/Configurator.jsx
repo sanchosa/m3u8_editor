@@ -3,8 +3,8 @@ import {Col, Checkbox, Button} from 'antd'
 import StyledRow from './StyledRow'
 
 export default props => {
-	// const formatMessage = id =>
-	// 	props.intl && props.intl.formatMessage({id})
+	const formatMessage = id =>
+		props.intl && props.intl.formatMessage({id})
 
 	const buildList = () => {
 		const {groupTitleFlag, groupExtentionFlag} = props
@@ -13,7 +13,7 @@ export default props => {
 
 	return [
 		<h1 key="header">
-			Please, select options
+			{formatMessage(`export.configurator.header`)}
 		</h1>,
 		<StyledRow key="options">
 			<Col span={24}>
@@ -22,7 +22,7 @@ export default props => {
 						groupTitleFlag: !props.groupTitleFlag
 					})}
 				>
-					Put group name into channel's group-title param
+					{formatMessage(`export.configurator.groupTitleParam`)}
 				</Checkbox>
 				<br/>
 				<Checkbox checked={props.groupExtentionFlag}
@@ -30,13 +30,13 @@ export default props => {
 						groupExtentionFlag: !props.groupExtentionFlag
 					})}
 				>
-					Put group name into channel's #EXTGRP directive
+					{formatMessage(`export.configurator.groupExtentionParam`)}
 				</Checkbox>
 			</Col>
 		</StyledRow>,
 		<StyledRow key="buttons">
 			<Col span={24}>
-				<Button type="primary" onClick={buildList}>Build</Button>
+				<Button type="primary" onClick={buildList}>{formatMessage(`build`)}</Button>
 			</Col>
 		</StyledRow>
 	]
