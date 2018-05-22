@@ -93,6 +93,9 @@ function *parseList(file) {
 		else {
 			newChannel.id = randomString.generate()
 			newChannel.link = list[i].trim()
+			if (newChannel.additional) {
+				newChannel.additional = newChannel.additional.join(`\r\n`)
+			}
 			channels.push(newChannel)
 			newChannel = {}
 		}

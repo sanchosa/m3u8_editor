@@ -12,7 +12,7 @@ export const ChannelRecord = new Record({
 	audioTrack: null,
 	// groupTitle: null,
 	// group: null,
-	additional: []
+	additional: null
 })
 
 const channelSchema = new schema.Entity(`channels`, {}, {
