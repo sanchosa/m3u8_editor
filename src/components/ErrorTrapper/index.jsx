@@ -9,10 +9,11 @@ export default class ErrorTrapper extends React.PureComponent {
 	componentDidMount() {
 		const setError = this.setError
 		window.onerror = (...args) => {
+			// console.log(`error trapper: `, args)
 			const error = args[4] || {}
 			setError({
 				code: 1,
-				message: error.message,
+				message: error.message || args[0],
 				stack: error.stack
 			})
 		}
