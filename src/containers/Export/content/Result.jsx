@@ -47,6 +47,9 @@ export default props => {
 					wrap="off"
 					defaultValue={props.data}
 					disabled={props.readonly}
+					onChange={e => props.setParam && props.setParam({
+						data: e.target.value
+					})}
 				/>
 			</Col>
 		</StyledRow>
