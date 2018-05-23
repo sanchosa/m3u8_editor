@@ -10,7 +10,7 @@ const getDuration = duration =>
 
 const getChannelString = (channel, groupName, flags) => {
 	const result = []
-	flags.groupTitleFlag && result.push(`group-title="${groupName}"`)
+	groupName !== `none` && flags.groupTitleFlag && result.push(`group-title="${groupName}"`)
 	flags.tvgShiftFlag && channel.tvgShift && result.push(`tvg-shift="${channel.tvgShift}"`)
 	flags.tvgNameFlag && channel.tvgName && result.push(`tvg-name="${channel.tvgName}"`)
 	flags.tvgLogoFlag && channel.tvgLogo && result.push(`tvg-logo="${channel.tvgLogo}"`)
@@ -44,7 +44,7 @@ function *buildList(flags) {
 			groups
 				.get(groupName)
 				.forEach(channelId => {
-					if (flags.groupExtentionFlag) {
+					if (groupName !== `none` && flags.groupExtentionFlag) {
 						result.push(`#EXTGRP:${groupName}`)
 					}
 					channel = channels.get(channelId)

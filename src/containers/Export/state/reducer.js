@@ -6,7 +6,6 @@ import {
 export default function exportReducer(state = initialState, action) {
 	switch (action.type) {
 	case SET_PARAM:
-		// const {name, value} = action.payload
 		return state.withMutations(map => {
 			let result = map
 

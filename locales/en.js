@@ -61,4 +61,5 @@ export default defineMessages({
 	'export.configurator.tvgLogoParam': `Put teleguide channel logo into the channel's tvg-logo param`,
 	'export.configurator.audioTrackParam': `Put audio tracks settings into the channel's audio-track param`,
 	'export.result.header': `Is this OK ?`,
+	'export.defaultListName': `playlist`
 })

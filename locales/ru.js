@@ -61,4 +61,5 @@ export default defineMessages({
 	'export.configurator.tvgLogoParam': `Добавлять наименование логотипа канала для телепрограммы в параметр tvg-logo канала`,
 	'export.configurator.audioTrackParam': `Добавлять настройки аудио дорожек в параметр audio-track канала`,
 	'export.result.header': `Всё верно ?`,
+	'export.defaultListName': `playlist`
 })

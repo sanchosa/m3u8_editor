@@ -10,8 +10,10 @@ import {
 	stop,
 	setParam
 } from './state/actions'
+import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
 
 const props = createStructuredSelector({
+	listName: makeSelectEditorData(`playlistName`),
 	data: makeSelectParam(`data`),
 	loading: makeSelectParam(`loading`),
 	playlistNameFlag: makeSelectParam(`playlistNameFlag`),
