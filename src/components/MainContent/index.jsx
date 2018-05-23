@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import {injectIntl} from 'react-intl'
-import {Layout} from 'antd'
+import {Layout, Icon} from 'antd'
 import ListEditor from 'containers/ListEditor'
 import Menu from 'containers/Menu'
+import moment from 'moment'
 
 const {Content, Sider, Footer} = Layout
 
@@ -17,6 +18,9 @@ const StyledContent = styled(Content)`
 `
 const StyledFooter = styled(Footer)`
 	background: #fff;
+	> span {
+		float: right;
+	}
 `
 const StyledSider = styled(Sider)`
 	background: #fff;
@@ -52,7 +56,14 @@ class MainContent extends React.Component {
 					<ListEditor intl={this.props.intl}/>
 				</StyledContent>
 				<StyledFooter>
-					<span>Footer</span>
+					<span>
+						© {moment().format(`YYYY`)} Created by Sanchosa <a
+							href="https://github.com/sanchosa/m3u8_editor"
+							target="_blank"
+						>
+							<Icon type="github" />
+						</a>
+					</span>
 				</StyledFooter>
 			</StyledLayout>
 		</StyledLayout>
