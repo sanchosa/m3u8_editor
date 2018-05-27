@@ -1,12 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import {injectIntl} from 'react-intl'
 import {Layout, Icon} from 'antd'
 import ListEditor from 'containers/ListEditor'
-import Menu from 'containers/Menu'
 import moment from 'moment'
 
-const {Content, Sider, Footer} = Layout
+const {Content, Footer} = Layout
 
 const StyledLayout = styled(Layout)`
 	margin-top: 10px;
@@ -22,18 +20,8 @@ const StyledFooter = styled(Footer)`
 		float: right;
 	}
 `
-const StyledSider = styled(Sider)`
-	background: #fff;
-	>.ant-layout-sider-trigger {
-		color: #1890ff;
-		background: #f0f1f2;
-	}
-	>.ant-layout-sider-trigger:hover {
-		box-shadow: 1px -1px 8px #1890ff;
-	}
-`
 
-class MainContent extends React.Component {
+export default class MainContent extends React.Component {
 	constructor(props) {
 		super(props)
 
@@ -48,26 +36,19 @@ class MainContent extends React.Component {
 	}
 	render() {
 		return <StyledLayout>
-			<StyledSider collapsible={true} onCollapse={this.onCollapse}>
-				<Menu intl={this.props.intl} collapsed={this.state.collapsed}/>
-			</StyledSider>
-			<StyledLayout>
-				<StyledContent>
-					<ListEditor intl={this.props.intl}/>
-				</StyledContent>
-				<StyledFooter>
-					<span>
-						© {moment().format(`YYYY`)} Created by Sanchosa <a
-							href="https://github.com/sanchosa/m3u8_editor"
-							target="_blank"
-						>
-							<Icon type="github" />
-						</a>
-					</span>
-				</StyledFooter>
-			</StyledLayout>
+			<StyledContent>
+				<ListEditor intl={this.props.intl}/>
+			</StyledContent>
+			<StyledFooter>
+				<span>
+					© {moment().format(`YYYY`)} Created by Sanchosa <a
+						href="https://github.com/sanchosa/m3u8_editor"
+						target="_blank"
+					>
+						<Icon type="github" />
+					</a>
+				</span>
+			</StyledFooter>
 		</StyledLayout>
 	}
 }
-
-export default injectIntl(MainContent)

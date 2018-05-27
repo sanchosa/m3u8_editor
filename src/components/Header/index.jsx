@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {Layout, Row, Col} from 'antd'
 import LanguageSelector from 'containers/LanguageSelector'
 import OpenFile from 'containers/OpenFile'
+import Menu from 'containers/Menu'
 
 const {Header} = Layout
 
@@ -11,10 +12,13 @@ const StyledHeader = styled(Header)`
 	background: #fff;
 `
 
-export default () =>
+export default props =>
 	<StyledHeader>
-		<Row>
-			<Col span={2}><OpenFile/></Col>
-			<Col span={2} push={20}><LanguageSelector/></Col>
+		<Row type="flex" justify="space-between">
+			<Col span={4}><OpenFile/></Col>
+			<Col span={16}>
+				<Menu intl={props.intl} mode="horizontal"/>
+			</Col>
+			<Col span={2}><LanguageSelector/></Col>
 		</Row>
 	</StyledHeader>

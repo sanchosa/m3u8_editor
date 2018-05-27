@@ -1,4 +1,5 @@
 import React from 'react'
+import {injectIntl} from 'react-intl'
 import styled from 'styled-components'
 import {Layout} from 'antd'
 import Header from 'components/Header'
@@ -8,8 +9,10 @@ const StyledLayout = styled(Layout)`
 	background: #fff;
 `
 
-export default () =>
+const HomePage = props =>
 	<StyledLayout>
-		<Header/>
-		<MainContent/>
+		<Header intl={props.intl}/>
+		<MainContent intl={props.intl}/>
 	</StyledLayout>
+
+export default injectIntl(HomePage)

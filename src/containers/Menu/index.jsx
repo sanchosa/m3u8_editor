@@ -15,7 +15,7 @@ const Component = props => {
 			<span>{props.intl.formatMessage({id: key})}</span>
 		</StyledSpan>
 		: <Popover
-			placement="rightTop"
+			placement={props.mode && props.mode === `horizontal` ? `bottomLeft` : `rightTop`}
 			title={props.intl.formatMessage({id: key})}
 			content={
 				<Content
@@ -33,7 +33,7 @@ const Component = props => {
 
 	return <Menu
 		defaultSelectedKeys={[`edit`]}
-		mode="inline"
+		mode={props.mode}
 		theme="light"
 		onSelect={props.setControl}
 	>
