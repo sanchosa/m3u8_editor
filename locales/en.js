@@ -12,6 +12,9 @@ export default defineMessages({
 	'stop': `Stop`,
 	'again': `Again`,
 	'waitMessage': `Please, wait...`,
+	'control.import': `Import`,
+	'control.import.popover.content': `Opens the playlist upload panel.
+		Allows to upload the source list.`,
 	'control.edit': `Edit`,
 	'control.edit.popover.content': `Opens the playlist creation panel.
 		Allows to manage the elements of the list and distribute the elements into groups.`,

@@ -16,7 +16,7 @@ export const COPY_CHANNEL = `ListEditor/COPY_CHANNEL`
 export const MOVE_CHANNEL = `ListEditor/MOVE_CHANNEL`
 
 export const initialState = fromJS({
-	control: `edit`,
+	control: `import`,
 	groups: {
 		none: [],
 		index: [`none`]

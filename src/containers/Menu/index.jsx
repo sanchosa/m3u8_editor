@@ -32,11 +32,14 @@ const Component = props => {
 		</Popover>
 
 	return <Menu
-		defaultSelectedKeys={[`edit`]}
+		defaultSelectedKeys={[`import`]}
 		mode={props.mode}
 		theme="light"
 		onSelect={props.setControl}
 	>
+		<Menu.Item key="import">
+			{getMenuContent(`control.import`, `upload`)}
+		</Menu.Item>
 		<Menu.Item key="edit">
 			{getMenuContent(`control.edit`, `edit`)}
 		</Menu.Item>

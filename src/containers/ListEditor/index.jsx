@@ -3,9 +3,12 @@ import connect from './connect'
 import Order from 'containers/Order'
 import Edit from 'containers/Edit'
 import Export from 'containers/Export'
+import OpenFile from 'containers/OpenFile'
 
 const Component = props => {
 	switch (props.control) {
+	case `import`:
+		return <OpenFile/>
 	case `edit`:
 		return <Edit intl={props.intl} key="edit"/>
 	case `order`:
@@ -13,7 +16,7 @@ const Component = props => {
 	case `export`:
 		return <Export intl={props.intl} key="export"/>
 	default:
-		return <span>Editor</span>
+		return <span>Tool not found</span>
 	}
 }
 
