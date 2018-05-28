@@ -1,13 +1,17 @@
 
-const express = require('express')
+const express = require(`express`)
+const path = require(`path`)
 const app = express()
 
-app.use(express.static(__dirname + '/build/public'))
+app.use(express.static(path.join(__dirname, `/build/public`)))
 
-app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/build/index.html')
+app.get(`/`, function (req, res) {
+	res.sendFile(path.join(__dirname, `/build/index.html`))
+})
+app.get(`*`, function (req, res) {
+	res.redirect(`/`)
 })
 
 app.listen(80, function () {
-	console.log('Example app listening on port 80!')
+	console.log(`App listening on port 80!`)
 })
