@@ -26,6 +26,7 @@ export default defineMessages({
 		Позволяет сохранить сформированный лист.`,
 	'listEditor.sorter.groupsSelector.label': `Группа`,
 	'listEditor.sorter.groupsSelector.placeholder': `Выберите группу`,
+	'import.dragInstructions': `Нажмите на область или перенесите сюда файл`,
 	'order.searchChannel.placeholder': `Введите название канала`,
 	'order.channelList.label': `Сортировка каналов`,
 	'order.channelList.placeholder': `Выберите группу`,

@@ -26,6 +26,7 @@ export default defineMessages({
 		Allows you to save a formed list.`,
 	'listEditor.sorter.groupsSelector.label': `Group`,
 	'listEditor.sorter.groupsSelector.placeholder': `Select group`,
+	'import.dragInstructions': `Click or drag file to this area to upload`,
 	'order.searchChannel.placeholder': `Input channel name`,
 	'order.channelList.label': `Channel sorting`,
 	'order.channelList.placeholder': `Select group`,

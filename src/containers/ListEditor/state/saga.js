@@ -105,7 +105,7 @@ function *parseList({onSuccess, onError, onProgress, ...file}) {
 			newChannel = {}
 		}
 
-		onProgress && onProgress({percent: Math.round(i*100/list.length)})
+		onProgress && onProgress({percent: Math.round(i * 100 / list.length)})
 	}
 
 	onSuccess && onSuccess()
