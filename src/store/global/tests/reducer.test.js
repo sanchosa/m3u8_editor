@@ -2,7 +2,8 @@ import reducer from '../reducer'
 import {
 	setLoading,
 	setError,
-	setLocale
+	setLocale,
+	setStorageFlag
 } from '../actions'
 import {initialState, ErrorRecord} from '../constants'
 
@@ -28,6 +29,11 @@ describe(`globalReducer`, () => {
 	it(`Should change locale state`, () => {
 		const action = setLocale(`test`)
 		const expectedResult = initialState.set(`locale`, `test`)
+		expect(reducer(initialState, action)).toEqual(expectedResult)
+	})
+	it(`Should change "useStorage" state`, () => {
+		const action = setStorageFlag(false)
+		const expectedResult = initialState.set(`useStorage`, false)
 		expect(reducer(initialState, action)).toEqual(expectedResult)
 	})
 })
