@@ -16,9 +16,7 @@ export default function appReducer(state = initialState, action) {
 		return state.set(`loading`, action.payload)
 	}
 	case LOCATION_CHANGE: {
-		return action.type === LOCATION_CHANGE
-			? state.merge({location: action.payload})
-			: state
+		return state.set(`location`, action.payload)
 	}
 	case SET_LOCALE: {
 		return state.set(`locale`, action.payload)
