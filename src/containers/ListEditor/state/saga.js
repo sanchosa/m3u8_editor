@@ -14,6 +14,8 @@ const showLoadFailMessage = () => {
 	}
 
 	notification[`info`](config)
+
+	return {}
 }
 
 function reExecString(re, str) {
@@ -40,7 +42,7 @@ function reExecTimeZone(re, str) {
 		: null
 }
 
-function *parseList(file) {
+function *parseList({onSuccess, onError, onProgress, ...file}) {
 	const separator = /\r?\n/
 	const listText = yield call(readLocalTextFile, file)
 
@@ -60,7 +62,10 @@ function *parseList(file) {
 
 	const list = listText.split(separator)
 
-	if (list.length === 0 || list[0] !== `#EXTM3U`) return showLoadFailMessage()
+	if (list.length === 0 || list[0] !== `#EXTM3U`) {
+		onError && onError(`Incorrect file content`)
+		return showLoadFailMessage()
+	}
 
 	const channels = []
 	let newChannel = {}
@@ -99,7 +104,11 @@ function *parseList(file) {
 			channels.push(newChannel)
 			newChannel = {}
 		}
+
+		onProgress && onProgress({percent: Math.round(i*100/list.length)})
 	}
+
+	onSuccess && onSuccess()
 
 	return {channels, playlistName}
 }
@@ -132,9 +141,10 @@ function buildGroups(channels) {
 
 function *loadNewList(action) {
 	const {channels, playlistName} = yield parseList(action.payload)
-	const groups = yield buildGroups(channels)
-
-	yield put(setNewList({channels, groups, playlistName}))
+	if (channels) {
+		const groups = yield buildGroups(channels)
+		yield put(setNewList({channels, groups, playlistName}))
+	}
 }
 
 export default function *listEditorSaga() {

@@ -35,12 +35,7 @@ export const readLocalTextFile = fileObj => {
 	if (!`file` in fileObj) return ``
 
 	return readTextFilePromise(fileObj)
-		.then(result => {
-			if (`onSuccess` in fileObj) {
-				fileObj.onSuccess(result)
-			}
-			return result
-		})
+		.then(result => result)
 		.catch(error => {
 			if (`onError` in fileObj) {
 				fileObj.onError(error)
