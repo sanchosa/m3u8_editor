@@ -24,7 +24,7 @@
 		"async-await/space-after-async": 2,
 		"async-await/space-after-await": 2,
 		"brace-style": ["error", "stroustrup"],
-		"comma-dangle": ["error", "never"],
+		"comma-dangle": ["error", "only-multiline"],
 		"comma-spacing": ["error", {"before": false, "after": true}],
 		"computed-property-spacing": ["error", "never"],
 		"cond-assign": 0,

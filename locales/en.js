@@ -12,6 +12,7 @@ export default defineMessages({
 	'stop': `Stop`,
 	'again': `Again`,
 	'waitMessage': `Please, wait...`,
+	'underConstruction': `Functionality is under construction`,
 	'control.import': `Import`,
 	'control.import.popover.content': `Opens the playlist upload panel.
 		Allows to upload the source list.`,
@@ -31,6 +32,8 @@ export default defineMessages({
 	'import.radio.compareList': `Compare with new list`,
 	'import.useLocalStorageHeader': `Select browser's local storage usage:`,
 	'import.useLocalStorage': `Use browser's local storage when editing list`,
+	'import.loadNamedStorageList.text': `Local storage contains "{name}" list of {date}`,
+	'import.loadNoNamedStorageList.text': `Local storage contains "unnamed" list of {date}`,
 	'import.dragInstructions': `Click or drag file to this area to upload`,
 	'order.searchChannel.placeholder': `Input channel name`,
 	'order.channelList.label': `Channel sorting`,

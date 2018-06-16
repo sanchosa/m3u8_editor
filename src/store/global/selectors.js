@@ -29,3 +29,8 @@ export const makeSelectStorageFlag = () => createSelector(
 	selectGlobal,
 	globalState => globalState.get(`useStorage`)
 )
+
+export const makeSelectStorageInfo = () => createSelector(
+	selectGlobal,
+	globalState => globalState.get(`storageInfo`)
+)

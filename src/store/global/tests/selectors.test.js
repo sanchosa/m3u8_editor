@@ -5,7 +5,8 @@ import {
 	makeSelectError,
 	makeSelectLocation,
 	makeSelectLocale,
-	makeSelectStorageFlag
+	makeSelectStorageFlag,
+	makeSelectStorageInfo,
 } from '../selectors'
 import {initialState} from '../constants'
 
@@ -32,7 +33,12 @@ describe(`Global state selectors`, () => {
 	})
 	it(`should select "useStorage" flag from global state`, () => {
 		const selector = makeSelectStorageFlag()
-		expect(selector(mockedState)).toEqual(true)
+		expect(selector(mockedState)).toEqual(false)
+	})
+	it(`should select storageInfo from global state`, () => {
+		const expectedResult = mockedState.getIn([`global`, `storageInfo`])
+		const selector = makeSelectStorageInfo()
+		expect(selector(mockedState)).toEqual(expectedResult)
 	})
 	it(`should select location from global state`, () => {
 		const expectedResult = mockedState.getIn([`global`, `location`])

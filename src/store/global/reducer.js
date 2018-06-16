@@ -1,10 +1,12 @@
+import {fromJS} from 'immutable'
 import {
 	SET_LOADING,
 	SET_ERROR,
 	SET_LOCALE,
 	SET_STORAGE_FLAG,
+	SET_STORAGE_INFO,
 	ErrorRecord,
-	initialState
+	initialState,
 } from './constants'
 import {LOCATION_CHANGE} from 'react-router-redux'
 
@@ -20,6 +22,8 @@ export default function appReducer(state = initialState, action) {
 		return state.set(`locale`, action.payload)
 	case SET_STORAGE_FLAG:
 		return state.set(`useStorage`, action.payload)
+	case SET_STORAGE_INFO:
+		return state.set(`storageInfo`, fromJS(action.payload))
 	default: return state
 	}
 }

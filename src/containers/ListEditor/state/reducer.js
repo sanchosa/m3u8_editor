@@ -16,6 +16,7 @@ import {
 	DELETE_CHANNEL,
 	COPY_CHANNEL,
 	MOVE_CHANNEL,
+	LOAD_STORAGE_LIST,
 	initialState
 } from './constants'
 
@@ -115,6 +116,16 @@ export default function listEditorReducer(state = initialState, action) {
 			.updateIn([`groups`, `${to}`], group => group.push(...ids))
 			.updateIn([`groups`, `${from}`], group => group
 				.filter(value => !ids.includes(value))
+			)
+		)
+	}
+	case LOAD_STORAGE_LIST: {
+		const {groups, channels, playlistName} = action.payload
+		return state.withMutations(map => map
+			.set(`playlistName`, playlistName || null)
+			.set(`groups`, fromJS(groups))
+			.set(`channels`, Map(channels)
+				.map(channel => new ChannelRecord(channel))
 			)
 		)
 	}

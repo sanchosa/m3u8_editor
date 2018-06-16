@@ -3,7 +3,8 @@ import {
 	setLoading,
 	setError,
 	setLocale,
-	setStorageFlag
+	setStorageFlag,
+	setStorageInfo,
 } from '../actions'
 import {initialState, ErrorRecord} from '../constants'
 
@@ -34,6 +35,11 @@ describe(`globalReducer`, () => {
 	it(`Should change "useStorage" state`, () => {
 		const action = setStorageFlag(false)
 		const expectedResult = initialState.set(`useStorage`, false)
+		expect(reducer(initialState, action)).toEqual(expectedResult)
+	})
+	it(`Should change storageInfo state`, () => {
+		const action = setStorageInfo(`test`)
+		const expectedResult = initialState.set(`storageInfo`, `test`)
 		expect(reducer(initialState, action)).toEqual(expectedResult)
 	})
 })

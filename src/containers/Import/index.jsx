@@ -1,5 +1,5 @@
 import React from 'react'
-import {Radio, Checkbox, Row, Col} from 'antd'
+import {Radio, Checkbox, Row, Col, Tooltip, Button} from 'antd'
 import styled from 'styled-components'
 import {DragFile} from 'components/OpenFile'
 import connect from './connect'
@@ -8,13 +8,16 @@ const RadioGroup = Radio.Group
 const StyledRow = styled(Row)`
 	margin-bottom: 20px;
 `
+const StyledButton = styled(Button)`
+	margin-left: 10px;
+`
 
 class Import extends React.PureComponent {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			method: `new`
+			method: `new`,
 		}
 
 		this.formatMessage = this.formatMessage.bind(this)
@@ -22,12 +25,17 @@ class Import extends React.PureComponent {
 	radioChange(value) {
 		console.log(value)
 	}
-	formatMessage(id) {
-		return this.props.intl && this.props.intl.formatMessage({id})
+	formatMessage(id, params) {
+		return this.props.intl && this.props.intl.formatMessage({id}, {...params})
 	}
 	render() {
 		const {loadNewList, compareList, ...props} = this.props
 		const customRequest = this.state.method === `new` ? loadNewList : compareList
+
+		const {name, date} = this.props.storageInfo && this.props.storageInfo.toJS()
+		const label = name
+			? `import.loadNamedStorageList.text`
+			: `import.loadNoNamedStorageList.text`
 
 		const options = [
 			{label: this.formatMessage(`import.radio.newList`), value: `new`},
@@ -38,11 +46,15 @@ class Import extends React.PureComponent {
 			<StyledRow key="row">
 				<Col span={12}>
 					<h3>{this.formatMessage(`import.radio.header`)}</h3>
-					<RadioGroup key="radio"
-						options={options}
-						value={this.state.method}
-						onChange={this.radioChange}
-					/>
+					<Tooltip mouseEnterDelay={2} title={this.formatMessage(`underConstruction`)}
+						placement="bottomRight"
+					>
+						<RadioGroup key="radio"
+							options={options}
+							value={this.state.method}
+							onChange={this.radioChange}
+						/>
+					</Tooltip>
 				</Col>
 				<Col span={12}>
 					<h3>{this.formatMessage(`import.useLocalStorageHeader`)}</h3>
@@ -51,6 +63,13 @@ class Import extends React.PureComponent {
 					>
 						{this.formatMessage(`import.useLocalStorage`)}
 					</Checkbox>
+					<br/>
+					{this.props.storageInfo.size > 0 && [
+						<span key="text">{this.formatMessage(label, {name, date})}</span>,
+						<StyledButton key="delete" type="danger" shape="circle" icon="delete"
+							onClick={this.props.removeStorageList}
+						/>
+					]}
 				</Col>
 			</StyledRow>,
 			<DragFile key="dragFile" customRequest={customRequest} {...props}/>

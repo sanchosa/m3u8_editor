@@ -4,11 +4,13 @@ export const SET_ERROR = `App/SET_ERROR`
 export const SET_LOADING = `App/SET_LOADING`
 export const SET_LOCALE = `App/SET_LOCALE`
 export const SET_STORAGE_FLAG = `App/SET_STORAGE_FLAG`
+export const SET_STORAGE_INFO = `App/SET_STORAGE_INFO`
+export const REMOVE_STORAGE_LIST = `App/REMOVE_STORAGE_LIST`
 
 export const ErrorRecord = new Record({
 	code: 1,
 	message: ``,
-	stack: ``
+	stack: ``,
 })
 
 export const initialState = fromJS({
@@ -16,5 +18,6 @@ export const initialState = fromJS({
 	loading: false,
 	location: null,
 	locale: `enUS`,
-	useStorage: true
+	useStorage: false,
+	storageInfo: {},
 })

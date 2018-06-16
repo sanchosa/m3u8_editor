@@ -12,6 +12,7 @@ export default defineMessages({
 	'stop': `Остановить`,
 	'again': `Заново`,
 	'waitMessage': `Пожалуйста, ждите...`,
+	'underConstruction': `Функционал в разработке`,
 	'useLocalStorage': `Использовать локальное хранилище браузера при редактировании листа`,
 	'control.import': `Импорт`,
 	'control.import.popover.content': `Открывает панель импорта плэйлиста.
@@ -32,6 +33,8 @@ export default defineMessages({
 	'import.radio.compareList': `Сравнить с новым листом`,
 	'import.useLocalStorageHeader': `Выберите опцию локального хранилища браузера:`,
 	'import.useLocalStorage': `Использовать локальное хранилище браузера при редактировании листа`,
+	'import.loadNamedStorageList.text': `Локальное хранилище содержит "{name}" лист от {date}`,
+	'import.loadNoNamedStorageList.text': `Локальное хранилище содержит безымянный лист от {date}`,
 	'import.dragInstructions': `Нажмите на область или перенесите сюда файл`,
 	'order.searchChannel.placeholder': `Введите название канала`,
 	'order.channelList.label': `Сортировка каналов`,
