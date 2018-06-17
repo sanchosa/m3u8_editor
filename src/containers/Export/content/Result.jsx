@@ -1,5 +1,5 @@
 import React from 'react'
-import {Col, Button, Input} from 'antd'
+import {Col, Button, Input, BackTop} from 'antd'
 import styled from 'styled-components'
 import StyledRow from './StyledRow'
 
@@ -73,6 +73,7 @@ export default props => {
 					})}
 				/>
 			</Col>
-		</StyledRow>
+		</StyledRow>,
+		<BackTop key="to_top"/>,
 	]
 }
