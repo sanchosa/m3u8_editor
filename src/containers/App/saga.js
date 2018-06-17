@@ -65,11 +65,11 @@ export default function *storageSaga() {
 		yield put(setStorageFlag(storage.storageFlag))
 	}
 	if (`list` in storage) {
-		const {name, date, version, groups, channels} = storage.list
+		const {playlistName, date, version, groups, channels} = storage.list
 		if (version === storageVersion) {
-			yield put(setStorageInfo({name, date}))
+			yield put(setStorageInfo({name: playlistName, date}))
 			if (storageFlag) {
-				yield put(loadStorageList({playlistName: name, groups, channels}))
+				yield put(loadStorageList({playlistName, groups, channels}))
 			}
 		}
 	}
