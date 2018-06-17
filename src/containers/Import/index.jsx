@@ -10,6 +10,15 @@ const StyledRow = styled(Row)`
 `
 const StyledButton = styled(Button)`
 	margin-left: 10px;
+	display: inline-block;
+`
+const StyledDiv = styled.div`
+	display: inline-block;
+	vertical-align: middle;
+	max-width: calc(100% - 42px);
+	white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 `
 
 class Import extends React.PureComponent {
@@ -65,7 +74,14 @@ class Import extends React.PureComponent {
 					</Checkbox>
 					<br/>
 					{this.props.storageInfo.size > 0 && [
-						<span key="text">{this.formatMessage(label, {name, date})}</span>,
+						<Tooltip mouseEnterDelay={2} key="tooltip"
+							title={this.formatMessage(label, {name, date})}
+							placement="bottom"
+						>
+							<StyledDiv key="text">
+								{this.formatMessage(label, {name, date})}
+							</StyledDiv>
+						</Tooltip>,
 						<StyledButton key="delete" type="danger" shape="circle" icon="delete"
 							onClick={this.props.removeStorageList}
 						/>
