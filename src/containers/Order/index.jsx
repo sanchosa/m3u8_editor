@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 	padding-bottom: 5px !important;
 `
 const StyledDivider = styled(Divider)`
-	height: 746px;
+	height: calc(100vh - 167px);
 `
 const StyledSpan = styled.span`
 	background-color: #ffa50087;
@@ -122,7 +122,7 @@ class Order extends React.PureComponent {
 					{this.formatMessage(`order.channelList.label`)}
 				</Label>
 				<SortableList
-					height={600}
+					height={window.innerHeight - 313}
 					items={this.props.items && this.props.items.toArray() || []}
 					scrollToIndex={this.state.scrollToIndex}
 					scrollToAlignment="center"
@@ -138,7 +138,7 @@ class Order extends React.PureComponent {
 			<Col span={10}>
 				<Label>{this.formatMessage(`order.groupList.label`)}</Label>
 				<SortableList
-					height={723}
+					height={window.innerHeight - 190}
 					items={this.props.groups && this.props.groups.toArray() || []}
 					onScroll={this.onGroupListScroll}
 					scrollOffset={scrollOffset.group}

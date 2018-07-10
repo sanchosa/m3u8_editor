@@ -72,20 +72,22 @@ class Edit extends React.Component {
 					<GroupEditor intl={this.props.intl}/>
 				</Col>
 			</Row>,
-			<StyledRow key="edit" gutter={gutter}>
+			<Row key="edit" gutter={gutter}>
 				<Col span={6}>
 					<LeftChannelForm intl={this.props.intl}/>
 				</Col>
 				<Col span={12}>
 					<Transfer
-						listStyle={{width: `calc(50% - ${transferButtonsWidth}px)`, height: `500px`}}
+						listStyle={{
+							width: `calc(50% - ${transferButtonsWidth}px)`,
+							height: `${window.innerHeight - 251}px`}}
 						intl={this.props.intl}
 					/>
 				</Col>
 				<Col span={6}>
 					<RightChannelForm intl={this.props.intl}/>
 				</Col>
-			</StyledRow>
+			</Row>
 		]
 	}
 }

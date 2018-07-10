@@ -7,6 +7,7 @@ const Dragger = Upload.Dragger
 const StyledDragger = styled(Dragger)`
 	> .ant-upload-drag {
 		height: calc(100vh - 350px) !important;
+		min-height: 150px;
 	}
 `
 

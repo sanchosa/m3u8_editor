@@ -7,6 +7,8 @@ import MainContent from 'components/MainContent'
 
 const StyledLayout = styled(Layout)`
 	background: #fff;
+	min-width: 1150px;
+	min-height: 500px;
 `
 
 const HomePage = props =>

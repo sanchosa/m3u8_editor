@@ -12,10 +12,11 @@ const StyledLayout = styled(Layout)`
 `
 const StyledContent = styled(Content)`
 	padding: 24px 50px;
-	min-height: calc(100vh - 153px);
+	min-height: calc(100vh - 119px);
 `
 const StyledFooter = styled(Footer)`
 	background: #fff;
+	padding: 0 50px 24px;
 	> span {
 		float: right;
 	}
