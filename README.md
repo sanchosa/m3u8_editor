@@ -1,3 +1,5 @@
+![alt text](/src/assets/images/Logo_small.png)
+
 # m3u8_editor
 > Update compare and configure Your m3u8 playlist
 
