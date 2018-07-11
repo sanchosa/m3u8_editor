@@ -38,11 +38,14 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "antd": "^3.6.1",
+    "express": "^4.16.3",
+    
+  },
+  "devDependencies": {
+  	"antd": "^3.6.1",
     "compression": "1.6.2",
     "cross-env": "5.0.0",
-    "express": "^4.16.3",
-    "immutable": "4.0.0-rc.9",
+  	"immutable": "4.0.0-rc.9",
     "moment": "2.19.3",
     "normalizr": "3.2.4",
     "randomstring": "1.1.5",
@@ -62,9 +65,7 @@
     "redux-immutable": "4.0.0",
     "redux-saga": "0.15.3",
     "reselect": "3.0.1",
-    "styled-components": "2.1.0"
-  },
-  "devDependencies": {
+    "styled-components": "2.1.0",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.0.0",
