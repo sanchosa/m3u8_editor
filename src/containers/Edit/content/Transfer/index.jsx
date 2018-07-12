@@ -1,13 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 import {Transfer} from 'antd'
 import {DeleteButton, CopyButton} from './content/ChannelButtons'
 import connect from './connect'
-
-const StyledSpan = styled.span`
-	width: 100%;
-	display: inline-block;
-`
 
 const getCount = data =>
 	Array.isArray(data) ? data.length : 0
@@ -22,6 +16,7 @@ class Component extends React.PureComponent {
 		}
 
 		this.selectChannel = this.selectChannel.bind(this)
+		this.getUpdates = this.getUpdates.bind(this)
 		this.deleteChannels = this.deleteChannels.bind(this)
 		this.moveChannels = this.moveChannels.bind(this)
 		this.handleSelectChange = this.handleSelectChange.bind(this)
@@ -36,13 +31,35 @@ class Component extends React.PureComponent {
 			this.setState({targetSelectedKeys: null})
 		}
 	}
-	selectChannel(channel) {
-		const key = this.props.transferData.get(`targetKeys`).includes(channel.id)
-			? `rightChannel`
-			: `leftChannel`
+	selectChannel(key, id) {
+		const channel = this.props.transferData.get(`dataSource`).find(item => item.id === id)
+
 		this.props.setValue(key, channel)
 	}
+	getUpdates(updatedData, stateData, key) {
+		let current = []
+		let updated = []
+
+		if (stateData &&
+			stateData.length < updatedData.length) {
+			current = stateData
+			updated = updatedData
+		}
+		else {
+			current = updatedData
+			updated = stateData
+		}
+
+		const channels = stateData
+			? updated.filter(item =>
+				!current.includes(item))
+			: updatedData
+		channels.length > 0 && this.selectChannel(key, channels[0])
+	}
 	handleSelectChange(sourceSelectedKeys, targetSelectedKeys) {
+		this.getUpdates(sourceSelectedKeys, this.state.sourceSelectedKeys, `leftChannel`)
+		this.getUpdates(targetSelectedKeys, this.state.targetSelectedKeys, `rightChannel`)
+
 		this.setState({
 			sourceSelectedKeys,
 			targetSelectedKeys
@@ -81,13 +98,9 @@ class Component extends React.PureComponent {
 		})
 	}
 	renderItem(item) {
-		const label = <StyledSpan onClick={() => this.selectChannel(item)}>
-			{item.name}
-		</StyledSpan>
-
 		return {
-			label, // for displayed item
-			value: item.link // for hint
+			label: item.name, // for displayed item
+			value: item.link, // for hint
 		}
 	}
 	render() {

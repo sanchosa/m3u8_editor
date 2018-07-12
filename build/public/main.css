@@ -7190,7 +7190,7 @@ mark {
 }
 .ant-select-search__field__mirror {
   position: absolute;
-  top: 0;
+  top: -9999px;
   left: -9999px;
   white-space: pre;
   pointer-events: none;
@@ -8588,11 +8588,12 @@ textarea.ant-input {
 .ant-btn + .ant-btn-group,
 .ant-btn-group span + .ant-btn,
 .ant-btn-group .ant-btn + span,
+.ant-btn-group > span + span,
 .ant-btn-group + .ant-btn,
 .ant-btn-group + .ant-btn-group {
   margin-left: -1px;
 }
-.ant-btn-group .ant-btn-primary + .ant-btn:not(.ant-btn-primary) {
+.ant-btn-group .ant-btn-primary + .ant-btn:not(.ant-btn-primary):not([disabled]) {
   border-left-color: transparent;
 }
 .ant-btn-group .ant-btn:not(:first-child):not(:last-child) {
@@ -9608,6 +9609,7 @@ a.ant-btn-sm {
   z-index: 1060;
   display: block;
   visibility: visible;
+  max-width: 250px;
 }
 .ant-tooltip-hidden {
   display: none;
@@ -9633,7 +9635,6 @@ a.ant-btn-sm {
   padding-right: 8px;
 }
 .ant-tooltip-inner {
-  max-width: 250px;
   padding: 6px 8px;
   color: #fff;
   text-align: left;
@@ -9829,7 +9830,7 @@ a.ant-btn-sm {
 .ant-popover-placement-top > .ant-popover-content > .ant-popover-arrow,
 .ant-popover-placement-topLeft > .ant-popover-content > .ant-popover-arrow,
 .ant-popover-placement-topRight > .ant-popover-content > .ant-popover-arrow {
-  bottom: 5px;
+  bottom: 5.5px;
   -webkit-box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
           box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.07);
 }
@@ -12131,7 +12132,6 @@ span.ant-transfer-list-search-action {
   filter: blur(0.5px);
   /* autoprefixer: off */
   filter: progid\:DXImageTransform\.Microsoft\.Blur(PixelRadius\=1, MakeShadow\=false);
-  -webkit-transform: translateZ(0);
 }
 .ant-spin-blur:after {
   content: '';
@@ -12152,6 +12152,7 @@ span.ant-transfer-list-search-action {
 .ant-spin-dot {
   position: relative;
   display: inline-block;
+  font-size: 20px;
   width: 20px;
   height: 20px;
 }
@@ -12202,6 +12203,7 @@ span.ant-transfer-list-search-action {
           animation: antRotate 1.2s infinite linear;
 }
 .ant-spin-sm .ant-spin-dot {
+  font-size: 14px;
   width: 14px;
   height: 14px;
 }
@@ -12210,6 +12212,7 @@ span.ant-transfer-list-search-action {
   height: 6px;
 }
 .ant-spin-lg .ant-spin-dot {
+  font-size: 32px;
   width: 32px;
   height: 32px;
 }
