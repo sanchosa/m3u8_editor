@@ -36,6 +36,7 @@ export default defineMessages({
 	'import.loadNamedStorageList.text': `Локальное хранилище содержит "{name}" лист от {date}`,
 	'import.loadNoNamedStorageList.text': `Локальное хранилище содержит безымянный лист от {date}`,
 	'import.dragInstructions': `Нажмите на область или перенесите сюда файл`,
+	'import.dragFile.message.success': `Файл {name} успешно загружен. Продолжите на странице редактирования.`,
 	'order.searchChannel.placeholder': `Введите название канала`,
 	'order.channelList.label': `Сортировка каналов`,
 	'order.channelList.placeholder': `Выберите группу`,

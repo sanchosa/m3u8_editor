@@ -1,5 +1,5 @@
 import React from 'react'
-import {Radio, Checkbox, Row, Col, Tooltip, Button} from 'antd'
+import {Radio, Checkbox, Row, Col, Tooltip, Button, message} from 'antd'
 import styled from 'styled-components'
 import {DragFile} from 'components/OpenFile'
 import connect from './connect'
@@ -29,10 +29,15 @@ class Import extends React.PureComponent {
 			method: `new`,
 		}
 
+		this.eventChange = this.eventChange.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
 	}
 	radioChange(value) {
 		console.log(value)
+	}
+	eventChange({file}) {
+		`status` in file && file.status === `done` && message.success(this.formatMessage(
+			`import.dragFile.message.success`, {name: file.name}))
 	}
 	formatMessage(id, params) {
 		return this.props.intl && this.props.intl.formatMessage({id}, {...params})
@@ -88,7 +93,8 @@ class Import extends React.PureComponent {
 					]}
 				</Col>
 			</StyledRow>,
-			<DragFile key="dragFile" customRequest={customRequest} {...props}/>
+			<DragFile key="dragFile" customRequest={customRequest}
+				onChange={this.eventChange}{...props}/>
 		]
 	}
 }

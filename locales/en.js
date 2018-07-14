@@ -35,6 +35,7 @@ export default defineMessages({
 	'import.loadNamedStorageList.text': `Local storage contains "{name}" list of {date}`,
 	'import.loadNoNamedStorageList.text': `Local storage contains "unnamed" list of {date}`,
 	'import.dragInstructions': `Click or drag file to this area to upload`,
+	'import.dragFile.message.success': `File {name} uploaded successfully. Continue with edit page.`,
 	'order.searchChannel.placeholder': `Input channel name`,
 	'order.channelList.label': `Channel sorting`,
 	'order.channelList.placeholder': `Select group`,
