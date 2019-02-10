@@ -1,17 +1,27 @@
-import {combineReducers} from 'redux-immutable'
 import globalReducer from './global/reducer'
-import listEditorReducer from 'containers/ListEditor/state/reducer'
-import orderReducer from 'containers/Order/state/reducer'
-import editReducer from 'containers/Edit/state/reducer'
-import exportReducer from 'containers/Export/state/reducer'
+import camelCase from 'camelcase'
+import {combineReducers} from 'redux-immutable'
 
-export default function createReducer(injectedReducers) {
-	return combineReducers({
-		global: globalReducer,
-		listEditor: listEditorReducer,
-		order: orderReducer,
-		edit: editReducer,
-		export: exportReducer,
-		...injectedReducers
-	})
+const reExecString = str => {
+	const result = /\.\/(.+)\/state\/.+$/.exec(str)
+
+	return result && result.length > 0 && result[1]
+		? result[1].trim()
+		: null
 }
+
+const reducers = {
+	global: globalReducer,
+}
+const req = require.context(`../containers`, true, /reducer\.js$/)
+
+req.keys().forEach(key => {
+	const name = reExecString(key)
+	const storeName = name && camelCase(name)
+
+	if (storeName) {
+		reducers[storeName] = req(key).default
+	}
+})
+
+export default combineReducers(reducers)

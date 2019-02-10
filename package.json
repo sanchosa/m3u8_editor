@@ -51,6 +51,7 @@
     "babel-loader": "^8.0.5",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "camelcase": "^5.0.0",
     "circular-dependency-plugin": "^5.0.2",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",

@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware, compose} from 'redux'
 import {fromJS} from 'immutable'
 import createSagaMiddleware from 'redux-saga'
-import createReducer from './reducers'
+import reducers from './reducers'
 import sagas from './sagas'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -22,7 +22,7 @@ export default function configureStore() {
 			: compose
 
 	const store = createStore(
-		createReducer(),
+		reducers,
 		fromJS(initialState),
 		composeEnhancers(...enhancers)
 	)
