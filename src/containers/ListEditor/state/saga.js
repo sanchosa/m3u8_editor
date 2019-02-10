@@ -70,8 +70,8 @@ function *parseList({onSuccess, onError, onProgress, ...file}) {
 	const channels = []
 	let newChannel = {}
 	let playlistName = null
-	for (var i = 1; i < list.length; i++) {
-		if (list[i] === ``) continue
+	for (var i = 0; i < list.length; i++) {
+		if (list[i] === `` || list[i] === `#EXTM3U`) continue
 		if (list[i][0] === `#`) {
 			if (list[i].indexOf(`#EXTINF:`) === 0) {
 				newChannel.duration = reExecInt(re.duration, list[i])
@@ -101,6 +101,9 @@ function *parseList({onSuccess, onError, onProgress, ...file}) {
 			if (newChannel.additional) {
 				newChannel.additional = newChannel.additional.join(`\r\n`)
 			}
+
+			console.log(newChannel)
+
 			channels.push(newChannel)
 			newChannel = {}
 		}

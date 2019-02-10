@@ -1,9 +1,16 @@
 import {SET_VALUE, initialState} from './constants'
-import {DELETE_GROUP, EDIT_GROUP} from 'containers/ListEditor/state/constants'
-import {DELETE_CHANNEL, MOVE_CHANNEL} from 'containers/ListEditor/state/constants'
+import {
+	LOAD_NEW_LIST,
+	DELETE_GROUP,
+	EDIT_GROUP,
+	DELETE_CHANNEL,
+	MOVE_CHANNEL,
+} from 'containers/ListEditor/state/constants'
 
 function editReducer(state = initialState, action) {
 	switch (action.type) {
+	case LOAD_NEW_LIST:
+		return initialState
 	case SET_VALUE: {
 		const {name, value} = action.payload
 		return state.set(name, value)
