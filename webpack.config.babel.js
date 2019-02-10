@@ -61,19 +61,17 @@ const common = {
 		alias: {moment: `moment/moment.js`}
 	},
 	target: `web`,
-	// optimization: {
-	// 	splitChunks: {
-	// 		cacheGroups: {
-	// 			vendors: {
-	// 				test: /[\\/]node_modules[\\/]/,
-	// 				chunks: `initial`,
-	// 				name: `vendor`,
-	// 				reuseExistingChunk: true,
-	// 				priority: -20,
-	// 			},
-	// 		},
-	// 	},
-	// },
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				vendors: {
+					test: /[\\/]node_modules[\\/]/,
+					chunks: `initial`,
+					name: `vendor`,
+				},
+			},
+		},
+	},
 }
 
 let result = {}
