@@ -3,7 +3,6 @@ import {
 	selectGlobal,
 	makeSelectLoading,
 	makeSelectError,
-	makeSelectLocation,
 	makeSelectLocale,
 	makeSelectStorageFlag,
 	makeSelectStorageInfo,
@@ -39,10 +38,5 @@ describe(`Global state selectors`, () => {
 		const expectedResult = mockedState.getIn([`global`, `storageInfo`])
 		const selector = makeSelectStorageInfo()
 		expect(selector(mockedState)).toEqual(expectedResult)
-	})
-	it(`should select location from global state`, () => {
-		const expectedResult = mockedState.getIn([`global`, `location`])
-		const selectLocation = makeSelectLocation()
-		expect(selectLocation(mockedState)).toEqual(expectedResult)
 	})
 })

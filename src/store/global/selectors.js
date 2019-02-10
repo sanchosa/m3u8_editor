@@ -17,14 +17,6 @@ export const makeSelectLocale = () => createSelector(
 	globalState => globalState.get(`locale`)
 )
 
-export const makeSelectLocation = () => createSelector(
-	selectGlobal,
-	globalState => {
-		const location = globalState.get(`location`)
-		return location && location.toJS()
-	}
-)
-
 export const makeSelectStorageFlag = () => createSelector(
 	selectGlobal,
 	globalState => globalState.get(`useStorage`)

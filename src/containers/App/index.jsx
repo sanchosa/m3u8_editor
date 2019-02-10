@@ -1,11 +1,12 @@
 import React from 'react'
 import HomePage from 'components/HomePage'
 import ErrorTrapper from './ErrorTrapper'
-import injectStorageSaga from './injectStorageSaga'
+import GlobalStyle from './styles'
 
-const App = () => [
-	<HomePage key="home-page"/>,
+const App = () => <React.Fragment>
+	<HomePage key="home-page"/>
 	<ErrorTrapper key="error-trapper"/>
-]
+	<GlobalStyle/>
+</React.Fragment>
 
-export default injectStorageSaga(App)
+export default App

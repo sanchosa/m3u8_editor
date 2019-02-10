@@ -1,31 +1,11 @@
 {
-	"env": {
-		"production": {
-			"only": [
-				"app"
-			],
-			"plugins": [
-				"transform-react-remove-prop-types",
-				"transform-react-constant-elements",
-				"transform-react-inline-elements"
-			]
-		},
-		"test": {
-			"plugins": [
-				"transform-es2015-modules-commonjs",
-				"dynamic-import-node"
-			]
-		}
-	},
 	"presets": [
-		"flow",
-		"jest",
-		"react",
-		"stage-0"
+		"@babel/preset-env",
+		"@babel/preset-react"
 	],
 	"plugins": [
-		"flow-react-proptypes",
-		"styled-components",
+		"@babel/plugin-proposal-class-properties",
+		"babel-plugin-styled-components",
 		["import", {"libraryName": "antd", "style": "css"}]
 	]
 }

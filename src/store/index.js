@@ -1,16 +1,15 @@
 import {createStore, applyMiddleware, compose} from 'redux'
 import {fromJS} from 'immutable'
-import {routerMiddleware} from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga'
 import createReducer from './reducers'
+import sagas from './sagas'
 
 const sagaMiddleware = createSagaMiddleware()
 const initialState = {}
 
-export default function configureStore(history) {
+export default function configureStore() {
 	const middlewares = [
 		sagaMiddleware,
-		routerMiddleware(history)
 	]
 	const enhancers = [
 		applyMiddleware(...middlewares)
@@ -27,8 +26,8 @@ export default function configureStore(history) {
 		fromJS(initialState),
 		composeEnhancers(...enhancers)
 	)
-	store.runSaga = sagaMiddleware.run
-	store.injectedSagas = {}
+
+	sagaMiddleware.run(sagas)
 
 	return store
 }
