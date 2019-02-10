@@ -50,7 +50,7 @@ function *parseList({onSuccess, onError, onProgress, ...file}) {
 
 	const re = {
 		duration: /#EXTINF:\s?(-?\d+)\s?[^,]*,.*/,
-		name: /#EXTINF:[^,]+,(.+)/,
+		name: /#EXTINF:.+,([^,]+)/,
 		tvgShift: /#EXTINF:.+tvg-shift="?(-?\+?\d+)"?\s?.*,.*/,
 		tvgName: /#EXTINF:.+tvg-name="([^"]+)"\s?.*,.*/,
 		tvgLogo: /#EXTINF:.+tvg-logo="([^"]+)"\s?.*,.*/,
@@ -62,7 +62,7 @@ function *parseList({onSuccess, onError, onProgress, ...file}) {
 
 	const list = listText.split(separator)
 
-	if (list.length === 0 || list[0] !== `#EXTM3U`) {
+	if (list.length === 0) {
 		onError && onError(`Incorrect file content`)
 		return showLoadFailMessage()
 	}
