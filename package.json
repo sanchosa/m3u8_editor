@@ -1,6 +1,6 @@
 {
   "name": "m3u8_editor",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Update, compare and configure Your m3u8 iptv playlist",
   "engines": {
     "npm": ">=5",
