@@ -1,5 +1,6 @@
-import {DEFAULT_ACTION} from './constants'
+import {SET_VALUES} from './constants'
 
-export function defaultAction() {
-	return {type: DEFAULT_ACTION}
-}
+export const setValues = data => ({
+	type: SET_VALUES,
+	payload: data,
+})

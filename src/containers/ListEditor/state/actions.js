@@ -3,6 +3,7 @@ import {
 	COMPARE_LIST,
 	SET_NEW_LIST,
 	SET_COMPARE_LIST,
+	APPLY_COMPARE,
 	SET_CONTROL,
 	SORT_CHANNEL,
 	SORT_GROUP,
@@ -42,6 +43,13 @@ export const setNewList = data => {
 export const setCompareList = data => {
 	return {
 		type: SET_COMPARE_LIST,
+		payload: data
+	}
+}
+
+export const applyCompare = data => {
+	return {
+		type: APPLY_COMPARE,
 		payload: data
 	}
 }

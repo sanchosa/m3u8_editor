@@ -1,10 +1,19 @@
 import {connect} from 'react-redux'
-import {setValue} from './state/actions'
-import {createGroup} from 'containers/ListEditor/state/actions'
+import {createStructuredSelector} from 'reselect'
+import {setValues} from './state/actions'
+import {applyCompare} from 'containers/ListEditor/state/actions'
+import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
+import {makeSelectCompareData} from './state/selectors'
 
-const mapActions = dispatch => ({
-	setValue: (name, value) => dispatch(setValue(name, value)),
-	createGroup: value => dispatch(createGroup(value))
+const mapProps = createStructuredSelector({
+	selectedNewKeys: makeSelectCompareData(`selectedNewKeys`),
+	selectedLostKeys: makeSelectCompareData(`selectedLostKeys`),
+	data: makeSelectEditorData(`compare`),
 })
 
-export default Component => connect(null, mapActions)(Component)
+const mapActions = {
+	applyCompare,
+	setValues,
+}
+
+export default Component => connect(mapProps, mapActions)(Component)

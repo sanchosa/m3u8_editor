@@ -4,6 +4,7 @@ export const LOAD_NEW_LIST = `ListEditor/LOAD_NEW_LIST`
 export const COMPARE_LIST = `ListEditor/COMPARE_LIST`
 export const SET_NEW_LIST = `ListEditor/SET_NEW_LIST`
 export const SET_COMPARE_LIST = `ListEditor/SET_COMPARE_LIST`
+export const APPLY_COMPARE = `ListEditor/APPLY_COMPARE`
 export const SET_CONTROL = `ListEditor/SET_CONTROL`
 export const SORT_CHANNEL = `ListEditor/SORT_CHANNEL`
 export const SORT_GROUP = `ListEditor/SORT_GROUP`

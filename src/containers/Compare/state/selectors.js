@@ -1,12 +1,8 @@
 import {createSelector} from 'reselect'
 
-const selectCompareDomain = (state) => state.get(`compare`)
-const makeSelectCompare = () => createSelector(
-	selectCompareDomain,
-	substate => substate
-)
+const selectCompareDomain = state => state.get(`compare`)
 
-export default makeSelectCompare
-export {
-  selectCompareDomain,
-}
+export const makeSelectCompareData = key => createSelector(
+	selectCompareDomain,
+	compare => compare.get(key)
+)
