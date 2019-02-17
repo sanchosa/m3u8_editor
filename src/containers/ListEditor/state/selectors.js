@@ -11,3 +11,8 @@ export const makeSelectGroupNames = () => createSelector(
 	makeSelectEditorData(`groups`),
 	groups => groups && groups.get(`index`)
 )
+
+export const makeSelectChannelsSize = () => createSelector(
+	makeSelectEditorData(`channels`),
+	channels => channels.size
+)

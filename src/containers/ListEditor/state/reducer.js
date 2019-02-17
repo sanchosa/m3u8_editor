@@ -4,6 +4,7 @@ import randomString from 'randomstring'
 import {channelListSchema, ChannelRecord} from './schema'
 import {
 	SET_NEW_LIST,
+	SET_COMPARE_LIST,
 	SET_CONTROL,
 	SORT_CHANNEL,
 	SORT_GROUP,
@@ -38,6 +39,46 @@ export default function listEditorReducer(state = initialState, action) {
 			.set(`channels`, Map(normalizedChannels))
 			.set(`groups`, fromJS(groups))
 			.set(`playlistName`, playlistName))
+	}
+	case SET_COMPARE_LIST: {
+		const {channels: _channels, groups: _groups} = action.payload
+
+		// console.log(_channels, _groups)
+
+		const channels = state.get(`channels`)
+		const groups = state.get(`groups`)
+
+		const _links = _channels.map(channel => channel.link)
+
+		const newChannels = _channels.filter(channel =>
+			!channels.findEntry(value => value.get(`link`) === channel.link))
+		const _ids = newChannels.map(channel => channel.id)
+		const lostChannels = channels.filterNot(channel => _links.includes(channel.get(`link`)))
+
+		const newGroups = {}
+		for (let key in _groups) {
+			const group = _groups[key]
+			const result = group.filter(id => _ids.includes(id))
+
+			if (result.length > 0) {
+				newGroups[key] = result
+			}
+		}
+
+		const lostGroups = groups
+			.map(group => group
+				.filter(id => lostChannels.has(id))
+			)
+			.filter(group => group.size > 0)
+
+		const normalizedChannels = normalize(newChannels, channelListSchema).entities.channels
+
+		return state.withMutations(map => map
+			.setIn([`compare`, `newChannels`], Map(normalizedChannels))
+			.setIn([`compare`, `newGroups`], fromJS(newGroups))
+			.setIn([`compare`, `lostChannels`], lostChannels)
+			.setIn([`compare`, `lostGroups`], lostGroups)
+		)
 	}
 	case SET_CONTROL:
 		return state.set(`control`, action.payload)

@@ -29,11 +29,12 @@ class Import extends React.PureComponent {
 			method: `new`,
 		}
 
+		this.radioChange = this.radioChange.bind(this)
 		this.eventChange = this.eventChange.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
 	}
-	radioChange(value) {
-		console.log(value)
+	radioChange(method) {
+		this.setState({method})
 	}
 	eventChange({file}) {
 		`status` in file && file.status === `done` && message.success(this.formatMessage(
@@ -43,7 +44,7 @@ class Import extends React.PureComponent {
 		return this.props.intl && this.props.intl.formatMessage({id}, {...params})
 	}
 	render() {
-		const {loadNewList, compareList, ...props} = this.props
+		const {loadNewList, compareList, channelsSize, ...props} = this.props
 		const customRequest = this.state.method === `new` ? loadNewList : compareList
 
 		const {name, date} = this.props.storageInfo && this.props.storageInfo.toJS()
@@ -53,22 +54,20 @@ class Import extends React.PureComponent {
 
 		const options = [
 			{label: this.formatMessage(`import.radio.newList`), value: `new`},
-			{label: this.formatMessage(`import.radio.compareList`), value: `compare`, disabled: true}
+			{label: this.formatMessage(`import.radio.compareList`), value: `compare`,
+				disabled: channelsSize === 0,
+			},
 		]
 
 		return [
 			<StyledRow key="row">
 				<Col span={12}>
 					<h3>{this.formatMessage(`import.radio.header`)}</h3>
-					<Tooltip mouseEnterDelay={2} title={this.formatMessage(`underConstruction`)}
-						placement="bottomRight"
-					>
-						<RadioGroup key="radio"
-							options={options}
-							value={this.state.method}
-							onChange={this.radioChange}
-						/>
-					</Tooltip>
+					<RadioGroup key="radio"
+						options={options}
+						defaultValue={this.state.method}
+						onChange={this.radioChange}
+					/>
 				</Col>
 				<Col span={12}>
 					<h3>{this.formatMessage(`import.useLocalStorageHeader`)}</h3>

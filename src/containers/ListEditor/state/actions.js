@@ -1,6 +1,8 @@
 import {
 	LOAD_NEW_LIST,
+	COMPARE_LIST,
 	SET_NEW_LIST,
+	SET_COMPARE_LIST,
 	SET_CONTROL,
 	SORT_CHANNEL,
 	SORT_GROUP,
@@ -23,9 +25,23 @@ export const loadNewList = fileObject => {
 	}
 }
 
+export const compareList = fileObject => {
+	return {
+		type: COMPARE_LIST,
+		payload: fileObject
+	}
+}
+
 export const setNewList = data => {
 	return {
 		type: SET_NEW_LIST,
+		payload: data
+	}
+}
+
+export const setCompareList = data => {
+	return {
+		type: SET_COMPARE_LIST,
 		payload: data
 	}
 }

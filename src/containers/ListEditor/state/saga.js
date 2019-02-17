@@ -1,8 +1,8 @@
 import {notification} from 'antd'
 import randomString from 'randomstring'
 import {put, call, takeLatest} from 'redux-saga/effects'
-import {LOAD_NEW_LIST} from './constants'
-import {setNewList} from './actions'
+import {LOAD_NEW_LIST, COMPARE_LIST} from './constants'
+import {setNewList, setCompareList} from './actions'
 import {readLocalTextFile} from 'utils/read-file'
 
 const showLoadFailMessage = () => {
@@ -13,7 +13,7 @@ const showLoadFailMessage = () => {
 		placement: `topLeft`
 	}
 
-	notification[`info`](config)
+	notification.info(config)
 
 	return {}
 }
@@ -102,8 +102,6 @@ function *parseList({onSuccess, onError, onProgress, ...file}) {
 				newChannel.additional = newChannel.additional.join(`\r\n`)
 			}
 
-			console.log(newChannel)
-
 			channels.push(newChannel)
 			newChannel = {}
 		}
@@ -150,6 +148,15 @@ function *loadNewList(action) {
 	}
 }
 
+function *compareList(action) {
+	const {channels, playlistName} = yield parseList(action.payload)
+	if (channels) {
+		const groups = yield buildGroups(channels)
+		yield put(setCompareList({channels, groups, playlistName}))
+	}
+}
+
 export default function *listEditorSaga() {
 	yield takeLatest(LOAD_NEW_LIST, loadNewList)
+	yield takeLatest(COMPARE_LIST, compareList)
 }

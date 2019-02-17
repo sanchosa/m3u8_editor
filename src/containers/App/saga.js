@@ -1,6 +1,5 @@
 import moment from 'moment'
-import {delay} from 'redux-saga'
-import {put, takeLatest, select} from 'redux-saga/effects'
+import {put, takeLatest, select, delay} from 'redux-saga/effects'
 import storage from 'utils/local-storage'
 import {setLocale, setStorageFlag, setStorageInfo} from 'store/global/actions'
 import {SET_LOCALE, SET_STORAGE_FLAG, REMOVE_STORAGE_LIST} from 'store/global/constants'
