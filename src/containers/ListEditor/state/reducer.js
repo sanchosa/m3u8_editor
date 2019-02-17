@@ -71,13 +71,14 @@ export default function listEditorReducer(state = initialState, action) {
 			)
 			.filter(group => group.size > 0)
 
-		const normalizedChannels = normalize(newChannels, channelListSchema).entities.channels
+		const normalizedChannels = Map(normalize(newChannels, channelListSchema).entities.channels)
 
 		return state.withMutations(map => map
-			.setIn([`compare`, `newChannels`], Map(normalizedChannels))
+			.setIn([`compare`, `newChannels`], normalizedChannels)
 			.setIn([`compare`, `newGroups`], fromJS(newGroups))
 			.setIn([`compare`, `lostChannels`], lostChannels)
 			.setIn([`compare`, `lostGroups`], lostGroups)
+			.setIn([`compare`, `visible`], normalizedChannels.size > 0 || lostChannels.size > 0)
 		)
 	}
 	case SET_CONTROL:

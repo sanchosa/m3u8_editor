@@ -25,6 +25,8 @@ export const initialState = fromJS({
 		index: [`none`]
 	},
 	channels: {},
-	compare: {},
+	compare: {
+		visible: false,
+	},
 	playlistName: null
 })

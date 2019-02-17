@@ -4,11 +4,14 @@ import Order from 'containers/Order'
 import Edit from 'containers/Edit'
 import Export from 'containers/Export'
 import Import from 'containers/Import'
+import Compare from 'containers/Compare'
 
 const Component = props => {
 	switch (props.control) {
 	case `import`:
 		return <Import intl={props.intl}/>
+	case `compare`:
+		return <Compare intl={props.intl}/>
 	case `edit`:
 		return <Edit intl={props.intl} key="edit"/>
 	case `order`:

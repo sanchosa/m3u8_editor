@@ -16,6 +16,9 @@ export default defineMessages({
 	'control.import': `Import`,
 	'control.import.popover.content': `Opens the playlist upload panel.
 		Allows to upload the source list.`,
+	'control.compare': `Compare`,
+	'control.compare.popover.content': `Opens the playlists compare result.
+		Allows to select new items to add or unnecessary to delete.`,
 	'control.edit': `Edit`,
 	'control.edit.popover.content': `Opens the playlist creation panel.
 		Allows to manage the elements of the list and distribute the elements into groups.`,

@@ -40,6 +40,9 @@ const Component = props => {
 		<Menu.Item key="import">
 			{getMenuContent(`control.import`, `upload`)}
 		</Menu.Item>
+		{props.compareVisible && <Menu.Item key="compare">
+			{getMenuContent(`control.compare`, `file-search`)}
+		</Menu.Item>}
 		<Menu.Item key="edit">
 			{getMenuContent(`control.edit`, `edit`)}
 		</Menu.Item>

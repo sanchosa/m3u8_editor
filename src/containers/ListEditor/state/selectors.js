@@ -16,3 +16,8 @@ export const makeSelectChannelsSize = () => createSelector(
 	makeSelectEditorData(`channels`),
 	channels => channels.size
 )
+
+export const makeSelectCompareVisibility = () => createSelector(
+	makeSelectEditorData(`compare`),
+	compare => compare.get(`visible`)
+)
