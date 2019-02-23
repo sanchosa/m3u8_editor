@@ -56,13 +56,19 @@ export default function listEditorReducer(state = initialState, action) {
 		const lostChannels = channels.filterNot(channel => _links.includes(channel.get(`link`)))
 		const newLinks = _newChannels.filter(channel =>
 			channels.findEntry(value => value.get(`name`) === channel.name))
+		const newLinksNames = newLinks.map(channel => channel.name)
+		const oldLinks = channels
+			.filter(channel => newLinksNames.includes(channel.get(`name`)))
+			.map(channel =>
+				channel.set(`newLink`, newLinks.find(item => item.name === channel.get(`name`)).link)
+			)
 		const newChannels = _newChannels.filter(_channel =>
 			!newLinks.find(channel => channel.link === _channel.link))
 		const _newChannelsIds = newChannels.map(channel => channel.id)
-		const _newLinksIds = newLinks.map(channel => channel.id)
+		// const _newLinksIds = newLinks.map(channel => channel.id)
 
 		const newChannelsGroups = {}
-		const newLinksGroups = {}
+		// const newLinksGroups = {}
 		for (let key in _groups) {
 			const group = _groups[key]
 
@@ -71,12 +77,17 @@ export default function listEditorReducer(state = initialState, action) {
 				newChannelsGroups[key] = cResult
 			}
 
-			const lResult = group.filter(id => _newLinksIds.includes(id))
-			if (lResult.length > 0) {
-				newLinksGroups[key] = lResult
-			}
+			// const lResult = group.filter(id => _newLinksIds.includes(id))
+			// if (lResult.length > 0) {
+			// 	newLinksGroups[key] = lResult
+			// }
 		}
 
+		const newLinksGroups = groups
+			.map(group => group
+				.filter(id => oldLinks.has(id))
+			)
+			.filter(group => group.size > 0)
 		const lostGroups = groups
 			.map(group => group
 				.filter(id => lostChannels.has(id))
@@ -84,15 +95,15 @@ export default function listEditorReducer(state = initialState, action) {
 			.filter(group => group.size > 0)
 
 		const normalizedNewChannels = Map(normalize(newChannels, channelListSchema).entities.channels)
-		const normalizedNewLinks = Map(normalize(newLinks, channelListSchema).entities.channels)
-		const visible = normalizedNewChannels.size > 0 || normalizedNewLinks > 0 ||
+		// const normalizedNewLinks = Map(normalize(newLinks, channelListSchema).entities.channels)
+		const visible = normalizedNewChannels.size > 0 || newLinks.size > 0 ||
 			lostChannels.size > 0
 
 		return state.withMutations(map => map
 			.setIn([`compare`, `newChannels`], normalizedNewChannels)
 			.setIn([`compare`, `newChannelsGroups`], fromJS(newChannelsGroups))
-			.setIn([`compare`, `newLinks`], normalizedNewLinks)
-			.setIn([`compare`, `newLinksGroups`], fromJS(newLinksGroups))
+			.setIn([`compare`, `newLinks`], oldLinks)
+			.setIn([`compare`, `newLinksGroups`], newLinksGroups)
 			.setIn([`compare`, `lostChannels`], lostChannels)
 			.setIn([`compare`, `lostGroups`], lostGroups)
 			.setIn([`compare`, `visible`], visible)
