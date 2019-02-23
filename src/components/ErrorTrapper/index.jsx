@@ -32,7 +32,7 @@ export default class ErrorTrapper extends React.PureComponent {
 			onClose: () => this.clearError()
 		}
 
-		notification[`error`](config)
+		notification.error(config)
 		return null
 	}
 	render() {

@@ -26,7 +26,7 @@ const errorHandler = error => {
 		placement: `topLeft`
 	}
 
-	notification[`error`](config)
+	notification.error(config)
 
 	return null
 }

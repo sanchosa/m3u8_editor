@@ -34,7 +34,7 @@
 		"indent": ["error", "tab"],
 		"key-spacing": ["error", {"beforeColon": false, "afterColon": true}],
 		"keyword-spacing": ["error", {"before": true}],
-		"linebreak-style": ["error", "windows"],
+		"linebreak-style": ["error", "unix"],
 		"max-len": [1, 100, 3],
 		"named": 0,
 		"no-array-constructor": 2,

@@ -21,7 +21,7 @@ class GroupEditor extends React.PureComponent {
 	}
 	editGroup() {
 		if (this.props.groups.includes(this.state.editGroupValue)) {
-			return notification[`warning`]({
+			return notification.warning({
 				message: `Group ${this.state.editGroupValue} allready exists !`
 			})
 		}

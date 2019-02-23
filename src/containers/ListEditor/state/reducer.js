@@ -50,18 +50,30 @@ export default function listEditorReducer(state = initialState, action) {
 
 		const _links = _channels.map(channel => channel.link)
 
-		const newChannels = _channels.filter(channel =>
+		const _newChannels = _channels.filter(channel =>
 			!channels.findEntry(value => value.get(`link`) === channel.link))
-		const _ids = newChannels.map(channel => channel.id)
-		const lostChannels = channels.filterNot(channel => _links.includes(channel.get(`link`)))
 
-		const newGroups = {}
+		const lostChannels = channels.filterNot(channel => _links.includes(channel.get(`link`)))
+		const newLinks = _newChannels.filter(channel =>
+			channels.findEntry(value => value.get(`name`) === channel.name))
+		const newChannels = _newChannels.filter(_channel =>
+			!newLinks.find(channel => channel.link === _channel.link))
+		const _newChannelsIds = newChannels.map(channel => channel.id)
+		const _newLinksIds = newLinks.map(channel => channel.id)
+
+		const newChannelsGroups = {}
+		const newLinksGroups = {}
 		for (let key in _groups) {
 			const group = _groups[key]
-			const result = group.filter(id => _ids.includes(id))
 
-			if (result.length > 0) {
-				newGroups[key] = result
+			const cResult = group.filter(id => _newChannelsIds.includes(id))
+			if (cResult.length > 0) {
+				newChannelsGroups[key] = cResult
+			}
+
+			const lResult = group.filter(id => _newLinksIds.includes(id))
+			if (lResult.length > 0) {
+				newLinksGroups[key] = lResult
 			}
 		}
 
@@ -71,14 +83,19 @@ export default function listEditorReducer(state = initialState, action) {
 			)
 			.filter(group => group.size > 0)
 
-		const normalizedChannels = Map(normalize(newChannels, channelListSchema).entities.channels)
+		const normalizedNewChannels = Map(normalize(newChannels, channelListSchema).entities.channels)
+		const normalizedNewLinks = Map(normalize(newLinks, channelListSchema).entities.channels)
+		const visible = normalizedNewChannels.size > 0 || normalizedNewLinks > 0 ||
+			lostChannels.size > 0
 
 		return state.withMutations(map => map
-			.setIn([`compare`, `newChannels`], normalizedChannels)
-			.setIn([`compare`, `newGroups`], fromJS(newGroups))
+			.setIn([`compare`, `newChannels`], normalizedNewChannels)
+			.setIn([`compare`, `newChannelsGroups`], fromJS(newChannelsGroups))
+			.setIn([`compare`, `newLinks`], normalizedNewLinks)
+			.setIn([`compare`, `newLinksGroups`], fromJS(newLinksGroups))
 			.setIn([`compare`, `lostChannels`], lostChannels)
 			.setIn([`compare`, `lostGroups`], lostGroups)
-			.setIn([`compare`, `visible`], normalizedChannels.size > 0 || lostChannels.size > 0)
+			.setIn([`compare`, `visible`], visible)
 		)
 	}
 	case SET_CONTROL:
