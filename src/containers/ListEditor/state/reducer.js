@@ -22,6 +22,7 @@ import {
 	LOAD_STORAGE_LIST,
 	CLEAR_COMPARE,
 	APPLY_COMPARE,
+	SET_COMPARE_NO_DIFF,
 	initialState
 } from './constants'
 
@@ -149,6 +150,11 @@ export default function listEditorReducer(state = initialState, action) {
 		return state.withMutations(map => map
 			.set(`compare`, initialState.get(`compare`))
 			.set(`control`, initialState.get(`control`))
+		)
+	case SET_COMPARE_NO_DIFF:
+		return state.withMutations(map => map
+			.setIn([`compare`, `noDiff`], action.payload)
+			.set(`loading`, false)
 		)
 	case SET_CONTROL:
 		return state.set(`control`, action.payload)

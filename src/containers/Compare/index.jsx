@@ -5,7 +5,7 @@ import getContent from './content'
 import {getDefaultColumns, getNewLinksColumns} from './columns'
 import connect from './connect'
 
-const getData = (groups, channels) => groups
+const getData = (groups, channels) => groups && groups
 	.map((group, name) => ({
 		group: name,
 		id: randomString.generate(8),
@@ -18,8 +18,11 @@ const getData = (groups, channels) => groups
 const getSelectedKeys = list => list ? list.toJS() : []
 
 const getDefaultKey = data => {
-	if (data.get(`newChannels`).size > 0) return `newChannels`
-	if (data.get(`newLinks`).size > 0) return `newLinks`
+	const ch = data.get(`newChannels`)
+	const lk = data.get(`newLinks`)
+
+	if (ch && ch.size > 0) return `newChannels`
+	if (lk && lk.size > 0) return `newLinks`
 
 	return `lostChannels`
 }
@@ -141,7 +144,8 @@ class Compare extends React.Component {
 							dataSource: this.state.lostChannelsDataSource,
 							selectedKeys: getSelectedKeys(this.props.selectedLostChannels),
 							onChange: (keys, rows) => this.setKeys(keys, rows, `selectedLostChannels`),
-							onDeselect: (ids, result) => this.deselect(ids, result, `selectedLostChannels`),
+							onDeselect: (ids, result) =>
+								this.deselect(ids, result, `selectedLostChannels`),
 						})}
 					</Tabs>
 				</Spin>

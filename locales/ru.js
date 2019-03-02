@@ -42,6 +42,7 @@ export default defineMessages({
 	'import.dragInstructions': `Нажмите на область или перенесите сюда файл`,
 	'import.dragFile.message.success':
 		`Файл {name} успешно загружен. Продолжите на следующей странице.`,
+	'import.compare.noDiff': `Не найдено отличий в сравниваемом файле`,
 	'compare.tab.newChannels.title': `Новые каналы`,
 	'compare.tab.newLinks.title': `Новые ссылки`,
 	'compare.tab.lostChannels.title': `Не найденные каналы`,

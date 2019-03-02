@@ -21,3 +21,8 @@ export const makeSelectCompareVisibility = () => createSelector(
 	makeSelectEditorData(`compare`),
 	compare => compare.get(`visible`)
 )
+
+export const makeSelectCompareNoDiff = () => createSelector(
+	makeSelectEditorData(`compare`),
+	compare => compare.get(`noDiff`)
+)

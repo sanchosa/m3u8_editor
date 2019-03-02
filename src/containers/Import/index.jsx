@@ -33,6 +33,12 @@ class Import extends React.PureComponent {
 		this.eventChange = this.eventChange.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
 	}
+	componentDidUpdate() {
+		if (this.props.noDiff) {
+			this.props.setCompareNoDiff && this.props.setCompareNoDiff(false)
+			return message.success(this.formatMessage(`import.compare.noDiff`))
+		}
+	}
 	radioChange(method) {
 		this.setState({method})
 	}

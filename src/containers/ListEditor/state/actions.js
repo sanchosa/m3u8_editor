@@ -18,12 +18,19 @@ import {
 	COPY_CHANNEL,
 	MOVE_CHANNEL,
 	LOAD_STORAGE_LIST,
+	SET_COMPARE_NO_DIFF,
 } from './constants'
 
 export const loadNewList = fileObject => {
 	return {
 		type: LOAD_NEW_LIST,
 		payload: fileObject
+	}
+}
+export const setNewList = data => {
+	return {
+		type: SET_NEW_LIST,
+		payload: data
 	}
 }
 
@@ -33,31 +40,25 @@ export const compareList = fileObject => {
 		payload: fileObject
 	}
 }
-
-export const setNewList = data => {
-	return {
-		type: SET_NEW_LIST,
-		payload: data
-	}
-}
-
 export const setCompareList = data => {
 	return {
 		type: SET_COMPARE_LIST,
 		payload: data
 	}
 }
-
 export const applyCompare = data => {
 	return {
 		type: APPLY_COMPARE,
 		payload: data,
 	}
 }
-
 export const clearCompare = () => ({
 	type: CLEAR_COMPARE,
 	payload: null,
+})
+export const setCompareNoDiff = value => ({
+	type: SET_COMPARE_NO_DIFF,
+	payload: value,
 })
 
 export const setControl = control => {

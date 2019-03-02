@@ -19,6 +19,7 @@ export const DELETE_CHANNEL = `ListEditor/DELETE_CHANNEL`
 export const COPY_CHANNEL = `ListEditor/COPY_CHANNEL`
 export const MOVE_CHANNEL = `ListEditor/MOVE_CHANNEL`
 export const LOAD_STORAGE_LIST = `ListEditor/LOAD_STORAGE_LIST`
+export const SET_COMPARE_NO_DIFF = `ListEditor/SET_COMPARE_NO_DIFF`
 
 export const initialState = fromJS({
 	loading: false,
@@ -30,6 +31,7 @@ export const initialState = fromJS({
 	channels: {},
 	compare: {
 		visible: false,
+		noDiff: false,
 	},
 	playlistName: null
 })

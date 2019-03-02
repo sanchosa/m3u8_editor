@@ -42,6 +42,7 @@ export default defineMessages({
 	'import.dragInstructions': `Click or drag file to this area to upload`,
 	'import.dragFile.message.success':
 		`File {name} uploaded successfully. Continue with next page.`,
+	'import.compare.noDiff': `There is no difference found in compared file`,
 	'compare.tab.newChannels.title': `New channels`,
 	'compare.tab.newLinks.title': `New links`,
 	'compare.tab.lostChannels.title': `Lost channels`,
