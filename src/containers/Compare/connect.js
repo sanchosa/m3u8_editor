@@ -6,8 +6,9 @@ import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
 import {makeSelectCompareData} from './state/selectors'
 
 const mapProps = createStructuredSelector({
-	selectedNewKeys: makeSelectCompareData(`selectedNewKeys`),
-	selectedLostKeys: makeSelectCompareData(`selectedLostKeys`),
+	selectedNewChannels: makeSelectCompareData(`selectedNewChannels`),
+	selectedNewLinks: makeSelectCompareData(`selectedNewLinks`),
+	selectedLostChannels: makeSelectCompareData(`selectedLostChannels`),
 	data: makeSelectEditorData(`compare`),
 })
 

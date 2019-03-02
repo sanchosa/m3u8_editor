@@ -35,7 +35,7 @@ export default function listEditorReducer(state = initialState, action) {
 	case SET_NEW_LIST: {
 		const {channels, groups, playlistName} = action.payload
 		const normalizedChannels = normalize(channels, channelListSchema).entities.channels
-		return state.withMutations(map => map
+		return initialState.withMutations(map => map
 			.set(`channels`, Map(normalizedChannels))
 			.set(`groups`, fromJS(groups))
 			.set(`playlistName`, playlistName))

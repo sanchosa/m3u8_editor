@@ -16,7 +16,7 @@ export const setValues = (map, data) => {
 function compareReducer(state = initialState, action) {
 	switch (action.type) {
 	case SET_VALUES:
-		return state.withMutation(map => setValues(map, action.payload))
+		return state.withMutations(map => setValues(map, action.payload))
 	case APPLY_COMPARE:
 		return initialState
 	default:
