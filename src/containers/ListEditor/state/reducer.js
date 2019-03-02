@@ -3,6 +3,8 @@ import {normalize} from 'normalizr'
 import randomString from 'randomstring'
 import {channelListSchema, ChannelRecord} from './schema'
 import {
+	LOAD_NEW_LIST,
+	COMPARE_LIST,
 	SET_NEW_LIST,
 	SET_COMPARE_LIST,
 	SET_CONTROL,
@@ -34,6 +36,9 @@ const moveListElement = (list, {oldIndex, newIndex}) => {
 
 export default function listEditorReducer(state = initialState, action) {
 	switch (action.type) {
+	case COMPARE_LIST:
+	case LOAD_NEW_LIST:
+		return state.set(`loading`, true)
 	case SET_NEW_LIST: {
 		const {channels, groups, playlistName} = action.payload
 		const normalizedChannels = normalize(channels, channelListSchema).entities.channels
@@ -41,6 +46,7 @@ export default function listEditorReducer(state = initialState, action) {
 			.set(`channels`, Map(normalizedChannels))
 			.set(`groups`, fromJS(groups))
 			.set(`playlistName`, playlistName))
+			.set(`loading`, false)
 	}
 	case SET_COMPARE_LIST: {
 		const {channels: _channels, groups: _groups} = action.payload
@@ -98,6 +104,7 @@ export default function listEditorReducer(state = initialState, action) {
 			.setIn([`compare`, `lostChannels`], lostChannels)
 			.setIn([`compare`, `lostGroups`], lostGroups)
 			.setIn([`compare`, `visible`], visible)
+			.set(`loading`, false)
 		)
 	}
 	case CLEAR_COMPARE:

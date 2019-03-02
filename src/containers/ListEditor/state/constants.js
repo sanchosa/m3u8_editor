@@ -21,6 +21,7 @@ export const MOVE_CHANNEL = `ListEditor/MOVE_CHANNEL`
 export const LOAD_STORAGE_LIST = `ListEditor/LOAD_STORAGE_LIST`
 
 export const initialState = fromJS({
+	loading: false,
 	control: `import`,
 	groups: {
 		none: [],

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Radio, Checkbox, Row, Col, Tooltip, Button, message} from 'antd'
+import {Radio, Checkbox, Row, Col, Tooltip, Button, message, Spin} from 'antd'
 import styled from 'styled-components'
 import {DragFile} from 'components/OpenFile'
 import connect from './connect'
@@ -59,7 +59,7 @@ class Import extends React.PureComponent {
 			},
 		]
 
-		return [
+		return <Spin spinning={this.props.loading}>
 			<StyledRow key="row">
 				<Col span={12}>
 					<h3>{this.formatMessage(`import.radio.header`)}</h3>
@@ -91,10 +91,10 @@ class Import extends React.PureComponent {
 						/>
 					]}
 				</Col>
-			</StyledRow>,
+			</StyledRow>
 			<DragFile key="dragFile" customRequest={customRequest}
 				onChange={this.eventChange}{...props}/>
-		]
+		</Spin>
 	}
 }
 
