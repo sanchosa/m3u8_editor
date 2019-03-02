@@ -58,15 +58,25 @@ export default function listEditorReducer(state = initialState, action) {
 		const _newChannels = _channels.filter(channel =>
 			!channels.findEntry(value => value.get(`link`) === channel.link))
 
-		const lostChannels = channels.filterNot(channel => _links.includes(channel.get(`link`)))
 		const newLinks = _newChannels.filter(channel =>
 			channels.findEntry(value => value.get(`name`) === channel.name))
 		const newLinksNames = newLinks.map(channel => channel.name)
 		const oldLinks = channels
 			.filter(channel => newLinksNames.includes(channel.get(`name`)))
-			.map(channel =>
-				channel.set(`newLink`, newLinks.find(item => item.name === channel.get(`name`)).link)
-			)
+			.map(channel => {
+				const currentLink = channel.link
+				const _channel = channel.toJS()
+				_channel.currentLink = currentLink
+				_channel.link = newLinks.find(item => item.name === channel.name).link
+				return fromJS(_channel)
+			})
+		const _oldLinks = oldLinks.map(channel => channel.get(`currentLink`))
+		const lostChannels = channels.filterNot(channel =>
+			_links.includes(channel.get(`link`)) || _oldLinks.includes(channel.get(`link`))
+		)
+
+		console.log(`oldLinks: `, oldLinks.toJS())
+
 		const newChannels = _newChannels.filter(_channel =>
 			!newLinks.find(channel => channel.link === _channel.link))
 		const _newChannelsIds = newChannels.map(channel => channel.id)

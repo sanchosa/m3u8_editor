@@ -92,8 +92,11 @@ class Import extends React.PureComponent {
 					]}
 				</Col>
 			</StyledRow>
-			<DragFile key="dragFile" customRequest={customRequest}
-				onChange={this.eventChange}{...props}/>
+			<DragFile key="dragFile"
+				customRequest={customRequest}
+				onChange={this.eventChange}{...props}
+				disabled={this.props.loading}
+			/>
 		</Spin>
 	}
 }

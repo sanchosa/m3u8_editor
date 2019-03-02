@@ -10,7 +10,7 @@ const getData = (groups, channels) => groups
 		group: name,
 		id: randomString.generate(8),
 		ids: group,
-		children: group.map(id => channels.get(id).set(`group`, name))
+		children: group.map(id => ({...channels.get(id).toJS(), group: name}))
 	}))
 	.valueSeq()
 	.toJS()

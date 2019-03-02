@@ -1,4 +1,4 @@
-export const getDefaultColumns = formatMessage => [
+const getBaseColumns = formatMessage => [
 	{
 		title: formatMessage(`compare.table.group.title`),
 		dataIndex: `group`,
@@ -7,7 +7,12 @@ export const getDefaultColumns = formatMessage => [
 		title: formatMessage(`compare.table.name.title`),
 		dataIndex: `name`,
 		key: `name`,
-	}, {
+	},
+]
+
+export const getDefaultColumns = formatMessage => [
+	...getBaseColumns(formatMessage),
+	{
 		title: formatMessage(`compare.table.link.title`),
 		dataIndex: `link`,
 		key: `link`,
@@ -15,10 +20,14 @@ export const getDefaultColumns = formatMessage => [
 ]
 
 export const getNewLinksColumns = formatMessage => [
-	...getDefaultColumns(formatMessage),
+	...getBaseColumns(formatMessage),
 	{
+		title: formatMessage(`compare.table.link.title`),
+		dataIndex: `currentLink`,
+		key: `currentLink`,
+	}, {
 		title: formatMessage(`compare.table.newLink.title`),
-		dataIndex: `newLink`,
-		key: `newLink`,
+		dataIndex: `link`,
+		key: `link`,
 	},
 ]
