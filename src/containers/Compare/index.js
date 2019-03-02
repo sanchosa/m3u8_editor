@@ -1,6 +1,6 @@
 import React from 'react'
 import randomString from 'randomstring'
-import {Row, Col, Button, Tabs} from 'antd'
+import {Row, Col, Button, Tabs, Spin} from 'antd'
 import getContent from './content'
 import {getDefaultColumns, getNewLinksColumns} from './columns'
 import connect from './connect'
@@ -38,6 +38,12 @@ class Compare extends React.Component {
 		const lostChannelsGroups = data && data.get(`lostGroups`)
 
 		this.state = {
+			loading: false,
+			sourceData: {
+				newChannels,
+				newChannelsGroups,
+				newLinks,
+			},
 			newChannelsDataSource: data ? getData(newChannelsGroups, newChannels) : [],
 			newLinksDataSource: data ? getData(newLinksGroups, newLinks) : [],
 			lostChannelsDataSource: data ? getData(lostChannelsGroups, lostChannels) : [],
@@ -46,6 +52,7 @@ class Compare extends React.Component {
 		this.setKeys = this.setKeys.bind(this)
 		this.deselect = this.deselect.bind(this)
 		this.setValues = this.setValues.bind(this)
+		this.apply = this.apply.bind(this)
 		this.formatMessage = this.formatMessage.bind(this)
 	}
 	pushUnique(result, source) {
@@ -78,52 +85,66 @@ class Compare extends React.Component {
 
 		this.props.setValues && this.props.setValues(values)
 	}
+	apply() {
+		this.setState({loading: true})
+
+		return this.props.applyCompare && this.props.applyCompare({
+			selectedNewChannels: this.props.selectedNewChannels,
+			selectedNewLinks: this.props.selectedNewLinks,
+			selectedLostChannels: this.props.selectedLostChannels,
+			...this.state.sourceData,
+		})
+	}
 	formatMessage(id, params) {
 		return this.props.intl && this.props.intl.formatMessage({id}, params)
 	}
 	render() {
-		const {data, applyCompare, clearCompare} = this.props
+		const {data, clearCompare} = this.props
 
 		const extraContent = [
-			<Button key="clear" style={{marginRight: `10px`}} onClick={clearCompare}>
+			<Button key="clear" style={{marginRight: `10px`}} onClick={clearCompare}
+				disabled={this.state.loading}
+			>
 				{this.formatMessage(`clear`)}
 			</Button>,
-			<Button type="primary" key="apply" onClick={applyCompare}>
+			<Button type="primary" key="apply" onClick={this.apply} loading={this.state.loading}>
 				{this.formatMessage(`apply`)}
 			</Button>,
 		]
 
 		return <Row>
 			<Col span={24}>
-				<Tabs defaultActiveKey={getDefaultKey(data)} tabBarExtraContent={extraContent}>
-					{getContent({
-						key: `newChannels`,
-						formatMessage: this.formatMessage,
-						columns: getDefaultColumns(this.formatMessage),
-						dataSource: this.state.newChannelsDataSource,
-						selectedKeys: getSelectedKeys(this.props.selectedNewChannels),
-						onChange: (keys, rows) => this.setKeys(keys, rows, `selectedNewChannels`),
-						onDeselect: (ids, result) => this.deselect(ids, result, `selectedNewChannels`),
-					})}
-					{getContent({
-						key: `newLinks`,
-						formatMessage: this.formatMessage,
-						columns: getNewLinksColumns(this.formatMessage),
-						dataSource: this.state.newLinksDataSource,
-						selectedKeys: getSelectedKeys(this.props.selectedNewLinks),
-						onChange: (keys, rows) => this.setKeys(keys, rows, `selectedNewLinks`),
-						onDeselect: (ids, result) => this.deselect(ids, result, `selectedNewLinks`),
-					})}
-					{getContent({
-						key: `lostChannels`,
-						formatMessage: this.formatMessage,
-						columns: getDefaultColumns(this.formatMessage),
-						dataSource: this.state.lostChannelsDataSource,
-						selectedKeys: getSelectedKeys(this.props.selectedLostChannels),
-						onChange: (keys, rows) => this.setKeys(keys, rows, `selectedLostChannels`),
-						onDeselect: (ids, result) => this.deselect(ids, result, `selectedLostChannels`),
-					})}
-				</Tabs>
+				<Spin spinning={this.state.loading}>
+					<Tabs defaultActiveKey={getDefaultKey(data)} tabBarExtraContent={extraContent}>
+						{getContent({
+							key: `newChannels`,
+							formatMessage: this.formatMessage,
+							columns: getDefaultColumns(this.formatMessage),
+							dataSource: this.state.newChannelsDataSource,
+							selectedKeys: getSelectedKeys(this.props.selectedNewChannels),
+							onChange: (keys, rows) => this.setKeys(keys, rows, `selectedNewChannels`),
+							onDeselect: (ids, result) => this.deselect(ids, result, `selectedNewChannels`),
+						})}
+						{getContent({
+							key: `newLinks`,
+							formatMessage: this.formatMessage,
+							columns: getNewLinksColumns(this.formatMessage),
+							dataSource: this.state.newLinksDataSource,
+							selectedKeys: getSelectedKeys(this.props.selectedNewLinks),
+							onChange: (keys, rows) => this.setKeys(keys, rows, `selectedNewLinks`),
+							onDeselect: (ids, result) => this.deselect(ids, result, `selectedNewLinks`),
+						})}
+						{getContent({
+							key: `lostChannels`,
+							formatMessage: this.formatMessage,
+							columns: getDefaultColumns(this.formatMessage),
+							dataSource: this.state.lostChannelsDataSource,
+							selectedKeys: getSelectedKeys(this.props.selectedLostChannels),
+							onChange: (keys, rows) => this.setKeys(keys, rows, `selectedLostChannels`),
+							onDeselect: (ids, result) => this.deselect(ids, result, `selectedLostChannels`),
+						})}
+					</Tabs>
+				</Spin>
 			</Col>
 		</Row>
 	}

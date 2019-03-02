@@ -17,6 +17,7 @@ import {
 	DELETE_CHANNEL,
 	COPY_CHANNEL,
 	MOVE_CHANNEL,
+	APPLY_COMPARE,
 } from 'containers/ListEditor/state/constants'
 import {loadStorageList} from 'containers/ListEditor/state/actions'
 import {storageVersion, TIME_FOTMAT} from './constants'
@@ -32,7 +33,7 @@ function storeStorageFlag(action) {
 }
 function *storeList() {
 	if (storageFlag) {
-		delay(500)
+		delay(1000)
 		const list = yield select(selectListEditor)
 		if (list) {
 			const {groups, channels, playlistName} = list.toJS()
@@ -88,6 +89,7 @@ export default function *storageSaga() {
 		DELETE_CHANNEL,
 		COPY_CHANNEL,
 		MOVE_CHANNEL,
+		APPLY_COMPARE,
 	], storeList)
 	yield takeLatest(REMOVE_STORAGE_LIST, removeStorageList)
 }

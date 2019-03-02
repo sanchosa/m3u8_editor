@@ -75,8 +75,6 @@ export default function listEditorReducer(state = initialState, action) {
 			_links.includes(channel.get(`link`)) || _oldLinks.includes(channel.get(`link`))
 		)
 
-		console.log(`oldLinks: `, oldLinks.toJS())
-
 		const newChannels = _newChannels.filter(_channel =>
 			!newLinks.find(channel => channel.link === _channel.link))
 		const _newChannelsIds = newChannels.map(channel => channel.id)
@@ -117,6 +115,19 @@ export default function listEditorReducer(state = initialState, action) {
 			.set(`loading`, false)
 		)
 	}
+	case APPLY_COMPARE:
+		const {selectedLostChannels} = action.payload
+
+		return state.withMutations(map => map
+			.update(`channels`, channels => channels
+				.deleteAll(selectedLostChannels)
+			)
+			.update(`groups`, groups => groups
+				.map(group => group.filterNot(id => selectedLostChannels.includes(id)))
+			)
+			.set(`compare`, initialState.get(`compare`))
+			.set(`control`, `edit`)
+		)
 	case CLEAR_COMPARE:
 		return state.withMutations(map => map
 			.set(`compare`, initialState.get(`compare`))
