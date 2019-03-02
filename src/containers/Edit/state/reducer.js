@@ -5,11 +5,13 @@ import {
 	EDIT_GROUP,
 	DELETE_CHANNEL,
 	MOVE_CHANNEL,
+	APPLY_COMPARE,
 } from 'containers/ListEditor/state/constants'
 
 function editReducer(state = initialState, action) {
 	switch (action.type) {
 	case LOAD_NEW_LIST:
+	case APPLY_COMPARE:
 		return initialState
 	case SET_VALUE: {
 		const {name, value} = action.payload

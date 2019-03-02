@@ -116,14 +116,31 @@ export default function listEditorReducer(state = initialState, action) {
 		)
 	}
 	case APPLY_COMPARE:
-		const {selectedLostChannels} = action.payload
+		const {selectedLostChannels, selectedNewLinks, selectedNewChannels,
+			newLinks, newChannels, newChannelsGroups} = action.payload
+
+		const _newLinks = newLinks.filter(channel => selectedNewLinks.includes(channel.get(`id`)))
+		const _newChannels = newChannels.filter(channel =>
+			selectedNewChannels.includes(channel.get(`id`)))
+		const _newChannelsGroups = newChannelsGroups
+			.map(group => group.filter(id => selectedNewChannels.includes(id)))
+			.filter(group => group.size > 0)
+		const newGroupsKeys = _newChannelsGroups
+			.keySeq()
+			.toList()
+			.filterNot(key => state.get(`groups`).has(key))
 
 		return state.withMutations(map => map
 			.update(`channels`, channels => channels
 				.deleteAll(selectedLostChannels)
+				.mergeWith((destination, source) =>
+					destination.set(`link`, source.get(`link`)), _newLinks)
+				.concat(_newChannels)
 			)
 			.update(`groups`, groups => groups
 				.map(group => group.filterNot(id => selectedLostChannels.includes(id)))
+				.mergeWith((destination, source) => destination.concat(source), _newChannelsGroups)
+				.update(`index`, group => group.concat(newGroupsKeys))
 			)
 			.set(`compare`, initialState.get(`compare`))
 			.set(`control`, `edit`)
