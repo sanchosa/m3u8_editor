@@ -1,10 +1,14 @@
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import {setControl} from 'containers/ListEditor/state/actions'
-import {makeSelectCompareVisibility} from 'containers/ListEditor/state/selectors'
+import {
+	makeSelectCompareVisibility,
+	makeSelectEditorData,
+} from 'containers/ListEditor/state/selectors'
 
 const mapProps = createStructuredSelector({
 	compareVisible: makeSelectCompareVisibility(),
+	control: makeSelectEditorData(`control`),
 })
 
 const mapActions = dispatch => ({

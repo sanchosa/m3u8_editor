@@ -82,16 +82,23 @@ class Compare extends React.Component {
 		return this.props.intl && this.props.intl.formatMessage({id}, params)
 	}
 	render() {
-		const {data} = this.props
+		const {data, applyCompare, clearCompare} = this.props
 
-		const ApplyButton = <Button type="primary">Apply</Button>
+		const extraContent = [
+			<Button key="clear" style={{marginRight: `10px`}} onClick={clearCompare}>
+				{this.formatMessage(`clear`)}
+			</Button>,
+			<Button type="primary" key="apply" onClick={applyCompare}>
+				{this.formatMessage(`apply`)}
+			</Button>,
+		]
 
 		return <Row>
 			<Col span={24}>
-				<Tabs defaultActiveKey={getDefaultKey(data)} tabBarExtraContent={ApplyButton}>
+				<Tabs defaultActiveKey={getDefaultKey(data)} tabBarExtraContent={extraContent}>
 					{getContent({
 						key: `newChannels`,
-						title: this.formatMessage(`compare.tab.newChannels.title`),
+						formatMessage: this.formatMessage,
 						columns: getDefaultColumns(this.formatMessage),
 						dataSource: this.state.newChannelsDataSource,
 						selectedKeys: getSelectedKeys(this.props.selectedNewChannels),
@@ -100,7 +107,7 @@ class Compare extends React.Component {
 					})}
 					{getContent({
 						key: `newLinks`,
-						title: this.formatMessage(`compare.tab.newLinks.title`),
+						formatMessage: this.formatMessage,
 						columns: getNewLinksColumns(this.formatMessage),
 						dataSource: this.state.newLinksDataSource,
 						selectedKeys: getSelectedKeys(this.props.selectedNewLinks),
@@ -109,7 +116,7 @@ class Compare extends React.Component {
 					})}
 					{getContent({
 						key: `lostChannels`,
-						title: this.formatMessage(`compare.tab.lostChannels.title`),
+						formatMessage: this.formatMessage,
 						columns: getDefaultColumns(this.formatMessage),
 						dataSource: this.state.lostChannelsDataSource,
 						selectedKeys: getSelectedKeys(this.props.selectedLostChannels),

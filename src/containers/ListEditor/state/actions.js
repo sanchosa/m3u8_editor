@@ -4,6 +4,7 @@ import {
 	SET_NEW_LIST,
 	SET_COMPARE_LIST,
 	APPLY_COMPARE,
+	CLEAR_COMPARE,
 	SET_CONTROL,
 	SORT_CHANNEL,
 	SORT_GROUP,
@@ -50,9 +51,14 @@ export const setCompareList = data => {
 export const applyCompare = data => {
 	return {
 		type: APPLY_COMPARE,
-		payload: data
+		payload: data,
 	}
 }
+
+export const clearCompare = () => ({
+	type: CLEAR_COMPARE,
+	payload: null,
+})
 
 export const setControl = control => {
 	return {

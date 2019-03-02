@@ -11,6 +11,8 @@ export default defineMessages({
 	'build': `Build`,
 	'stop': `Stop`,
 	'again': `Again`,
+	'apply': `Apply`,
+	'clear': `Clear`,
 	'waitMessage': `Please, wait...`,
 	'underConstruction': `Functionality is under construction`,
 	'control.import': `Import`,
@@ -38,10 +40,18 @@ export default defineMessages({
 	'import.loadNamedStorageList.text': `Local storage contains "{name}" list of {date}`,
 	'import.loadNoNamedStorageList.text': `Local storage contains "unnamed" list of {date}`,
 	'import.dragInstructions': `Click or drag file to this area to upload`,
-	'import.dragFile.message.success': `File {name} uploaded successfully. Continue with next page.`,
+	'import.dragFile.message.success':
+		`File {name} uploaded successfully. Continue with next page.`,
 	'compare.tab.newChannels.title': `New channels`,
 	'compare.tab.newLinks.title': `New links`,
 	'compare.tab.lostChannels.title': `Lost channels`,
+	'compare.tab.newChannels.description':
+		`Selected new channels will be inserted into the bottom of the same groups`,
+	'compare.tab.newLinks.description':
+		`Selected channels will be updated with provided new links`,
+	'compare.tab.lostChannels.description':
+		`Selected lost channels will be permanently deleted from the source list. 
+		Please be careful and check it twice`,
 	'compare.table.group.title': `Group`,
 	'compare.table.name.title': `Name`,
 	'compare.table.link.title': `Link`,

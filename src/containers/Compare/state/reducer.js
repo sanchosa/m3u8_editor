@@ -3,7 +3,7 @@ import {
 	initialState,
 	SET_VALUES,
 } from './constants'
-import {APPLY_COMPARE} from 'containers/ListEditor/state/constants'
+import {APPLY_COMPARE, CLEAR_COMPARE} from 'containers/ListEditor/state/constants'
 
 export const setValues = (map, data) => {
 	let result = map
@@ -18,6 +18,7 @@ function compareReducer(state = initialState, action) {
 	case SET_VALUES:
 		return state.withMutations(map => setValues(map, action.payload))
 	case APPLY_COMPARE:
+	case CLEAR_COMPARE:
 		return initialState
 	default:
 		return state

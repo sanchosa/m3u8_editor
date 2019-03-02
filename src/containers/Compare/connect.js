@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
 import {setValues} from './state/actions'
-import {applyCompare} from 'containers/ListEditor/state/actions'
+import {applyCompare, clearCompare} from 'containers/ListEditor/state/actions'
 import {makeSelectEditorData} from 'containers/ListEditor/state/selectors'
 import {makeSelectCompareData} from './state/selectors'
 
@@ -14,6 +14,7 @@ const mapProps = createStructuredSelector({
 
 const mapActions = {
 	applyCompare,
+	clearCompare,
 	setValues,
 }
 

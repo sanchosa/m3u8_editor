@@ -18,6 +18,8 @@ import {
 	COPY_CHANNEL,
 	MOVE_CHANNEL,
 	LOAD_STORAGE_LIST,
+	CLEAR_COMPARE,
+	APPLY_COMPARE,
 	initialState
 } from './constants'
 
@@ -43,13 +45,10 @@ export default function listEditorReducer(state = initialState, action) {
 	case SET_COMPARE_LIST: {
 		const {channels: _channels, groups: _groups} = action.payload
 
-		// console.log(_channels, _groups)
-
 		const channels = state.get(`channels`)
 		const groups = state.get(`groups`)
 
 		const _links = _channels.map(channel => channel.link)
-
 		const _newChannels = _channels.filter(channel =>
 			!channels.findEntry(value => value.get(`link`) === channel.link))
 
@@ -65,10 +64,8 @@ export default function listEditorReducer(state = initialState, action) {
 		const newChannels = _newChannels.filter(_channel =>
 			!newLinks.find(channel => channel.link === _channel.link))
 		const _newChannelsIds = newChannels.map(channel => channel.id)
-		// const _newLinksIds = newLinks.map(channel => channel.id)
 
 		const newChannelsGroups = {}
-		// const newLinksGroups = {}
 		for (let key in _groups) {
 			const group = _groups[key]
 
@@ -76,11 +73,6 @@ export default function listEditorReducer(state = initialState, action) {
 			if (cResult.length > 0) {
 				newChannelsGroups[key] = cResult
 			}
-
-			// const lResult = group.filter(id => _newLinksIds.includes(id))
-			// if (lResult.length > 0) {
-			// 	newLinksGroups[key] = lResult
-			// }
 		}
 
 		const newLinksGroups = groups
@@ -95,7 +87,6 @@ export default function listEditorReducer(state = initialState, action) {
 			.filter(group => group.size > 0)
 
 		const normalizedNewChannels = Map(normalize(newChannels, channelListSchema).entities.channels)
-		// const normalizedNewLinks = Map(normalize(newLinks, channelListSchema).entities.channels)
 		const visible = normalizedNewChannels.size > 0 || newLinks.size > 0 ||
 			lostChannels.size > 0
 
@@ -109,6 +100,11 @@ export default function listEditorReducer(state = initialState, action) {
 			.setIn([`compare`, `visible`], visible)
 		)
 	}
+	case CLEAR_COMPARE:
+		return state.withMutations(map => map
+			.set(`compare`, initialState.get(`compare`))
+			.set(`control`, initialState.get(`control`))
+		)
 	case SET_CONTROL:
 		return state.set(`control`, action.payload)
 	case SORT_GROUP:

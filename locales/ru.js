@@ -11,6 +11,8 @@ export default defineMessages({
 	'build': `Сформировать`,
 	'stop': `Остановить`,
 	'again': `Заново`,
+	'apply': `Применить`,
+	'clear': `Отчистить`,
 	'waitMessage': `Пожалуйста, ждите...`,
 	'underConstruction': `Функционал в разработке`,
 	'control.import': `Импорт`,
@@ -38,10 +40,18 @@ export default defineMessages({
 	'import.loadNamedStorageList.text': `Локальное хранилище содержит "{name}" лист от {date}`,
 	'import.loadNoNamedStorageList.text': `Локальное хранилище содержит безымянный лист от {date}`,
 	'import.dragInstructions': `Нажмите на область или перенесите сюда файл`,
-	'import.dragFile.message.success': `Файл {name} успешно загружен. Продолжите на следующей странице.`,
+	'import.dragFile.message.success':
+		`Файл {name} успешно загружен. Продолжите на следующей странице.`,
 	'compare.tab.newChannels.title': `Новые каналы`,
 	'compare.tab.newLinks.title': `Новые ссылки`,
 	'compare.tab.lostChannels.title': `Не найденные каналы`,
+	'compare.tab.newChannels.description':
+		`Выбранные новые каналы будут добавлены в конец соответствующих групп`,
+	'compare.tab.newLinks.description':
+		`Выбранные каналы будут обновлены соответствующими новыми ссылками`,
+	'compare.tab.lostChannels.description':
+		`Выбранные отсутствующие каналы будут необратимо удалены из исходного списка. 
+		Пожалуйста будьте внимательны при выборе`,
 	'compare.table.group.title': `Группа`,
 	'compare.table.name.title': `Название`,
 	'compare.table.link.title': `Ссылка`,

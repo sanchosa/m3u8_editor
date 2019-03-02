@@ -36,6 +36,7 @@ const Component = props => {
 		mode={props.mode}
 		theme="light"
 		onSelect={props.setControl}
+		selectedKeys={[props.control]}
 	>
 		<Menu.Item key="import">
 			{getMenuContent(`control.import`, `upload`)}
