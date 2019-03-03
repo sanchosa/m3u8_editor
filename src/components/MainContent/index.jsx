@@ -42,7 +42,7 @@ export default class MainContent extends React.Component {
 			</StyledContent>
 			<StyledFooter>
 				<span>
-					© {moment().format(`YYYY`)} Created by Sanchosa <a
+					© 2018-{moment().format(`YYYY`)} Created by Sanchosa <a
 						href="https://github.com/sanchosa/m3u8_editor"
 						target="_blank"
 					>
