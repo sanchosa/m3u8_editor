@@ -113,6 +113,7 @@ export default function listEditorReducer(state = initialState, action) {
 			.setIn([`compare`, `lostChannels`], lostChannels)
 			.setIn([`compare`, `lostGroups`], lostGroups)
 			.setIn([`compare`, `visible`], visible)
+			.setIn([`compare`, `noDiff`], !visible)
 			.set(`loading`, false)
 		)
 	}

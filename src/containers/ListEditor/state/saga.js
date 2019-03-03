@@ -2,7 +2,7 @@ import {notification} from 'antd'
 import randomString from 'randomstring'
 import {put, call, takeLatest} from 'redux-saga/effects'
 import {LOAD_NEW_LIST, COMPARE_LIST} from './constants'
-import {setNewList, setCompareList, setCompareNoDiff} from './actions'
+import {setNewList, setCompareList} from './actions'
 import {readLocalTextFile} from 'utils/read-file'
 
 const showLoadFailMessage = () => {
@@ -150,12 +150,9 @@ function *loadNewList(action) {
 
 function *compareList(action) {
 	const {channels, playlistName} = yield parseList(action.payload)
-	if (channels && channels.size > 0) {
+	if (channels) {
 		const groups = yield buildGroups(channels)
 		yield put(setCompareList({channels, groups, playlistName}))
-	}
-	else {
-		yield put(setCompareNoDiff(true))
 	}
 }
 
